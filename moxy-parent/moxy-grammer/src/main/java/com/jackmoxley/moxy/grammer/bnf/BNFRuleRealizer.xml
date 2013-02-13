@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<moxy:beans xmlns:moxy="http://www.jackmoxley.com/Moxy"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jackmoxley.com/Moxy ../../realizer/xml/Realizer.xsd ">
+	
+	
+	<moxy:bean singleton="true" class="com.jackmoxley.moxy.grammer.RealizedRuledGrammer" name="rule">
+		<moxy:field name="start" value="syntax"/> <!-- default -->
+		<moxy:method name="put">
+			<moxy:argument term="rule-name"/> 
+			<moxy:argument bean="expression" term="expression"/> 
+		</moxy:method>
+		<moxy:method name="putSyntax">
+			<moxy:argument term="rule-name"/> 
+			<moxy:argument term=""/> 
+		</moxy:method>
+	</moxy:bean>
+
+	<moxy:bean name="ruleList">
+		<moxy:method name="add">
+			<moxy:argument bean="list" term="list*"/>
+		</moxy:method>
+		<moxy:method name="add">
+			<moxy:argument bean="expression" term="expression*" />
+		</moxy:method>
+		<moxy:method name="add">
+			<moxy:argument bean="character" term="character*" />
+		</moxy:method>
+		<moxy:method name="add">
+			<moxy:argument bean="text" term="text*" />
+		</moxy:method>
+		<moxy:method name="add">
+			<moxy:argument bean="symbol" term="rule-name*" />
+		</moxy:method>
+	</moxy:bean>
+
+	<moxy:bean name="expression" class="com.jackmoxley.moxy.rule.functional.OptionRule"
+		extends="ruleList" />
+		
+	<moxy:bean name="list" class="com.jackmoxley.moxy.rule.functional.SequenceRule"
+		extends="ruleList" />
+		
+	<moxy:bean name="character" class="com.jackmoxley.moxy.rule.terminating.CharacterRule">
+		<moxy:constructor>
+			<moxy:argument term="character"/>
+		</moxy:constructor>
+	</moxy:bean>
+	
+	<moxy:bean name="text" class="com.jackmoxley.moxy.rule.terminating.StringRule">
+		<moxy:constructor>
+			<moxy:argument term="text"/>
+		</moxy:constructor>
+	</moxy:bean>
+	
+	<moxy:bean name="symbol" class="com.jackmoxley.moxy.rule.functional.PointerRule">
+		<moxy:constructor>
+			<moxy:argument value="true" transformer="com.jackmoxley.moxy.realizer.transformer.BooleanTransformer"/>
+			<moxy:argument term="rule-name"/>
+		</moxy:constructor>
+	</moxy:bean>
+
+</moxy:beans>

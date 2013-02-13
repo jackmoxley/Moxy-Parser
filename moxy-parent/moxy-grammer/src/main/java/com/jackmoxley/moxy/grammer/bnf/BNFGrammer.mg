@@ -1,0 +1,17 @@
+<syntax> ::= <rule> | <rule> <syntax> ;
+<rule>   ::= <opt-whitespace> "<" <rule-name> ">" <opt-whitespace> "::=" <opt-whitespace> <expression> <line-end> ;
+<opt-whitespace> ::= <whitespace> <opt-whitespace> | ""  ; 
+<whitespace> ::= " " | "\n" | "\t" ; 
+<expression>     ::= <list> | <list> <opt-whitespace> "|" <opt-whitespace> <expression> ;
+<line-end>       ::= <opt-whitespace> <EOL> | <line-end> <line-end> ;
+<list>    ::= <term> | <term> <opt-whitespace> <list> ;
+<term>    ::= <literal> | "<" <rule-name> ">" ;
+<literal> ::= '"' <text> '"' | "'" <text> "'" ; 
+<EOL> ::= ';' <opt-whitespace> ;
+<rule-name> ::= <text> ;
+<text> ::= <character> | <character> <text> ;
+<character> ::= <upper-case> | <lower-case> | <number> | <symbol> | <opt-whitespace> ;
+<number> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
+<symbol> ::= '-' | '_' | '"' | "'" | ';' | '<' | '>' | '|' | ':' | '=' | '\' ;
+<upper-case> ::= 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' ;
+<lower-case> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' ;
