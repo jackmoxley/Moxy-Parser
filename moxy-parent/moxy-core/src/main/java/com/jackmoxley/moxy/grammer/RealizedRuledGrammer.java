@@ -21,8 +21,10 @@ package com.jackmoxley.moxy.grammer;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 
+@Beta
 public class RealizedRuledGrammer extends RuledGrammer implements Grammer {
 
 	private static final long serialVersionUID = 1L;

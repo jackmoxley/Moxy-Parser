@@ -20,9 +20,11 @@ package com.jackmoxley.moxy.token.stream;
 
 import java.util.List;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.token.Token;
 
 
+@Beta
 public interface TokenStream<T extends Token> {
 
 	public T tokenAt(int index);

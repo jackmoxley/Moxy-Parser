@@ -20,10 +20,12 @@ package com.jackmoxley.moxy.rule.terminating;
 
 import java.util.List;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.token.CharacterToken;
 
+@Beta
 public class StringRule extends TerminatingRule {
 
 	private static final long serialVersionUID = -1;

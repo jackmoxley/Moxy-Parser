@@ -18,9 +18,11 @@
  */
 package com.jackmoxley.moxy.rule.terminating;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
+@Beta
 public class TrueRule extends TerminatingRule {
 
 	private static final long serialVersionUID = 163168561429254410L;

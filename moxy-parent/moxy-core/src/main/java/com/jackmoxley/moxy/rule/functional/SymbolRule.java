@@ -20,6 +20,7 @@ package com.jackmoxley.moxy.rule.functional;
 
 import java.util.Set;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
@@ -33,6 +34,7 @@ import com.jackmoxley.moxy.token.SymbolToken;
  * @author jack
  * 
  */
+@Beta
 public abstract class SymbolRule extends FunctionalRule {
 
 	private static final long serialVersionUID = 1L;

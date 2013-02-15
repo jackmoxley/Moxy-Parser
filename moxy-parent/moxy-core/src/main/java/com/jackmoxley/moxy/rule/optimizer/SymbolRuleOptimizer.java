@@ -18,6 +18,7 @@
  */
 package com.jackmoxley.moxy.rule.optimizer;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammer;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.DelegateRule;
@@ -31,6 +32,7 @@ import com.jackmoxley.moxy.rule.functional.RuleList;
  * @author jack
  * 
  */
+@Beta
 public class SymbolRuleOptimizer implements Optimizer{
 
 	public int visitRule(Grammer grammer, FunctionalRule rule) {

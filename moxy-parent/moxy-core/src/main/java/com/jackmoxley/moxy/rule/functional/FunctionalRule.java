@@ -22,8 +22,10 @@ import java.util.AbstractList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 
+@Beta
 public abstract class FunctionalRule extends AbstractList<Rule> implements Rule {
 
 	private static final long serialVersionUID = -3106346677327869406L;

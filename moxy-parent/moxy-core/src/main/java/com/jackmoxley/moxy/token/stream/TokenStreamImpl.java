@@ -21,8 +21,10 @@ package com.jackmoxley.moxy.token.stream;
 import java.util.Collections;
 import java.util.List;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.token.Token;
 
+@Beta
 public class TokenStreamImpl<T extends Token> implements TokenStream<T>{
 
 

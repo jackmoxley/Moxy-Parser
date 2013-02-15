@@ -18,10 +18,12 @@
  */
 package com.jackmoxley.moxy.rule.terminating;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.token.CharacterToken;
 
+@Beta
 public class CharacterRule extends TerminatingRule {
 
 	private static final long serialVersionUID = -1;

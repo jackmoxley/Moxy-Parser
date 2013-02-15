@@ -18,6 +18,9 @@
  */
 package com.jackmoxley.moxy.rule;
 
+import com.jackmoxley.meta.Beta;
+
+@Beta
 public enum DecisionState {
 	Passed,
 	Failed,

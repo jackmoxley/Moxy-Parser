@@ -18,6 +18,7 @@
  */
 package com.jackmoxley.moxy.rule.optimizer;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammer;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
@@ -29,6 +30,7 @@ import com.jackmoxley.moxy.rule.functional.RuleList;
  * @author jack
  * 
  */
+@Beta
 public abstract class AbstractRuleListOptimizer <RL extends RuleList> implements Optimizer{
 
 

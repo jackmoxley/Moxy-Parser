@@ -23,9 +23,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.token.CharacterToken;
 
 
+@Beta
 public class CharacterTokenStream extends TokenStreamImpl<CharacterToken> {
 	
 	public CharacterTokenStream(Reader charReader) throws IOException {

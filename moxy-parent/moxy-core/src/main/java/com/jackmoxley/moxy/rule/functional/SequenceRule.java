@@ -18,9 +18,11 @@
  */
 package com.jackmoxley.moxy.rule.functional;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
+@Beta
 public class SequenceRule extends RuleList  {
 
 	private static final long serialVersionUID = 1L;

@@ -22,11 +22,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.Token;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 
+@Beta
 public interface Grammer extends Serializable {
 
 	public List<Token> parse(TokenStream<CharacterToken> input);

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
@@ -33,6 +34,7 @@ import com.jackmoxley.moxy.rule.functional.PointerRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 
+@Beta
 public class PointerRuleTest {
 
 	

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammer;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
@@ -30,6 +31,7 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 import com.jackmoxley.moxy.rule.functional.RuleList;
 
+@Beta
 public class OptimizerEngine {
 
 	public enum OptimizerState {

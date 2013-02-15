@@ -21,6 +21,9 @@ package com.jackmoxley.moxy.rule;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.jackmoxley.meta.Beta;
+
+@Beta
 public interface Rule extends Serializable{
 
 	public boolean isTerminating(Set<Rule> history);

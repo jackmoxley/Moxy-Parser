@@ -18,6 +18,7 @@
  */
 package com.jackmoxley.moxy.rule.functional;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
@@ -29,6 +30,7 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
  * @author jack
  * 
  */
+@Beta
 public class PointerRule extends SymbolRule {
 
 	private static final long serialVersionUID = 1L;

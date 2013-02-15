@@ -21,8 +21,10 @@ package com.jackmoxley.moxy.rule;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.token.Token;
 
+@Beta
 public class RuleDecision {
 
 	private DecisionState state = DecisionState.Unconsidered;

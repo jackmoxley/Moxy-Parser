@@ -25,6 +25,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jackmoxley.meta.Beta;
+
+@Beta
 public class SymbolToken extends ArrayList<Token> implements Token {
 
 

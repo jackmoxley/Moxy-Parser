@@ -20,6 +20,7 @@ package com.jackmoxley.moxy.grammer.bnf;
 
 import java.util.LinkedHashMap;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammer;
 import com.jackmoxley.moxy.grammer.RuledGrammer;
 import com.jackmoxley.moxy.rule.Rule;
@@ -52,6 +53,7 @@ import com.jackmoxley.moxy.rule.terminating.TrueRule;
  * @author jack
  *
  */
+@Beta
 public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 
 	private static final long serialVersionUID = 1L;

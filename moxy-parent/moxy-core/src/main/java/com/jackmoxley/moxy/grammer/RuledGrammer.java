@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
@@ -29,6 +30,7 @@ import com.jackmoxley.moxy.token.stream.TokenStream;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+@Beta
 public abstract class RuledGrammer implements Grammer  {
 
 	private static final long serialVersionUID = -3966010824935289514L;

@@ -23,12 +23,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.functional.OptionRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 
+@Beta
 public class OrRuleTest {
 
 	@Test

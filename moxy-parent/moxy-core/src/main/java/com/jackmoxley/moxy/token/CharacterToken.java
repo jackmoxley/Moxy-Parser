@@ -18,6 +18,9 @@
  */
 package com.jackmoxley.moxy.token;
 
+import com.jackmoxley.meta.Beta;
+
+@Beta
 public class CharacterToken implements Token{
 
 	private final char character;
