@@ -6,7 +6,7 @@ You are not permitted to use, copy and/or redistribute this software in any form
 
 **John Orlando Keleshian Moxley** reserves the right to change which licenses apply to this software at any time within the terms of the license provided.
 
-==========================
+---
 
 Version 3, 29 June 2007
 
