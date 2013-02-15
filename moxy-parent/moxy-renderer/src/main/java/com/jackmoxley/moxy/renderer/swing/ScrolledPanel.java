@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2013  John Orlando Keleshian Moxley
+ * 
+ * Unless otherwise stated by the license provided by the copyright holder.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.jackmoxley.moxy.renderer.swing;
 
 import java.awt.Component;
@@ -20,9 +38,11 @@ public class ScrolledPanel extends JPanel implements Scrollable {
 	
 	private JScrollPane scrollPane;
 	Map<Rule, Dimension> dimensions = new LinkedHashMap<Rule,Dimension>();
-
-	public ScrolledPanel() {
+	Map<String, Rule> rules;
+	
+	public ScrolledPanel(Map<String, Rule> rules) {
 		super();
+		this.rules = rules;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
 		this.setDoubleBuffered(true);
 		this.updateUI();
@@ -35,16 +55,23 @@ public class ScrolledPanel extends JPanel implements Scrollable {
 	}
 	
 	public void scrollToComponent(Component comp){
-		scrollPane.scrollRectToVisible(comp.getBounds());
+		System.out.println("scrollToComponent "+comp.getBounds());
+		this.scrollRectToVisible(comp.getBounds());
 	}
 	
 
+	public void scrollToRule(String ruleName){
+		Rule rule = rules.get(ruleName);
+		scrollToRule(rule);
+	}
 	
 	public void scrollToRule(Rule rule){
 		for(Component component : this.getComponents()){
 			if(component instanceof RulePanel){
 				if(rule == ((RulePanel)component).rule) {
+					System.out.println("Scroll to "+rule);
 					scrollToComponent(component);
+					updateScrollPane();
 					return ;
 				}
 			}
@@ -74,6 +101,7 @@ public class ScrolledPanel extends JPanel implements Scrollable {
 			height += key.height;
 		}
 		this.setPreferredSize(new Dimension(width, height));
+		updateScrollPane();
 	}
 
 	@Override

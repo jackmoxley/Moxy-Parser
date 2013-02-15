@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2013  John Orlando Keleshian Moxley
+ * 
+ * Unless otherwise stated by the license provided by the copyright holder.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.jackmoxley.moxy.renderer.swing;
 
 import java.awt.Color;
@@ -29,7 +47,7 @@ public class RulePanel extends JPanel {
 	Rule rule;
 	Point2D oldSize = new Point2D.Double(0, 0);
 	double stubY = 0;
-	ScrolledPanel parent;
+	public ScrolledPanel parent;
 	Map<Key, Object> hints;
 	Font base = new Font("Arial", Font.PLAIN, 10);
 	Font largeBold = new Font("Arial", Font.BOLD, 12);
@@ -63,7 +81,7 @@ public class RulePanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mouseMoved(e);
-				mouseClicked = true;
+				node.mouseClick();
 			}
 
 		};
@@ -125,7 +143,6 @@ public class RulePanel extends JPanel {
 		g2D.setFont(base);
 		g2D.drawString(syntax, (int) Node.MARGIN , (int) (largeBold.getSize() + Node.DOUBLE_MARGIN + base.getSize() + node.dim.size.getY()));
 		
-		System.out.println("Drew "+name);
 	}
 	
 	private void prerender(Graphics2D g2D) {
@@ -150,6 +167,7 @@ public class RulePanel extends JPanel {
 		hints = new HashMap<Key, Object>();
 		hints.put(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+		factory.setPanel(this);
 		node = factory.createNode(rule, null);
 
 	}
