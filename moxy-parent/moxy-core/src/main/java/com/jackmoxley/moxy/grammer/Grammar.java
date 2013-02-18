@@ -23,16 +23,28 @@ import java.util.List;
 import java.util.Map;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.Token;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 
+/**
+ * The base implementation representing a grammar, this is where we store our
+ * rule trees, keyed by a string.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
-public interface Grammer extends Serializable {
+public interface Grammar extends Serializable {
 
-	public List<Token> parse(TokenStream<CharacterToken> input);
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public List<Token> parse(TokenStream<CharacterToken> input, String start);
 
-	public Map<String, Rule> getRuleMap();
-	public Map<String, String> getSyntaxMap();
+	public Map<String, RuleTree> getRuleTrees();
+	
+	public RuleTree get(String name);
 }

@@ -20,13 +20,14 @@ package com.jackmoxley.moxy.renderer.swing;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import com.jackmoxley.moxy.grammer.Grammer;
+import com.jackmoxley.moxy.grammer.Grammar;
+import com.jackmoxley.moxy.grammer.RuleTree;
 import com.jackmoxley.moxy.rule.Rule;
 
 public class RuleViewerFrame extends JFrame {
@@ -39,19 +40,16 @@ public class RuleViewerFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 8734984858965275917L;
 
-	public RuleViewerFrame(Map<String, Rule> rules) throws HeadlessException {
-		this(rules, Collections.<String, String>emptyMap());
-
-	}
 	
-	public RuleViewerFrame(Map<String, Rule> rules, Map<String, String> syntaxes) throws HeadlessException {
-		super("RuleViewFrame: " + rules.size());
+	
+	public RuleViewerFrame(Collection<RuleTree> trees) throws HeadlessException {
+		super("RuleViewFrame: " + trees.size());
 		this.setSize(new Dimension(640, 480));
 
-		parent = new ScrolledPanel(rules);
+		parent = new ScrolledPanel(trees);
         
-		for (Map.Entry<String, Rule> rule : rules.entrySet()) {
-			addRule(rule.getValue(),rule.getKey(),syntaxes.get(rule.getKey()));
+		for (RuleTree tree : trees) {
+			addRule(tree.getRule(),tree.getName(),tree.getSyntax());
 		}
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -62,8 +60,8 @@ public class RuleViewerFrame extends JFrame {
 	}
 	
 	
-	public RuleViewerFrame(Grammer rules) {
-		this(rules.getRuleMap(),rules.getSyntaxMap());
+	public RuleViewerFrame(Grammar rules) {
+		this(rules.getRuleTrees().values());
 	}
 	
 //	private static Map<String, Rule> getBestMap(Grammer rules){

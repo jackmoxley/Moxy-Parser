@@ -18,12 +18,9 @@
  */
 package com.jackmoxley.moxy.grammer.bnf;
 
-import java.util.LinkedHashMap;
-
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.Grammer;
-import com.jackmoxley.moxy.grammer.RuledGrammer;
-import com.jackmoxley.moxy.rule.Rule;
+import com.jackmoxley.moxy.grammer.Grammar;
+import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.rule.functional.DelegateRule;
 import com.jackmoxley.moxy.rule.functional.OptionRule;
 import com.jackmoxley.moxy.rule.functional.PointerRule;
@@ -54,13 +51,12 @@ import com.jackmoxley.moxy.rule.terminating.TrueRule;
  *
  */
 @Beta
-public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
+public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 
 	private static final long serialVersionUID = 1L;
 
 	public HandCodedBNFGrammer() {
 		super();
-		this.setRuleMap(new LinkedHashMap<String,Rule>());
 		syntaxDefinition();
 		ruleDefinition();
 		optWhitespaceDefinition();
@@ -80,14 +76,6 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 	}
 
 	
-	@Override
-	public Rule getStart() {
-//		SequenceRule fileEnded = new SequenceRule();
-//		fileEnded.add(ruleMap.get("syntax"));
-//		fileEnded.add(EOFRule.get());
-		return ruleMap.get("syntax");
-	}
-	
 	/**
 	 * <syntax> ::= <rule> | <rule> <syntax>
 	 */
@@ -106,7 +94,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		
 		syntax.add(more);
 
-		this.ruleMap.put("syntax", syntax);
+		put("syntax", syntax);
 	}
 	
 
@@ -124,7 +112,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		rule.add(new PointerRule(false,"opt-whitespace"));
 		rule.add(new PointerRule(true,"expression"));
 		rule.add(new PointerRule(false,"line-end"));
-		this.ruleMap.put("rule", rule);
+		put("rule", rule);
 	}
 	
 	/**
@@ -142,7 +130,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		optionalWhitespace.add(whitespace);
 		optionalWhitespace.add(TrueRule.get()); // will be cheaper to use a trueRule then empty string
 		
-		this.ruleMap.put("opt-whitespace", optionalWhitespace);
+		put("opt-whitespace", optionalWhitespace);
 	}
 	
 	/**
@@ -165,7 +153,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		
 		expression.add(or);
 		
-		this.ruleMap.put("expression", expression);
+		put("expression", expression);
 	}
 	
 	/**
@@ -184,7 +172,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 //		repeating.add(orlineEnd);
 //		repeating.add(repeating);
 		
-		this.ruleMap.put("line-end", new PointerRule(false,"EOL"));
+		put("line-end", new PointerRule(false,"EOL"));
 	}
 	
 	/**
@@ -204,7 +192,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 
 		list.add(nextItem);
 
-		this.ruleMap.put("list", list);
+		put("list", list);
 	}
 
 	/**
@@ -219,7 +207,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		term.add(ruleTerm);
 		term.add(new PointerRule(false,"literal"));
 
-		this.ruleMap.put("term", term);
+		put("term", term);
 	}
 	
 
@@ -250,7 +238,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		OptionRule literal = new OptionRule();
 		literal.add(doubleQuote);
 		literal.add(singleQuote);
-		this.ruleMap.put("literal", literal);
+		put("literal", literal);
 	}
 	
 	/**
@@ -263,7 +251,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		eol.add(new CharacterRule(";"));
 		eol.add(optWhitespace);
 		
-		this.ruleMap.put("EOL", eol);
+		put("EOL", eol);
 	}
 	
 	/**
@@ -272,7 +260,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 	protected void ruleNameDefinition() {
 		PointerRule ruleName = new PointerRule(false,"text");
 		
-		this.ruleMap.put("rule-name", ruleName);
+		put("rule-name", ruleName);
 	}
 	/**
 	 * <text> ::= <character> | <character> <text>
@@ -285,7 +273,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		more.add(character);
 		more.add(text);
 		text.add(more);
-		this.ruleMap.put("text", text);
+		put("text", text);
 	}
 	
 	/**
@@ -303,7 +291,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 //		character.add(new CharacterRule('<'));
 //		character.add(new CharacterRule('>'));
 		character.setGreedy(false);
-		this.ruleMap.put("character",character);
+		put("character",character);
 	}
 
 
@@ -316,7 +304,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 			lowercase.add(new CharacterRule(i));
 		}
 		lowercase.setGreedy(false);
-		this.ruleMap.put("lower-case", lowercase);
+		put("lower-case", lowercase);
 	}
 
 	/**
@@ -328,7 +316,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 			uppercase.add(new CharacterRule(i));
 		}
 		uppercase.setGreedy(false);
-		this.ruleMap.put("upper-case", uppercase);
+		put("upper-case", uppercase);
 	}
 
 	/** 
@@ -340,7 +328,7 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 			number.add(new CharacterRule(i));
 		}
 		number.setGreedy(false);
-		this.ruleMap.put("number", number);
+		put("number", number);
 	}
 	
 	/**
@@ -360,17 +348,10 @@ public class HandCodedBNFGrammer extends RuledGrammer implements Grammer {
 		symbol.add(new CharacterRule('='));
 		symbol.add(new CharacterRule('\\'));
 		symbol.setGreedy(false);
-		this.ruleMap.put("symbol", symbol);
+		put("symbol", symbol);
 	}
 	
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("HandCodedBNFGrammer [ruleMap=").append(ruleMap)
-				.append("]");
-		return builder.toString();
-	}
 	
 
 }

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.Grammer;
+import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 import com.jackmoxley.moxy.rule.functional.OptionRule;
@@ -42,7 +42,7 @@ import com.jackmoxley.moxy.rule.terminating.StringRule;
 @Beta
 public class CharacterRangeRuleOptimizer implements Optimizer {
 
-	public int visitRule(Grammer grammer, FunctionalRule rule) {
+	public int visitRule(Grammar grammer, FunctionalRule rule) {
 		int rulesOptimized = 0;
 		if (rule instanceof OptionRule) {
 			List<RuleRange> ruleRanges = new ArrayList<RuleRange>();

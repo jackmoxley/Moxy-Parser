@@ -22,14 +22,10 @@
 	xsi:schemaLocation="http://www.jackmoxley.com/Moxy ../../realizer/xml/Realizer.xsd ">
 	
 	
-	<moxy:bean singleton="true" class="com.jackmoxley.moxy.grammer.RealizedRuledGrammer" name="rule">
-		<moxy:field name="start" value="syntax"/> <!-- default -->
+	<moxy:bean singleton="true" class="com.jackmoxley.moxy.grammer.RuledGrammar" name="rule">
 		<moxy:method name="put">
 			<moxy:argument term="rule-name"/> 
-			<moxy:argument bean="expression" term="expression"/> 
-		</moxy:method>
-		<moxy:method name="putSyntax">
-			<moxy:argument term="rule-name"/> 
+			<moxy:argument bean="expression" term="expression"/>  
 			<moxy:argument term=""/> 
 		</moxy:method>
 	</moxy:bean>

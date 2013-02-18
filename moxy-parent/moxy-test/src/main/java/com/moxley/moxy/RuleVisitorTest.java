@@ -23,8 +23,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
-import com.jackmoxley.moxy.grammer.RealizedRuledGrammer;
-import com.jackmoxley.moxy.grammer.RuledGrammer;
+import com.jackmoxley.moxy.grammer.RuledGrammar;
+import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.grammer.bnf.HandCodedBNFGrammer;
 import com.jackmoxley.moxy.realizer.XMLRealizer;
 import com.jackmoxley.moxy.rule.optimizer.CharacterRangeRuleOptimizer;
@@ -48,7 +48,7 @@ public class RuleVisitorTest {
 
 	}
 
-	public static RuledGrammer /* List<RealizedHolder<? extends Rule>> */basicTest()
+	public static RuledGrammar /* List<RealizedHolder<? extends Rule>> */basicTest()
 			throws Exception {
 		Reader file = new InputStreamReader(RuleVisitorTest.class
 				.getClassLoader().getResourceAsStream("BNFGrammer.mg"));
@@ -61,16 +61,16 @@ public class RuleVisitorTest {
 		HandCodedBNFGrammer grammer = new HandCodedBNFGrammer();
 		int optimized = engine.optimize(grammer);
 		System.out.println(grammer);
-		List<Token> tokens = grammer.parse(stream);
+		List<Token> tokens = grammer.parse(stream, "syntax");
 		int heirachy = 0;
 		printSymbols(heirachy, tokens);
 		System.out.println("Rules Optimized=" + optimized);
-		XMLRealizer<RealizedRuledGrammer> realizer = new XMLRealizer<RealizedRuledGrammer>(
+		XMLRealizer<RuledGrammar> realizer = new XMLRealizer<RuledGrammar>(
 				HandCodedBNFGrammer.class
 						.getResourceAsStream("BNFRuleRealizer.xml"));
-		List<RealizedRuledGrammer> result = realizer.realize(tokens);
+		List<RuledGrammar> result = realizer.realize(tokens);
 		System.out.println("Realized " + result);
-		RealizedRuledGrammer newGrammer = result.get(0);
+		RuledGrammar newGrammer = result.get(0);
 		engine.optimize(newGrammer);
 		return newGrammer;
 		// return grammer;
@@ -82,7 +82,7 @@ public class RuleVisitorTest {
 		Reader file = new InputStreamReader(RuleVisitorTest.class
 				.getClassLoader().getResourceAsStream("BNFGrammer.mg"));
 		CharacterTokenStream stream = new CharacterTokenStream(file);
-		List<Token> tokens = grammer.parse(stream);
+		List<Token> tokens = grammer.parse(stream, "syntax");
 		int heirachy = 0;
 		printSymbols(heirachy, tokens);
 
@@ -94,7 +94,7 @@ public class RuleVisitorTest {
 		HandCodedBNFGrammer grammer2 = new HandCodedBNFGrammer();
 		int optimized = engine.optimize(grammer2);
 		System.out.println(grammer2);
-		tokens = grammer2.parse(stream);
+		tokens = grammer2.parse(stream, "syntax");
 		heirachy = 0;
 		printSymbols(heirachy, tokens);
 		System.out.println("Rules Optimized=" + optimized);
@@ -113,7 +113,7 @@ public class RuleVisitorTest {
 			time = System.nanoTime();
 			for (int i = 0; i < r; i++) {
 
-				tokens = grammer.parse(stream);
+				tokens = grammer.parse(stream, "syntax");
 			}
 			time = System.nanoTime() - time;
 			currentMemory = (runtime.totalMemory() - runtime.freeMemory())
@@ -126,7 +126,7 @@ public class RuleVisitorTest {
 			time = System.nanoTime();
 			for (int i = 0; i < (r); i++) {
 
-				tokens = grammer2.parse(stream);
+				tokens = grammer2.parse(stream, "syntax");
 			}
 			time = System.nanoTime() - time;
 			currentMemory = (runtime.totalMemory() - runtime.freeMemory())

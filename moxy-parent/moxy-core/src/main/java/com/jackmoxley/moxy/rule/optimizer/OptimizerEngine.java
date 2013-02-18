@@ -24,12 +24,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.Grammer;
+import com.jackmoxley.moxy.grammer.Grammar;
+import com.jackmoxley.moxy.grammer.RuleTree;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
-import com.jackmoxley.moxy.rule.functional.RuleList;
 
 @Beta
 public class OptimizerEngine {
@@ -72,28 +70,24 @@ public class OptimizerEngine {
 		return decision;
 	}
 
-	public int optimize(final Grammer grammer) {
+	public int optimize(final Grammar grammer) {
 		int totalRulesOptimized = 0;
 
-		RuleList root = new RuleList() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void consider(RuleEvaluator visitor, RuleDecision decision) {
-			}
-
-		};
-		root.addAll(grammer.getRuleMap().values());
 		int rulesOptimized = 0;
-		do {
-			rulesOptimized = optimize(grammer, root);
-			totalRulesOptimized += rulesOptimized;
-			optimizerStates.clear();
-		} while (rulesOptimized != 0);
+		for (RuleTree ruleTree : grammer.getRuleTrees().values()) {
+			do {
+				Rule root = ruleTree.getRule();
+				if (root instanceof FunctionalRule) {
+					optimizerStates.clear();
+					rulesOptimized = optimize(grammer, (FunctionalRule) root);
+					totalRulesOptimized += rulesOptimized;
+				}
+			} while (rulesOptimized != 0);
+		}
 		return totalRulesOptimized;
 	}
 
-	public int optimize(final Grammer grammer, final FunctionalRule parent) {
+	public int optimize(final Grammar grammer, final FunctionalRule parent) {
 		OptimizerDecision decision = getOptimizerDecision(parent);
 		if (decision.getState() != OptimizerState.Unconsidered) {
 			return 0;

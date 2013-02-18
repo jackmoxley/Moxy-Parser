@@ -19,7 +19,7 @@
 package com.jackmoxley.moxy.rule.optimizer;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.Grammer;
+import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 import com.jackmoxley.moxy.rule.functional.RuleList;
@@ -44,7 +44,7 @@ public abstract class AbstractRuleListOptimizer <RL extends RuleList> implements
 	protected abstract RL asInstance(Rule rule);
 
 	@Override
-	public int visitRule(Grammer grammer, FunctionalRule parent) {
+	public int visitRule(Grammar grammer, FunctionalRule parent) {
 		int rulesOptimized = 0;
 		boolean parentIsInstance = asInstance(parent) != null;
 		for(int i =0;i < parent.size();i++){

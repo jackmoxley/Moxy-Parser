@@ -29,7 +29,7 @@ public class TrueRule extends TerminatingRule {
 
 	private static final TrueRule instance = new TrueRule();
 	
-	private TrueRule(){
+	public TrueRule(){
 		
 	}
 	

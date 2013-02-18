@@ -37,7 +37,7 @@ public class OrRuleTest {
 	public void testHappyPath_lazy_fail_pass() {
 		TrueRule pass = TrueRule.get();
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(false);
@@ -55,7 +55,7 @@ public class OrRuleTest {
 	public void testHappyPath_lazy_pass_fail() {
 		TrueRule pass = TrueRule.get();
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(false);
@@ -71,7 +71,7 @@ public class OrRuleTest {
 	@Test
 	public void testHappyPath_lazy_pass() {
 		TrueRule pass = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(false);
@@ -86,7 +86,7 @@ public class OrRuleTest {
 	public void testHappyPath_lazy_pass_pass() {
 		TrueRule pass = TrueRule.get();
 		TrueRule pass2 = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(false);
@@ -102,7 +102,7 @@ public class OrRuleTest {
 	@Test
 	public void testUnHappyPath_lazy_fail() {
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(false);
@@ -117,8 +117,8 @@ public class OrRuleTest {
 	@Test
 	public void testUnHappyPath_lazy_fail_fail() {
 		FalseRule fail = FalseRule.get();
-		FalseRule fail2 = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		FalseRule fail2 = new FalseRule();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(false);
@@ -134,7 +134,7 @@ public class OrRuleTest {
 	public void testHappyPath_greedy_fail_pass() {
 		TrueRule pass = TrueRule.get();
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);
@@ -152,7 +152,7 @@ public class OrRuleTest {
 	public void testHappyPath_greedy_pass_fail() {
 		TrueRule pass = TrueRule.get();
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);
@@ -168,7 +168,7 @@ public class OrRuleTest {
 	@Test
 	public void testHappyPath_greedy_pass() {
 		TrueRule pass = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);
@@ -182,8 +182,8 @@ public class OrRuleTest {
 	@Test
 	public void testHappyPath_greedy_pass_pass() {
 		TrueRule pass = TrueRule.get();
-		TrueRule pass2 = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		TrueRule pass2 = new TrueRule();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);
@@ -199,7 +199,7 @@ public class OrRuleTest {
 	@Test
 	public void testUnHappyPath_greedy_fail() {
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);
@@ -214,8 +214,8 @@ public class OrRuleTest {
 	@Test
 	public void testUnHappyPath_greedy_fail_fail() {
 		FalseRule fail = FalseRule.get();
-		FalseRule fail2 = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		FalseRule fail2 = new FalseRule();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);
@@ -230,7 +230,7 @@ public class OrRuleTest {
 
 	@Test
 	public void testUnHappyPath_greedy_empty() {
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		OptionRule rule = new OptionRule();
 		rule.setGreedy(true);

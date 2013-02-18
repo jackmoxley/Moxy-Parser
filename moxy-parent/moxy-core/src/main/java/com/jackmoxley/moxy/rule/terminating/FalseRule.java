@@ -29,7 +29,7 @@ public class FalseRule extends TerminatingRule {
 
 	private static final FalseRule instance = new FalseRule();
 	
-	private FalseRule(){
+	public FalseRule(){
 		
 	}
 	public static FalseRule get(){

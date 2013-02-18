@@ -37,7 +37,7 @@ public class SequentialRuleTest {
 	public void testUnHappyPath_fail_pass() {
 		TrueRule pass = TrueRule.get();
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		rule.add(fail);
@@ -53,7 +53,7 @@ public class SequentialRuleTest {
 	public void testUnHappyPath_pass_fail() {
 		TrueRule pass = TrueRule.get();
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		rule.add(pass);
@@ -67,7 +67,7 @@ public class SequentialRuleTest {
 	@Test
 	public void testHappyPath_pass() {
 		TrueRule pass = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		rule.add(pass);
@@ -80,7 +80,7 @@ public class SequentialRuleTest {
 	public void testHappyPath_pass_pass() {
 		TrueRule pass = TrueRule.get();
 		TrueRule pass2 = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		rule.add(pass);
@@ -94,7 +94,7 @@ public class SequentialRuleTest {
 	@Test
 	public void testUnHappyPath_fail() {
 		FalseRule fail = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		rule.add(fail);
@@ -108,7 +108,7 @@ public class SequentialRuleTest {
 	public void testUnHappyPath_fail_fail() {
 		FalseRule fail = FalseRule.get();
 		FalseRule fail2 = FalseRule.get();
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		rule.add(fail);
@@ -121,7 +121,7 @@ public class SequentialRuleTest {
 
 	@Test
 	public void testUnHappyPath_greedy_empty() {
-		RuleEvaluator visitor = new RuleEvaluator();
+		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
 		SequenceRule rule = new SequenceRule();
 		RuleDecision decision = new RuleDecision(0);

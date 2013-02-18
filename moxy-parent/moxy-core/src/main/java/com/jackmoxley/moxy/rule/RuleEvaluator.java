@@ -27,6 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jackmoxley.meta.Beta;
+import com.jackmoxley.moxy.grammer.Grammar;
+import com.jackmoxley.moxy.grammer.RuleTree;
 import com.jackmoxley.moxy.rule.terminating.CharacterRule;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.stream.TokenStream;
@@ -38,10 +40,20 @@ public class RuleEvaluator {
 	private static final Logger logger = LoggerFactory.getLogger(RuleEvaluator.class);
 	private TreeMap<Integer, Map<Rule, RuleDecision>> rulesHistory = new TreeMap<Integer, Map<Rule, RuleDecision>>();
 	private TokenStream<CharacterToken> sequence;
-	private Map<String,Rule> links;
+	private Grammar grammar;
 	private int heirachy = 0;
 	
 	
+
+	/**
+	 * @param grammar
+	 * @param sequence 
+	 */
+	public RuleEvaluator(Grammar grammar, TokenStream<CharacterToken> sequence) {
+		super();
+		this.grammar = grammar;
+		this.sequence = sequence;
+	}
 
 	public Entry<Rule,RuleDecision> getLastPassed(){
 		for(Entry<Integer, Map<Rule, RuleDecision>> entry : rulesHistory.descendingMap().entrySet()){
@@ -104,23 +116,16 @@ public class RuleEvaluator {
 	}
 
 	public Rule ruleForName(String symbol) {
-		return links.get(symbol);
+		RuleTree tree = grammar.get(symbol);
+		return tree == null ? null : tree.getRule();
 	}
 
 	public TokenStream<CharacterToken> getSequence() {
 		return sequence;
 	}
 
-	public void setSequence(TokenStream<CharacterToken> sequence) {
-		this.sequence = sequence;
-	}
-
-	public Map<String, Rule> getLinks() {
-		return links;
-	}
-
-	public void setLinks(Map<String, Rule> links) {
-		this.links = links;
+	public Grammar getGrammar() {
+		return grammar;
 	}
 
 	@Override
@@ -128,7 +133,7 @@ public class RuleEvaluator {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RuleVisitor [rulesHistory=").append(rulesHistory)
 				.append("\nsequence=").append(sequence).append("\nlinks=")
-				.append(links).append("]");
+				.append(grammar).append("]");
 		return builder.toString();
 	}
 	

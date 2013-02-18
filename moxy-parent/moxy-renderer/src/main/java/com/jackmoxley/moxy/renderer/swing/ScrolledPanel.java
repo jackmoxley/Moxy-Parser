@@ -22,6 +22,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -30,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Scrollable;
 
+import com.jackmoxley.moxy.grammer.RuleTree;
 import com.jackmoxley.moxy.rule.Rule;
 
 public class ScrolledPanel extends JPanel implements Scrollable {
@@ -40,9 +43,12 @@ public class ScrolledPanel extends JPanel implements Scrollable {
 	Map<Rule, Dimension> dimensions = new LinkedHashMap<Rule,Dimension>();
 	Map<String, Rule> rules;
 	
-	public ScrolledPanel(Map<String, Rule> rules) {
+	public ScrolledPanel(Collection<RuleTree> ruleTrees) {
 		super();
-		this.rules = rules;
+		this.rules = new HashMap<String, Rule>();
+		for(RuleTree tree: ruleTrees){
+			rules.put(tree.getName(),tree.getRule());
+		}
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
 		this.setDoubleBuffered(true);
 		this.updateUI();

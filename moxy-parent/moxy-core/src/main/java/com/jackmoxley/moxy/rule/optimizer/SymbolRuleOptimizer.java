@@ -19,7 +19,7 @@
 package com.jackmoxley.moxy.rule.optimizer;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.Grammer;
+import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.DelegateRule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
@@ -35,7 +35,7 @@ import com.jackmoxley.moxy.rule.functional.RuleList;
 @Beta
 public class SymbolRuleOptimizer implements Optimizer{
 
-	public int visitRule(Grammer grammer, FunctionalRule rule) {
+	public int visitRule(Grammar grammer, FunctionalRule rule) {
 		int rulesOptimized = 0;
 		if (rule instanceof RuleList) {
 			RuleList ruleList = (RuleList) rule;
@@ -44,24 +44,24 @@ public class SymbolRuleOptimizer implements Optimizer{
 				if (innerRule instanceof PointerRule) {
 					PointerRule pointer = (PointerRule)innerRule;
 					if(pointer.isSymbol()){
-						ruleList.set(i, new DelegateRule(true, pointer.getPointer(), grammer.getRuleMap().get(pointer.getPointer())));
+						ruleList.set(i, new DelegateRule(true, pointer.getPointer(), grammer.get(pointer.getPointer()).getRule()));
 						rulesOptimized++;
 					} else {
-						ruleList.set(i, grammer.getRuleMap().get(pointer.getPointer()));
+						ruleList.set(i, grammer.get(pointer.getPointer()).getRule());
 						rulesOptimized++;
 					}
-					i--;
+					i--; // re-evaluate the rule at this position because it will of changed.
 				} 
 				if (innerRule instanceof DelegateRule) {
 					DelegateRule delegate = (DelegateRule)innerRule;
-					if(!delegate.isSymbol()){
+					if(!delegate.isSymbol()){ // we want to maintain our symbols in the tree.
 						Rule childRule = delegate.getRule();
 						if(childRule == null){
-							childRule = grammer.getRuleMap().get(delegate.getPointer());
+							childRule = grammer.get(delegate.getPointer()).getRule();
 						}
-						ruleList.set(i, delegate.getRule());
+						ruleList.set(i, childRule);
 						rulesOptimized++;
-						i--;
+						i--; // re-evaluate the rule at this position because it will of changed.
 					}
 				}
 			}
