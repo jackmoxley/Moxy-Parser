@@ -27,5 +27,12 @@ import com.jackmoxley.meta.Beta;
 public interface Rule extends Serializable{
 
 	public boolean isTerminating(Set<Rule> history);
+	
+	/**
+	 * Storing the result in the provided decision object,
+	 * determine if the rule should pass or not.
+	 * @param visitor 
+	 * @param decision
+	 */
 	public void consider(RuleEvaluator visitor, RuleDecision decision);
 }

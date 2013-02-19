@@ -43,6 +43,9 @@ public class TokenStreamImpl<T extends Token> implements TokenStream<T>{
 		return tokens.get(index);
 	}
 	
+	public int length() {
+		return tokens.size();
+	}
 	
 
 	@Override

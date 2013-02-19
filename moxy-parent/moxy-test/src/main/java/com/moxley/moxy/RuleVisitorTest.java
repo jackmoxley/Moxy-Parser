@@ -24,7 +24,6 @@ import java.io.Reader;
 import java.util.List;
 
 import com.jackmoxley.moxy.grammer.RuledGrammar;
-import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.grammer.bnf.HandCodedBNFGrammer;
 import com.jackmoxley.moxy.realizer.XMLRealizer;
 import com.jackmoxley.moxy.rule.optimizer.CharacterRangeRuleOptimizer;
@@ -35,12 +34,13 @@ import com.jackmoxley.moxy.rule.optimizer.StringRuleOptimizer;
 import com.jackmoxley.moxy.rule.optimizer.SymbolRuleOptimizer;
 import com.jackmoxley.moxy.token.SymbolToken;
 import com.jackmoxley.moxy.token.Token;
-import com.jackmoxley.moxy.token.stream.CharacterTokenStream;
+import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
+import com.jackmoxley.moxy.token.stream.ChracterTokenStream;
 
 public class RuleVisitorTest {
 
 	public static void main(String... args) throws Exception {
-		if (true) {
+		if (false) {
 			basicTest();
 		} else {
 			performanceTest();
@@ -50,38 +50,42 @@ public class RuleVisitorTest {
 
 	public static RuledGrammar /* List<RealizedHolder<? extends Rule>> */basicTest()
 			throws Exception {
-		Reader file = new InputStreamReader(RuleVisitorTest.class
-				.getClassLoader().getResourceAsStream("BNFGrammer.mg"));
-		CharacterTokenStream stream = new CharacterTokenStream(file);
+		try (ChracterTokenStream stream = new ChracterTokenStream(
+				RuleVisitorTest.class.getClassLoader().getResourceAsStream(
+						"BNFGrammer.mg"))) {
 
-		OptimizerEngine engine = new OptimizerEngine(new OptionRuleOptimizer(),
-				new SequenceRuleOptimizer(), new SymbolRuleOptimizer(),
-				new StringRuleOptimizer(), new CharacterRangeRuleOptimizer());
+			OptimizerEngine engine = new OptimizerEngine(
+					new OptionRuleOptimizer(), new SequenceRuleOptimizer(),
+					new SymbolRuleOptimizer(), new StringRuleOptimizer(),
+					new CharacterRangeRuleOptimizer());
 
-		HandCodedBNFGrammer grammer = new HandCodedBNFGrammer();
-		int optimized = engine.optimize(grammer);
-		System.out.println(grammer);
-		List<Token> tokens = grammer.parse(stream, "syntax");
-		int heirachy = 0;
-		printSymbols(heirachy, tokens);
-		System.out.println("Rules Optimized=" + optimized);
-		XMLRealizer<RuledGrammar> realizer = new XMLRealizer<RuledGrammar>(
-				HandCodedBNFGrammer.class
-						.getResourceAsStream("BNFRuleRealizer.xml"));
-		List<RuledGrammar> result = realizer.realize(tokens);
-		System.out.println("Realized " + result);
-		RuledGrammar newGrammer = result.get(0);
-		engine.optimize(newGrammer);
-		return newGrammer;
+			HandCodedBNFGrammer grammer = new HandCodedBNFGrammer();
+			int optimized = engine.optimize(grammer);
+			System.out.println(grammer);
+			List<Token> tokens = grammer.parse(stream, "syntax");
+			int heirachy = 0;
+			printSymbols(heirachy, tokens);
+			System.out.println("Rules Optimized=" + optimized);
+			XMLRealizer<RuledGrammar> realizer = new XMLRealizer<RuledGrammar>(
+					HandCodedBNFGrammer.class
+							.getResourceAsStream("BNFRuleRealizer.xml"));
+			List<RuledGrammar> result = realizer.realize(tokens);
+			System.out.println("Realized " + result);
+			RuledGrammar newGrammer = result.get(0);
+			engine.optimize(newGrammer);
+			return newGrammer;
+		}
 		// return grammer;
 	}
 
 	public static void performanceTest() throws IOException,
 			InterruptedException {
 		HandCodedBNFGrammer grammer = new HandCodedBNFGrammer();
-		Reader file = new InputStreamReader(RuleVisitorTest.class
-				.getClassLoader().getResourceAsStream("BNFGrammer.mg"));
-		CharacterTokenStream stream = new CharacterTokenStream(file);
+		CharSequenceTokenStream stream = null;
+		try (Reader file = new InputStreamReader(RuleVisitorTest.class
+				.getClassLoader().getResourceAsStream("BNFGrammer.mg"))) {
+			stream = new CharSequenceTokenStream(file);
+		}
 		List<Token> tokens = grammer.parse(stream, "syntax");
 		int heirachy = 0;
 		printSymbols(heirachy, tokens);
@@ -139,7 +143,7 @@ public class RuleVisitorTest {
 		}
 		heirachy = 0;
 		printSymbols(heirachy, tokens);
-
+		System.out.println(stream);
 	}
 
 	private static String formatNanos(long nanos) {
