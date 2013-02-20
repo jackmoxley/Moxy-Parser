@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
+import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.grammer.bnf.HandCodedBNFGrammer;
 import com.jackmoxley.moxy.optimizer.CharacterRangeRuleOptimizer;
@@ -32,10 +33,14 @@ import com.jackmoxley.moxy.optimizer.SequenceRuleOptimizer;
 import com.jackmoxley.moxy.optimizer.StringRuleOptimizer;
 import com.jackmoxley.moxy.optimizer.SymbolRuleOptimizer;
 import com.jackmoxley.moxy.realizer.XMLRealizer;
+import com.jackmoxley.moxy.rule.RuleDecision;
+import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.SymbolToken;
 import com.jackmoxley.moxy.token.Token;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 import com.jackmoxley.moxy.token.stream.ChracterTokenStream;
+import com.jackmoxley.moxy.token.stream.TokenStream;
 
 public class RuleVisitorTest {
 
@@ -62,7 +67,7 @@ public class RuleVisitorTest {
 			HandCodedBNFGrammer grammer = new HandCodedBNFGrammer();
 			int optimized = engine.optimize(grammer);
 			System.out.println(grammer);
-			List<Token> tokens = grammer.parse(stream, "syntax");
+			List<Token> tokens = parse(stream, grammer, "syntax");
 			int heirachy = 0;
 			printSymbols(heirachy, tokens);
 			System.out.println("Rules Optimized=" + optimized);
@@ -86,7 +91,7 @@ public class RuleVisitorTest {
 				.getClassLoader().getResourceAsStream("BNFGrammer.mg"))) {
 			stream = new CharSequenceTokenStream(file);
 		}
-		List<Token> tokens = grammer.parse(stream, "syntax");
+		List<Token> tokens = parse(stream, grammer,"syntax");
 		int heirachy = 0;
 		printSymbols(heirachy, tokens);
 
@@ -98,7 +103,7 @@ public class RuleVisitorTest {
 		HandCodedBNFGrammer grammer2 = new HandCodedBNFGrammer();
 		int optimized = engine.optimize(grammer2);
 		System.out.println(grammer2);
-		tokens = grammer2.parse(stream, "syntax");
+		tokens = parse(stream, grammer2,"syntax");
 		heirachy = 0;
 		printSymbols(heirachy, tokens);
 		System.out.println("Rules Optimized=" + optimized);
@@ -117,7 +122,7 @@ public class RuleVisitorTest {
 			time = System.nanoTime();
 			for (int i = 0; i < r; i++) {
 
-				tokens = grammer.parse(stream, "syntax");
+				tokens = parse(stream, grammer, "syntax");
 			}
 			time = System.nanoTime() - time;
 			currentMemory = (runtime.totalMemory() - runtime.freeMemory())
@@ -130,7 +135,7 @@ public class RuleVisitorTest {
 			time = System.nanoTime();
 			for (int i = 0; i < (r); i++) {
 
-				tokens = grammer2.parse(stream, "syntax");
+				tokens = parse(stream, grammer2, "syntax");
 			}
 			time = System.nanoTime() - time;
 			currentMemory = (runtime.totalMemory() - runtime.freeMemory())
@@ -168,6 +173,12 @@ public class RuleVisitorTest {
 				printSymbols(heirachy + 1, symbol);
 			}
 		}
+	}
+	
+	public static List<Token> parse(TokenStream<CharacterToken> input, Grammar grammar, String start){
+		RuleEvaluator visitor = new RuleEvaluator(grammar,input);
+		RuleDecision decision = visitor.evaluate(grammar.get(start));
+		return decision.getTokens();
 	}
 
 }

@@ -19,13 +19,9 @@
 package com.jackmoxley.moxy.grammer;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.token.CharacterToken;
-import com.jackmoxley.moxy.token.Token;
-import com.jackmoxley.moxy.token.stream.TokenStream;
 
 /**
  * The base implementation representing a grammar, this is where we store our
@@ -37,12 +33,6 @@ import com.jackmoxley.moxy.token.stream.TokenStream;
 @Beta
 public interface Grammar extends Serializable {
 
-	/**
-	 * 
-	 * @param input
-	 * @return
-	 */
-	public List<Token> parse(TokenStream<CharacterToken> input, String start);
 
 	public Map<String, RuleTree> getRuleTrees();
 	

@@ -19,16 +19,10 @@
 package com.jackmoxley.moxy.grammer;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
-import com.jackmoxley.moxy.token.CharacterToken;
-import com.jackmoxley.moxy.token.Token;
-import com.jackmoxley.moxy.token.stream.TokenStream;
 
 
 @Beta
@@ -45,13 +39,6 @@ public class RuledGrammar implements Grammar  {
 
 	public void setRuleTrees(Map<String, RuleTree> ruleTrees) {
 		this.ruleTrees = ruleTrees;
-	}
-
-
-	public List<Token> parse(TokenStream<CharacterToken> input, String start){
-		RuleEvaluator visitor = new RuleEvaluator(this,input);
-		RuleDecision decision = visitor.evaluate(get(start));
-		return decision.getTokens();
 	}
 	
 	public RuleTree get(String ruleName){
