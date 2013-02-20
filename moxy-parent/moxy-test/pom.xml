@@ -45,6 +45,11 @@
   		<artifactId>moxy-renderer</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.jackmoxley.moxy</groupId>
+  		<artifactId>maven-optimizer</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
   <licenses>
   <license>

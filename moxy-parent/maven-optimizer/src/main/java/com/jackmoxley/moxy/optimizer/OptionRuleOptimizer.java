@@ -16,13 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.optimizer;
+package com.jackmoxley.moxy.optimizer;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.Grammar;
-import com.jackmoxley.moxy.rule.functional.FunctionalRule;
+import com.jackmoxley.moxy.rule.Rule;
+import com.jackmoxley.moxy.rule.functional.OptionRule;
 
+/**
+ * Optimizes rules to be as effecient as possible.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
-public interface Optimizer {
-	int visitRule(Grammar grammer, FunctionalRule parent); // we want to drive off this one.
+public class OptionRuleOptimizer extends AbstractRuleListOptimizer<OptionRule> implements Optimizer{
+
+	@Override
+	protected OptionRule asInstance(Rule rule) {
+		return rule instanceof OptionRule ? (OptionRule)rule : null;
+	}
+
+
+
 }

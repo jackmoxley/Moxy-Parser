@@ -75,6 +75,7 @@
 		<module>moxy-realizer</module>
 		<module>moxy-grammer</module>
 		<module>moxy-test</module>
+		<module>maven-optimizer</module>
 	</modules>
 
 	<repositories>
