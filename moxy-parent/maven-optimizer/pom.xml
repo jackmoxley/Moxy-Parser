@@ -5,7 +5,7 @@
     <artifactId>moxy-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>maven-optimizer</artifactId>
+  <artifactId>moxy-optimizer</artifactId>
   <dependencies>
     <dependency>
     	<groupId>com.jackmoxley.moxy</groupId>

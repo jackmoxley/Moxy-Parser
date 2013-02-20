@@ -47,7 +47,7 @@
   	</dependency>
   	<dependency>
   		<groupId>com.jackmoxley.moxy</groupId>
-  		<artifactId>maven-optimizer</artifactId>
+  		<artifactId>moxy-optimizer</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
