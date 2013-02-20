@@ -52,7 +52,7 @@ public class DelegateRule extends SymbolRule {
 		if(rule == null){
 			return true;
 		}
-		return rule.isTerminating(history);
+		return rule.isNotCircular(history);
 	}
 	
 

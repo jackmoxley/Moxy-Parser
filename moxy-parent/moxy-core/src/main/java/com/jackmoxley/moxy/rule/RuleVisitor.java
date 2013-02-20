@@ -16,27 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating;
+package com.jackmoxley.moxy.rule;
 
-import java.util.Set;
+/**
+ * @author jack
+ *
+ */
+public interface RuleVisitor {
 
-import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleVisitor;
-
-@Beta
-public abstract class TerminatingRule implements Rule {
-
-	private static final long serialVersionUID = 2846424087976600923L;
-
-	@Override
-	public boolean isNotCircular(Set<Rule> history) {
-		return true;
-	}
-
-	@Override
-	public void accept(RuleVisitor visitor) {
-		visitor.visit(this);
-	}
-
+	boolean visit(Rule rule);
 }

@@ -44,7 +44,6 @@ public class RuledGrammar implements Grammar  {
 	public RuleTree get(String ruleName){
 		return this.getRuleTrees().get(ruleName);
 	}
-	
 
 
 	public void put(String ruleName, Rule rule) {

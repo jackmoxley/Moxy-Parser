@@ -26,7 +26,7 @@ import com.jackmoxley.meta.Beta;
 @Beta
 public interface Rule extends Serializable{
 
-	public boolean isTerminating(Set<Rule> history);
+	public boolean isNotCircular(Set<Rule> history);
 	
 	/**
 	 * Storing the result in the provided decision object,
@@ -35,4 +35,6 @@ public interface Rule extends Serializable{
 	 * @param decision
 	 */
 	public void consider(RuleEvaluator visitor, RuleDecision decision);
+	
+	public void accept(RuleVisitor visitor);
 }

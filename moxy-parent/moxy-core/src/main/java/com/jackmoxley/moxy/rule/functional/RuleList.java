@@ -34,7 +34,7 @@ public abstract class RuleList extends FunctionalRule{
 	@Override
 	protected boolean doSubRulesTerminate(Set<Rule> history) {
 		for(Rule rule: rules) {
-			if(!rule.isTerminating(history)){
+			if(!rule.isNotCircular(history)){
 				return false;
 			}
 		}

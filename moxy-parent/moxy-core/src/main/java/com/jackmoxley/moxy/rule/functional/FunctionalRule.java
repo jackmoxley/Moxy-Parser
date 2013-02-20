@@ -24,6 +24,7 @@ import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
+import com.jackmoxley.moxy.rule.RuleVisitor;
 
 @Beta
 public abstract class FunctionalRule extends AbstractList<Rule> implements Rule {
@@ -33,7 +34,15 @@ public abstract class FunctionalRule extends AbstractList<Rule> implements Rule 
 	protected abstract boolean doSubRulesTerminate(Set<Rule> history);
 
 	@Override
-	public boolean isTerminating(Set<Rule> history) {
+	public void accept(RuleVisitor visitor) {
+		visitor.visit(this);
+		for(Rule rule : this){
+			rule.accept(visitor);
+		}
+	}
+
+	@Override
+	public boolean isNotCircular(Set<Rule> history) {
 		if (history == null) {
 			history = new HashSet<Rule>();
 		}
@@ -48,7 +57,7 @@ public abstract class FunctionalRule extends AbstractList<Rule> implements Rule 
 
 	@Override
 	public boolean equals(Object obj) {
-        return (this == obj);
+		return (this == obj);
 	}
 
 	@Override
