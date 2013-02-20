@@ -50,7 +50,7 @@ public class RuledGrammar implements Grammar  {
 
 	public List<Token> parse(TokenStream<CharacterToken> input, String start){
 		RuleEvaluator visitor = new RuleEvaluator(this,input);
-		RuleDecision decision = visitor.evaluate(get(start).getRule(), 0);
+		RuleDecision decision = visitor.evaluate(get(start));
 		return decision.getTokens();
 	}
 	

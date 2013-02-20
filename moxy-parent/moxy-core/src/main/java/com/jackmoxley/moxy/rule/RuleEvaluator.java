@@ -94,6 +94,15 @@ public class RuleEvaluator {
 		}
 		return decision;
 	}
+	
+	public RuleDecision evaluate(RuleTree rule) {
+		return evaluate(rule.getRule());
+	}
+	
+
+	public RuleDecision evaluate(Rule rule) {
+		return evaluate(rule,0);
+	}
 
 	public RuleDecision evaluate(Rule rule, int startIndex) {
 		logger.debug("{} Visiting {}",heirachy++, rule);
