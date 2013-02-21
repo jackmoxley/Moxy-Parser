@@ -18,8 +18,6 @@
  */
 package com.jackmoxley.moxy.rule.functional.symbol;
 
-import java.util.Set;
-
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;

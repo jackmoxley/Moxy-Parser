@@ -24,7 +24,6 @@ import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleVisitor;
 
 @Beta
 public abstract class FunctionalRule extends AbstractList<Rule> implements Rule {
