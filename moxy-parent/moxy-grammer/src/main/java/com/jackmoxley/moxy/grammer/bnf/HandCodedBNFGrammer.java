@@ -22,6 +22,7 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.ChoiceRule.Type;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.symbol.DelegateRule;
 import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
@@ -83,6 +84,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		PointerRule rule = new PointerRule(true,"rule");
 		
 		ChoiceRule syntax = new ChoiceRule();
+		syntax.setType(Type.Longest);
 		SequenceRule ended = new SequenceRule();
 		ended.add(rule);
 		ended.add(EOFRule.get());
@@ -124,6 +126,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 			singlewhitespace.add(new CharacterRule(i));
 		}
 		ChoiceRule optionalWhitespace = new ChoiceRule();
+		optionalWhitespace.setType(Type.Longest);
 		SequenceRule whitespace = new SequenceRule();
 		whitespace.add(singlewhitespace);
 		whitespace.add(optionalWhitespace);
@@ -141,6 +144,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		PointerRule optWhitespace = new PointerRule(false,"opt-whitespace");
 		
 		ChoiceRule expression = new ChoiceRule();
+		expression.setType(Type.Longest);
 		expression.add(list);
 		
 		SequenceRule or = new SequenceRule();
@@ -160,17 +164,6 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <line-end>       ::= <EOL> | <line-end> <line-end>
 	 */
 	protected void lineEndDefinition(){
-
-		
-//
-//		SequenceRule repeating = new SequenceRule();
-//		ChoiceRule orlineEnd = new ChoiceRule();
-//		
-//		orlineEnd.add(new PointerRule(false,"EOL"));
-//		orlineEnd.add(repeating);
-//		
-//		repeating.add(orlineEnd);
-//		repeating.add(repeating);
 		
 		put("line-end", new PointerRule(false,"EOL"));
 	}
@@ -183,6 +176,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 
 		PointerRule term = new PointerRule(false,"term");
 		ChoiceRule list = new ChoiceRule();
+		list.setType(Type.Longest);
 		list.add(term);
 		SequenceRule nextItem = new SequenceRule();
 		nextItem.add(term);
@@ -200,6 +194,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 */
 	protected void termDefinition() {
 		ChoiceRule term = new ChoiceRule();
+		term.setType(Type.Longest);
 		SequenceRule ruleTerm = new SequenceRule();
 		ruleTerm.add(new CharacterRule("<"));
 		ruleTerm.add(new PointerRule(true,"rule-name"));
@@ -216,11 +211,13 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 */
 	protected void literalDefinition() {
 		ChoiceRule textOrSymbolSingle = new ChoiceRule();
+		textOrSymbolSingle.setType(Type.Longest);
 		textOrSymbolSingle.add(new PointerRule(true,"text"));
 		textOrSymbolSingle.add(new DelegateRule(true,"text",new CharacterRule('\'')));
 		textOrSymbolSingle.add(new DelegateRule(true,"text",new CharacterRule('<')));
 		textOrSymbolSingle.add(new DelegateRule(true,"text",new CharacterRule('>')));
 		ChoiceRule textOrSymbolDouble = new ChoiceRule();
+		textOrSymbolDouble.setType(Type.Longest);
 		textOrSymbolDouble.add(new PointerRule(true,"text"));
 		textOrSymbolDouble.add(new DelegateRule(true,"text", new CharacterRule('"')));
 		textOrSymbolDouble.add(new DelegateRule(true,"text",new CharacterRule('<')));
@@ -267,6 +264,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 */
 	protected void textDefinition(){
 		ChoiceRule text = new ChoiceRule();
+		text.setType(Type.Longest);
 		PointerRule character = new PointerRule(false,"character");
 		text.add(character);
 		SequenceRule more = new SequenceRule();
@@ -290,7 +288,6 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 //		character.add(new CharacterRule('"'));
 //		character.add(new CharacterRule('<'));
 //		character.add(new CharacterRule('>'));
-		character.setGreedy(false);
 		put("character",character);
 	}
 
@@ -303,7 +300,6 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		for(char i = 'a' ;i <= 'z';i++){
 			lowercase.add(new CharacterRule(i));
 		}
-		lowercase.setGreedy(false);
 		put("lower-case", lowercase);
 	}
 
@@ -315,7 +311,6 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		for(char i = 'A' ;i <= 'Z';i++){
 			uppercase.add(new CharacterRule(i));
 		}
-		uppercase.setGreedy(false);
 		put("upper-case", uppercase);
 	}
 
@@ -327,7 +322,6 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		for(char i = '0' ;i <= '9';i++){
 			number.add(new CharacterRule(i));
 		}
-		number.setGreedy(false);
 		put("number", number);
 	}
 	
@@ -347,7 +341,6 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		symbol.add(new CharacterRule(':'));
 		symbol.add(new CharacterRule('='));
 		symbol.add(new CharacterRule('\\'));
-		symbol.setGreedy(false);
 		put("symbol", symbol);
 	}
 	

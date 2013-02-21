@@ -127,7 +127,7 @@ public class SequentialRuleTest {
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasFailed());
+		assertTrue(decision.hasPassed());
 		assertEquals(0, visitor.getRuleDecisions(0).size());
 	}
 

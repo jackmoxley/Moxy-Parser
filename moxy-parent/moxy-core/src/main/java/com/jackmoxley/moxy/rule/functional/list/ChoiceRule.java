@@ -28,36 +28,76 @@ public class ChoiceRule extends ListRule {
 
 	private static final long serialVersionUID = 1L;
 
-	private boolean greedy = true;
+	public enum Type {
+		Lazy, Shortest, Longest
+	}
+
+	private Type type = Type.Lazy;
 
 	@Override
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-		if(greedy){
-			visitGreedy(visitor, decision);
-		} else {
-			visitLazy(visitor, decision);
-		}
-	}
-	protected void visitLazy(RuleEvaluator visitor, RuleDecision decision) {
-		if(this.size() == 0){
-			decision.failed("{} failed no rules to consider",this);
+
+		if (this.size() == 0) {
+			decision.failed("{} failed no rules to consider", this);
 			return;
 		}
+
+		RuleDecision finalDecision = null;
+		switch (type) {
+		case Shortest:
+			finalDecision = considerShortest(visitor, decision);
+			break;
+		case Longest:
+			finalDecision = considerLongest(visitor, decision);
+			break;
+		case Lazy:
+		default:
+			finalDecision = considerLazy(visitor, decision);
+			break;
+		}
+
+		if (finalDecision != null) {
+			decision.add(finalDecision);
+			decision.passed();
+		} else {
+			decision.failed("{} failed", this);
+		}
+	}
+
+	protected RuleDecision considerLazy(RuleEvaluator visitor,
+			RuleDecision decision) {
 		RuleDecision finalDecision;
 		for (Rule rule : this) {
 			finalDecision = visitor.evaluate(rule, decision.getStartIndex());
 			if (finalDecision.hasPassed()) {
-				decision.add(finalDecision);
-				decision.passed();
-				return;
+				return finalDecision;
 			}
 		}
-		decision.failed("{} failed",this);
+		return null;
 	}
 
-	protected void visitGreedy(RuleEvaluator visitor, RuleDecision decision) {
+	protected RuleDecision considerShortest(RuleEvaluator visitor,
+			RuleDecision decision) {
 		RuleDecision finalDecision = null;
-		
+
+		RuleDecision subDecision;
+		for (Rule rule : this) {
+			subDecision = visitor.evaluate(rule, decision.getStartIndex());
+			if (subDecision.hasPassed()) {
+				if (finalDecision == null
+						|| finalDecision.getNextIndex() > subDecision
+								.getNextIndex()) {
+					finalDecision = subDecision;
+				}
+			}
+		}
+		return finalDecision;
+	}
+
+	protected RuleDecision considerLongest(RuleEvaluator visitor,
+			RuleDecision decision) {
+		RuleDecision finalDecision = null;
+
 		RuleDecision subDecision;
 		for (Rule rule : this) {
 			subDecision = visitor.evaluate(rule, decision.getStartIndex());
@@ -69,27 +109,23 @@ public class ChoiceRule extends ListRule {
 				}
 			}
 		}
-		if (finalDecision != null) {
-			decision.passed();
-			decision.add(finalDecision);
-		} else {
-			decision.failed("ChoiceRule failed");
-		}
+		return finalDecision;
 	}
 
-	public boolean isGreedy() {
-		return greedy;
+	public Type getType() {
+		return type;
 	}
 
-	public void setGreedy(boolean greedy) {
-		this.greedy = greedy;
+	public void setType(Type type) {
+		this.type = type;
 	}
 
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ChoiceRule [size=").append(size()).append("]");
+		builder.append("ChoiceRule [type=").append(type).append(", size=")
+				.append(size()).append("]");
 		return builder.toString();
 	}
+
 }

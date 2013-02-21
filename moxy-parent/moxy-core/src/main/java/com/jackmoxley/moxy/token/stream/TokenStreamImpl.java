@@ -54,7 +54,7 @@ public class TokenStreamImpl<T extends Token> implements TokenStream<T>{
 			return Collections.emptyList();
 		}
 		int end = start+length;
-		if(end >= tokens.size()){
+		if(end > tokens.size()){
 			return Collections.emptyList();
 		}
 		return tokens.subList(start, end);

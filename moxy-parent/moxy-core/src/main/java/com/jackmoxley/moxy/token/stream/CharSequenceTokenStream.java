@@ -38,23 +38,31 @@ public class CharSequenceTokenStream extends TokenStreamImpl<CharacterToken> imp
 		readAll(charReader);
 	}
 	
-	public CharSequenceTokenStream(CharSequence value) throws IOException {
+	public CharSequenceTokenStream(CharSequence value) {
 		super(new ArrayList<CharacterToken>());
-		StringReader charReader = new StringReader(value.toString());
-		readAll(charReader);
-		charReader.close();
+		readSafely(new StringReader(value.toString()));
 	}
 	
 
-	public CharSequenceTokenStream(char[] value) throws IOException {
+	public CharSequenceTokenStream(char[] value){
 		super(new ArrayList<CharacterToken>());
-		CharArrayReader charReader = new CharArrayReader(value);
-		readAll(charReader);
-		charReader.close();
+		readSafely(new CharArrayReader(value));
 	}
 	
 	public CharSequenceTokenStream(List<CharacterToken> tokens) {
 		super(tokens);
+	}
+	
+	private void readSafely(Reader charReader){
+
+		try {
+			readAll(charReader);
+			charReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Will never happen.
+		}
+
 	}
 	
 	private void readAll(Reader charReader) throws IOException{

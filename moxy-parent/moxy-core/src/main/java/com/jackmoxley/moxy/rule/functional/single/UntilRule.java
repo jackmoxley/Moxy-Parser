@@ -51,7 +51,6 @@ public class UntilRule extends MinMaxRule {
 	@Override
 	public void accept(RuleVisitor visitor) {
 		super.accept(visitor);
-		//TODO do we only do this if the rule is included?
 		until.accept(visitor);
 	}
 	
