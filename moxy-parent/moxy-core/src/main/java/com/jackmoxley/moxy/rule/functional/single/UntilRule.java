@@ -22,6 +22,7 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleVisitor;
 
 @Beta
 public class UntilRule extends MinMaxRule {
@@ -45,6 +46,13 @@ public class UntilRule extends MinMaxRule {
 		this.until = until;
 		this.include = include;
 		this.greedy = greedy;
+	}
+	
+	@Override
+	public void accept(RuleVisitor visitor) {
+		super.accept(visitor);
+		//TODO do we only do this if the rule is included?
+		until.accept(visitor);
 	}
 	
 	protected void considerMax(RuleEvaluator visitor, RuleDecision decision) {

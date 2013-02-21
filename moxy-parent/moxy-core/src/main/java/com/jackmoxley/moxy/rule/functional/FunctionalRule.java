@@ -33,13 +33,7 @@ public abstract class FunctionalRule extends AbstractList<Rule> implements Rule 
 
 	protected abstract boolean doSubRulesTerminate(Set<Rule> history);
 
-	@Override
-	public void accept(RuleVisitor visitor) {
-		visitor.visit(this);
-		for(Rule rule : this){
-			rule.accept(visitor);
-		}
-	}
+
 
 	@Override
 	public boolean isNotCircular(Set<Rule> history) {

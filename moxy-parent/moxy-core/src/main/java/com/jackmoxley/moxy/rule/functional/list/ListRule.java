@@ -24,6 +24,7 @@ import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
+import com.jackmoxley.moxy.rule.RuleVisitor;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
 @Beta
@@ -40,6 +41,14 @@ public abstract class ListRule extends FunctionalRule{
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public void accept(RuleVisitor visitor) {
+		visitor.visit(this);
+		for(Rule rule : this){
+			rule.accept(visitor);
+		}
 	}
 
 	public int size() {
