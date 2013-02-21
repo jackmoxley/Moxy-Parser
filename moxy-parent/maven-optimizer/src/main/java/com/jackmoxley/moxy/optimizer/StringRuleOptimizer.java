@@ -22,9 +22,9 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
-import com.jackmoxley.moxy.rule.functional.SequenceRule;
-import com.jackmoxley.moxy.rule.terminating.CharacterRule;
-import com.jackmoxley.moxy.rule.terminating.StringRule;
+import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
+import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
+import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 /**
  * Optimizes rules to be as effecient as possible.
@@ -52,13 +52,13 @@ public class StringRuleOptimizer implements Optimizer{
 					}
 					sb.append(charRule.getCharacter());
 					 finished = ((i+1) == ruleList.size());
-				} else if(innerRule instanceof StringRule){
-					StringRule stringRule = (StringRule)innerRule;
+				} else if(innerRule instanceof TextRule){
+					TextRule textRule = (TextRule)innerRule;
 					if(0 == combinedCount++) {
 						start = i;
 					}
 					 finished = ((i+1) == ruleList.size());
-					sb.append(stringRule.getValue());
+					sb.append(textRule.getValue());
 				} else {
 					finished = true;
 				}
@@ -67,7 +67,7 @@ public class StringRuleOptimizer implements Optimizer{
 						for(int c = 0;c < combinedCount;c++){
 							ruleList.remove(start);
 						}
-						ruleList.add(start,new StringRule(sb.toString()));
+						ruleList.add(start,new TextRule(sb.toString()));
 						i = start;
 						rulesOptimized += (combinedCount-1); // we merge combinedCount into one rule.
 					}

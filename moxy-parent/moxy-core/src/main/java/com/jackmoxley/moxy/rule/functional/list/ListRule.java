@@ -16,43 +16,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.functional;
+package com.jackmoxley.moxy.rule.functional.list;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
-/**
- * LinkRules and SymbolRules are very similar in that they both delegate to
- * rules stored in the symbol map, the one difference being link rules adds its
- * tokens to its parents tokens. Whilst a symbol rule generates a new branch.
- * 
- * @author jack
- * 
- */
 @Beta
-public class PointerRule extends SymbolRule {
+public abstract class ListRule extends FunctionalRule{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2601327856351809245L;
+	private final List<Rule> rules = new ArrayList<Rule>();
 
-	public PointerRule(Boolean symbol, String pointer) {
-		super(symbol, pointer);
-	}
-
-	public PointerRule() {
-		super();
-	}
-
-	protected Rule getDelegate(RuleEvaluator evaluator) {
-		return evaluator.ruleForName(pointer);
+	@Override
+	protected boolean doSubRulesTerminate(Set<Rule> history) {
+		for(Rule rule: rules) {
+			if(!rule.isNotCircular(history)){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public int size() {
-		return 0;
+		return rules.size();
 	}
 
 	public Rule get(int index) {
-		throw new UnsupportedOperationException();
+		return rules.get(index);
 	}
 
+	public Rule set(int index, Rule element) {
+		return rules.set(index, element);
+	}
+
+	public void add(int index, Rule element) {
+		rules.add(index, element);
+	}
+
+	public Rule remove(int index) {
+		return rules.remove(index);
+	}
 }

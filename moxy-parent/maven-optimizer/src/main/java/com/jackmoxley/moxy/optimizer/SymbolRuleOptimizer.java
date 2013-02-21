@@ -21,10 +21,10 @@ package com.jackmoxley.moxy.optimizer;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.DelegateRule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
-import com.jackmoxley.moxy.rule.functional.PointerRule;
-import com.jackmoxley.moxy.rule.functional.RuleList;
+import com.jackmoxley.moxy.rule.functional.list.ListRule;
+import com.jackmoxley.moxy.rule.functional.symbol.DelegateRule;
+import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
 
 /**
  * Optimizes rules to be as effecient as possible.
@@ -37,8 +37,8 @@ public class SymbolRuleOptimizer implements Optimizer{
 
 	public int visitRule(Grammar grammer, FunctionalRule rule) {
 		int rulesOptimized = 0;
-		if (rule instanceof RuleList) {
-			RuleList ruleList = (RuleList) rule;
+		if (rule instanceof ListRule) {
+			ListRule ruleList = (ListRule) rule;
 			for (int i = 0; i < ruleList.size(); i++) {
 				Rule innerRule = ruleList.get(i);
 				if (innerRule instanceof PointerRule) {

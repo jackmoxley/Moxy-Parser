@@ -48,25 +48,25 @@
 		</moxy:method>
 	</moxy:bean>
 
-	<moxy:bean name="expression" class="com.jackmoxley.moxy.rule.functional.OptionRule"
+	<moxy:bean name="expression" class="com.jackmoxley.moxy.rule.functional.list.ChoiceRule"
 		extends="ruleList" />
 		
-	<moxy:bean name="list" class="com.jackmoxley.moxy.rule.functional.SequenceRule"
+	<moxy:bean name="list" class="com.jackmoxley.moxy.rule.functional.list.SequenceRule"
 		extends="ruleList" />
 		
-	<moxy:bean name="character" class="com.jackmoxley.moxy.rule.terminating.CharacterRule">
+	<moxy:bean name="character" class="com.jackmoxley.moxy.rule.terminating.text.CharacterRule">
 		<moxy:constructor>
 			<moxy:argument term="character"/>
 		</moxy:constructor>
 	</moxy:bean>
 	
-	<moxy:bean name="text" class="com.jackmoxley.moxy.rule.terminating.StringRule">
+	<moxy:bean name="text" class="com.jackmoxley.moxy.rule.terminating.text.TextRule">
 		<moxy:constructor>
 			<moxy:argument term="text"/>
 		</moxy:constructor>
 	</moxy:bean>
 	
-	<moxy:bean name="symbol" class="com.jackmoxley.moxy.rule.functional.PointerRule">
+	<moxy:bean name="symbol" class="com.jackmoxley.moxy.rule.functional.symbol.PointerRule">
 		<moxy:constructor>
 			<moxy:argument value="true" transformer="com.jackmoxley.moxy.realizer.transformer.BooleanTransformer"/>
 			<moxy:argument term="rule-name"/>

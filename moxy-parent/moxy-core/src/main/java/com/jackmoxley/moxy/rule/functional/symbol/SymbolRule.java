@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.functional;
+package com.jackmoxley.moxy.rule.functional.symbol;
 
 import java.util.Set;
 
@@ -24,6 +24,7 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.functional.single.SingleRule;
 import com.jackmoxley.moxy.token.SymbolToken;
 
 /**
@@ -35,22 +36,28 @@ import com.jackmoxley.moxy.token.SymbolToken;
  * 
  */
 @Beta
-public abstract class SymbolRule extends FunctionalRule {
+public abstract class SymbolRule extends SingleRule {
 
 	private static final long serialVersionUID = 1L;
 
 	protected String pointer;
 	protected Boolean symbol = true;
 
-
-	@Override
-	protected boolean doSubRulesTerminate(Set<Rule> history) {
-		// TODO Auto-generated method stub
-		return false; // we don't actually know, so assume it isn't
+	public SymbolRule() {
+		super();
+	}
+	
+	public SymbolRule(Rule rule) {
+		super(rule);
 	}
 
 	public SymbolRule(String pointer) {
 		super();
+		this.pointer = pointer;
+	}
+	
+	public SymbolRule(String pointer, Rule rule) {
+		super(rule);
 		this.pointer = pointer;
 	}
 
@@ -59,9 +66,12 @@ public abstract class SymbolRule extends FunctionalRule {
 		this.pointer = pointer;
 		this.symbol = symbol;
 	}
+	
 
-	public SymbolRule() {
-		super();
+	public SymbolRule(Boolean symbol, String pointer, Rule rule) {
+		super(rule);
+		this.pointer = pointer;
+		this.symbol = symbol;
 	}
 
 	protected abstract Rule getDelegate(RuleEvaluator evaluator);

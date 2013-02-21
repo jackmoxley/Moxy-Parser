@@ -21,14 +21,14 @@ package com.jackmoxley.moxy.grammer.bnf;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
-import com.jackmoxley.moxy.rule.functional.DelegateRule;
-import com.jackmoxley.moxy.rule.functional.OptionRule;
-import com.jackmoxley.moxy.rule.functional.PointerRule;
-import com.jackmoxley.moxy.rule.functional.SequenceRule;
-import com.jackmoxley.moxy.rule.terminating.CharacterRule;
-import com.jackmoxley.moxy.rule.terminating.EOFRule;
-import com.jackmoxley.moxy.rule.terminating.StringRule;
+import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
+import com.jackmoxley.moxy.rule.functional.symbol.DelegateRule;
+import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
+import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
+import com.jackmoxley.moxy.rule.terminating.text.EOFRule;
+import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 /**
  * <syntax> ::= <rule> | <rule> <syntax>
@@ -82,7 +82,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	protected void syntaxDefinition() {
 		PointerRule rule = new PointerRule(true,"rule");
 		
-		OptionRule syntax = new OptionRule();
+		ChoiceRule syntax = new ChoiceRule();
 		SequenceRule ended = new SequenceRule();
 		ended.add(rule);
 		ended.add(EOFRule.get());
@@ -108,7 +108,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		rule.add(new PointerRule(true,"rule-name"));
 		rule.add(new CharacterRule('>'));
 		rule.add(new PointerRule(false,"opt-whitespace"));
-		rule.add(new StringRule("::="));
+		rule.add(new TextRule("::="));
 		rule.add(new PointerRule(false,"opt-whitespace"));
 		rule.add(new PointerRule(true,"expression"));
 		rule.add(new PointerRule(false,"line-end"));
@@ -119,11 +119,11 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <opt-whitespace> ::= " " <opt-whitespace> | ""  ; "" is empty string, i.e. no whitespace
 	 */
 	protected void optWhitespaceDefinition() {
-		OptionRule singlewhitespace = new OptionRule();
+		ChoiceRule singlewhitespace = new ChoiceRule();
 		for(char i = 0 ;i <= ' ';i++){
 			singlewhitespace.add(new CharacterRule(i));
 		}
-		OptionRule optionalWhitespace = new OptionRule();
+		ChoiceRule optionalWhitespace = new ChoiceRule();
 		SequenceRule whitespace = new SequenceRule();
 		whitespace.add(singlewhitespace);
 		whitespace.add(optionalWhitespace);
@@ -140,14 +140,14 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		PointerRule list = new PointerRule(true,"list");
 		PointerRule optWhitespace = new PointerRule(false,"opt-whitespace");
 		
-		OptionRule expression = new OptionRule();
+		ChoiceRule expression = new ChoiceRule();
 		expression.add(list);
 		
 		SequenceRule or = new SequenceRule();
 		or.add(list);
 		or.add(optWhitespace);
 		or.add(new CharacterRule('|'));
-		or.add(new StringRule(""));
+		or.add(new TextRule(""));
 		or.add(optWhitespace);
 		or.add(expression);
 		
@@ -164,7 +164,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		
 //
 //		SequenceRule repeating = new SequenceRule();
-//		OptionRule orlineEnd = new OptionRule();
+//		ChoiceRule orlineEnd = new ChoiceRule();
 //		
 //		orlineEnd.add(new PointerRule(false,"EOL"));
 //		orlineEnd.add(repeating);
@@ -182,7 +182,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	protected void listDefinition() {
 
 		PointerRule term = new PointerRule(false,"term");
-		OptionRule list = new OptionRule();
+		ChoiceRule list = new ChoiceRule();
 		list.add(term);
 		SequenceRule nextItem = new SequenceRule();
 		nextItem.add(term);
@@ -199,7 +199,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <term>    ::= <literal> | "<" <rule-name> ">"
 	 */
 	protected void termDefinition() {
-		OptionRule term = new OptionRule();
+		ChoiceRule term = new ChoiceRule();
 		SequenceRule ruleTerm = new SequenceRule();
 		ruleTerm.add(new CharacterRule("<"));
 		ruleTerm.add(new PointerRule(true,"rule-name"));
@@ -215,12 +215,12 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <literal> ::= '"' <text> '"' | "'" <text> "'" | '"' <character> '"' | "'" <character> "'" 
 	 */
 	protected void literalDefinition() {
-		OptionRule textOrSymbolSingle = new OptionRule();
+		ChoiceRule textOrSymbolSingle = new ChoiceRule();
 		textOrSymbolSingle.add(new PointerRule(true,"text"));
 		textOrSymbolSingle.add(new DelegateRule(true,"text",new CharacterRule('\'')));
 		textOrSymbolSingle.add(new DelegateRule(true,"text",new CharacterRule('<')));
 		textOrSymbolSingle.add(new DelegateRule(true,"text",new CharacterRule('>')));
-		OptionRule textOrSymbolDouble = new OptionRule();
+		ChoiceRule textOrSymbolDouble = new ChoiceRule();
 		textOrSymbolDouble.add(new PointerRule(true,"text"));
 		textOrSymbolDouble.add(new DelegateRule(true,"text", new CharacterRule('"')));
 		textOrSymbolDouble.add(new DelegateRule(true,"text",new CharacterRule('<')));
@@ -235,7 +235,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		singleQuote.add(new CharacterRule("'"));
 
 
-		OptionRule literal = new OptionRule();
+		ChoiceRule literal = new ChoiceRule();
 		literal.add(doubleQuote);
 		literal.add(singleQuote);
 		put("literal", literal);
@@ -266,7 +266,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <text> ::= <character> | <character> <text>
 	 */
 	protected void textDefinition(){
-		OptionRule text = new OptionRule();
+		ChoiceRule text = new ChoiceRule();
 		PointerRule character = new PointerRule(false,"character");
 		text.add(character);
 		SequenceRule more = new SequenceRule();
@@ -280,7 +280,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <character> ::= <upper-case> | <lower-case> | <number> | '-' | '_' | <opt-whitespace>
 	 */
 	protected void characterDefinition() {
-		OptionRule character = new OptionRule();
+		ChoiceRule character = new ChoiceRule();
 		character.add(new PointerRule(false,"upper-case"));
 		character.add(new PointerRule(false,"lower-case"));
 		character.add(new PointerRule(false,"number"));
@@ -299,7 +299,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <lower-case> ::= 'a' | 'b' | 'c' | 'd' | .. | 'z'
 	 */
 	protected void lowerCaseDefinition() {
-		OptionRule lowercase = new OptionRule();
+		ChoiceRule lowercase = new ChoiceRule();
 		for(char i = 'a' ;i <= 'z';i++){
 			lowercase.add(new CharacterRule(i));
 		}
@@ -311,7 +311,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <upper-case> ::= 'A' | 'B' | 'C' | 'D' | .. | 'Z'
 	 */
 	protected void upperCaseDefinition() {
-		OptionRule uppercase = new OptionRule();
+		ChoiceRule uppercase = new ChoiceRule();
 		for(char i = 'A' ;i <= 'Z';i++){
 			uppercase.add(new CharacterRule(i));
 		}
@@ -323,7 +323,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <number> ::= '0' | '1' | '2' | '3' | .. | '9'
 	 */
 	protected void numberDefinition() {
-		OptionRule number = new OptionRule();
+		ChoiceRule number = new ChoiceRule();
 		for(char i = '0' ;i <= '9';i++){
 			number.add(new CharacterRule(i));
 		}
@@ -335,7 +335,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <symbol> ::= '-' | '_' | '"' | "'" | ';' | '<' | '>' | '|' | ':' | '=' | '\';
 	 */
 	protected void symbolDefinition() {
-		OptionRule symbol = new OptionRule();
+		ChoiceRule symbol = new ChoiceRule();
 		symbol.add(new CharacterRule('_'));
 		symbol.add(new CharacterRule('-'));
 //		symbol.add(new CharacterRule('"'));

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.functional;
+package com.jackmoxley.moxy.rule.functional.list;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
@@ -24,7 +24,7 @@ import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
 @Beta
-public class OptionRule extends RuleList {
+public class ChoiceRule extends ListRule {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class OptionRule extends RuleList {
 	}
 	protected void visitLazy(RuleEvaluator visitor, RuleDecision decision) {
 		if(this.size() == 0){
-			decision.failed("OptionRule failed no rules to consider");
+			decision.failed("{} failed no rules to consider",this);
 			return;
 		}
 		RuleDecision finalDecision;
@@ -52,7 +52,7 @@ public class OptionRule extends RuleList {
 				return;
 			}
 		}
-		decision.failed("OptionRule failed");
+		decision.failed("{} failed",this);
 	}
 
 	protected void visitGreedy(RuleEvaluator visitor, RuleDecision decision) {
@@ -73,7 +73,7 @@ public class OptionRule extends RuleList {
 			decision.passed();
 			decision.add(finalDecision);
 		} else {
-			decision.failed("OptionRule failed");
+			decision.failed("ChoiceRule failed");
 		}
 	}
 
@@ -84,8 +84,12 @@ public class OptionRule extends RuleList {
 	public void setGreedy(boolean greedy) {
 		this.greedy = greedy;
 	}
+
+	
 	@Override
 	public String toString() {
-		return "OptionRule "+this.size();
+		StringBuilder builder = new StringBuilder();
+		builder.append("ChoiceRule [size=").append(size()).append("]");
+		return builder.toString();
 	}
 }

@@ -26,7 +26,7 @@ import java.awt.geom.Rectangle2D;
 
 import com.jackmoxley.moxy.renderer.swing.Dimensions;
 import com.jackmoxley.moxy.renderer.swing.Node;
-import com.jackmoxley.moxy.rule.functional.SequenceRule;
+import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 
 public class SequenceNode extends FunctionalNode{
 

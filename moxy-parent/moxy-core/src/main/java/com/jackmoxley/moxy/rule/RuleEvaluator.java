@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuleTree;
-import com.jackmoxley.moxy.rule.terminating.CharacterRule;
+import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 

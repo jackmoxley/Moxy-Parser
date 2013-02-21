@@ -28,10 +28,10 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
-import com.jackmoxley.moxy.rule.functional.OptionRule;
-import com.jackmoxley.moxy.rule.terminating.CharacterRangeRule;
-import com.jackmoxley.moxy.rule.terminating.CharacterRule;
-import com.jackmoxley.moxy.rule.terminating.StringRule;
+import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.terminating.text.CharacterRangeRule;
+import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
+import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 /**
  * Optimizes rules to be as effecient as possible.
@@ -44,7 +44,7 @@ public class CharacterRangeRuleOptimizer implements Optimizer {
 
 	public int visitRule(Grammar grammer, FunctionalRule rule) {
 		int rulesOptimized = 0;
-		if (rule instanceof OptionRule) {
+		if (rule instanceof ChoiceRule) {
 			List<RuleRange> ruleRanges = new ArrayList<RuleRange>();
 			for (Rule innerRule : rule) {
 				add(innerRule, ruleRanges);
@@ -73,10 +73,10 @@ public class CharacterRangeRuleOptimizer implements Optimizer {
 			CharacterRangeRule charRangeRule = (CharacterRangeRule) rule;
 			startChar = charRangeRule.getStart();
 			endChar = charRangeRule.getEnd();
-		} else if (rule instanceof StringRule) {
-			StringRule stringRule = (StringRule) rule;
-			if (stringRule.getValue().length() == 1) {
-				startChar = stringRule.getValue().charAt(0);
+		} else if (rule instanceof TextRule) {
+			TextRule textRule = (TextRule) rule;
+			if (textRule.getValue().length() == 1) {
+				startChar = textRule.getValue().charAt(0);
 				endChar = startChar;
 			} else {
 				return;

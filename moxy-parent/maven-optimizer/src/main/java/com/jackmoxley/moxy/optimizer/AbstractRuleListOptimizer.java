@@ -22,7 +22,7 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
-import com.jackmoxley.moxy.rule.functional.RuleList;
+import com.jackmoxley.moxy.rule.functional.list.ListRule;
 
 /**
  * Optimizes rules to be as effecient as possible.
@@ -31,7 +31,7 @@ import com.jackmoxley.moxy.rule.functional.RuleList;
  * 
  */
 @Beta
-public abstract class AbstractRuleListOptimizer <RL extends RuleList> implements Optimizer{
+public abstract class AbstractRuleListOptimizer <RL extends ListRule> implements Optimizer{
 
 
 	/**

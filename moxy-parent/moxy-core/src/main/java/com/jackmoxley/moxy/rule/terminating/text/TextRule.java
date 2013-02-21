@@ -16,78 +16,71 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating;
+package com.jackmoxley.moxy.rule.terminating.text;
+
+import java.util.List;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 import com.jackmoxley.moxy.token.CharacterToken;
 
 @Beta
-public class CharacterRangeRule extends TerminatingRule {
+public class TextRule extends TerminatingRule {
 
 	private static final long serialVersionUID = -1;
 
-	protected char start;
-
-	protected char end;
+	protected final CharSequence text;
 
 	@Override
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
 		int startIndex = decision.getStartIndex();
-		CharacterToken token = visitor.getSequence().tokenAt(startIndex);
-		
-		if(token != null && (token.getCharacter() >= start && token.getCharacter() <= end)) {
-			decision.passed();
-			decision.getTokens().add(token);
-			decision.setNextIndex(startIndex + 1);
-		} else {			
-			decision.failed("CharacterRangeRule '{}..{}' failed got '{}'",start,end, token == null ? null :token.getCharacter());
+		List<CharacterToken> tokens = visitor.getSequence().tokens(startIndex,
+				text.length());
+		int size = tokens.size();
+		if(size < text.length()){
+			decision.failed("{} failed, {} tokens returned, expected {}",this, size,text.length());
+			return;
 		}
-		
+		CharacterToken token;
+		for (int i = 0; i < size; i++) {
+			token = tokens.get(i);
+			char character = text.charAt(i);
+			char characterToCheck = token.getCharacter();
+			if (character != characterToCheck) {
+				decision.failed("{} failed at {} expected '{}' not '{}'",this, i,character,characterToCheck);
+				return;
+			}
+			decision.getTokens().add(token);
+		}
+		decision.passed();
+		decision.setNextIndex(startIndex + text.length());
 	}
 
-	public CharacterRangeRule(char start, char end) {
-		this.start = start;
-		this.end = end;
-	}
-
-	public CharacterRangeRule() {
+	public TextRule(CharSequence value) {
 		super();
+		this.text = value;
 	}
 
 
+
+	public CharSequence getValue() {
+		return text;
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("CharacterRangeRule [start=").append(start)
-				.append(", end=").append(end).append("]");
+		builder.append("TextRule [text=").append(text).append("]");
 		return builder.toString();
-	}
-
-	public char getStart() {
-		return start;
-	}
-
-	public void setStart(char start) {
-		this.start = start;
-	}
-
-	public char getEnd() {
-		return end;
-	}
-
-	public void setEnd(char end) {
-		this.end = end;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + end;
-		result = prime * result + start;
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
 
@@ -99,14 +92,13 @@ public class CharacterRangeRule extends TerminatingRule {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CharacterRangeRule other = (CharacterRangeRule) obj;
-		if (end != other.end)
-			return false;
-		if (start != other.start)
+		TextRule other = (TextRule) obj;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
 			return false;
 		return true;
 	}
-
-
 
 }

@@ -26,7 +26,7 @@ import org.junit.Test;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
-import com.jackmoxley.moxy.rule.functional.OptionRule;
+import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 
@@ -39,7 +39,7 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(false);
 		rule.add(fail);
 		rule.add(pass);
@@ -57,7 +57,7 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(false);
 		rule.add(pass);
 		rule.add(fail);
@@ -73,7 +73,7 @@ public class OrRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(false);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -88,7 +88,7 @@ public class OrRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(false);
 		rule.add(pass);
 		rule.add(pass2);
@@ -104,7 +104,7 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(false);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -120,7 +120,7 @@ public class OrRuleTest {
 		FalseRule fail2 = new FalseRule();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(false);
 		rule.add(fail);
 		rule.add(fail2);
@@ -136,7 +136,7 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		rule.add(fail);
 		rule.add(pass);
@@ -154,7 +154,7 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		rule.add(pass);
 		rule.add(fail);
@@ -170,7 +170,7 @@ public class OrRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -185,7 +185,7 @@ public class OrRuleTest {
 		TrueRule pass2 = new TrueRule();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		rule.add(pass);
 		rule.add(pass2);
@@ -201,7 +201,7 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -217,7 +217,7 @@ public class OrRuleTest {
 		FalseRule fail2 = new FalseRule();
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		rule.add(fail);
 		rule.add(fail2);
@@ -232,7 +232,7 @@ public class OrRuleTest {
 	public void testUnHappyPath_greedy_empty() {
 		RuleEvaluator visitor = new RuleEvaluator(null,null);
 		
-		OptionRule rule = new OptionRule();
+		ChoiceRule rule = new ChoiceRule();
 		rule.setGreedy(true);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());

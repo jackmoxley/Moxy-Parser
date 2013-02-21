@@ -20,7 +20,7 @@ package com.jackmoxley.moxy.optimizer;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.SequenceRule;
+import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 
 /**
  * Optimizes rules to be as effecient as possible.

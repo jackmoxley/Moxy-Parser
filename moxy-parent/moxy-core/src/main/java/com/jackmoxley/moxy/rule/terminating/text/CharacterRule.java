@@ -16,11 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating;
+package com.jackmoxley.moxy.rule.terminating.text;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 import com.jackmoxley.moxy.token.CharacterToken;
 
 @Beta
@@ -55,7 +56,10 @@ public class CharacterRule extends TerminatingRule {
 
 	@Override
 	public String toString() {
-		return "CharacterRule [character=" + character + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("CharacterRule [character=").append(character)
+				.append("]");
+		return builder.toString();
 	}
 
 	public char getCharacter() {

@@ -16,26 +16,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.optimizer;
+package com.jackmoxley.moxy.rule.functional.symbol;
+
+import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.RuleEvaluator;
 
 /**
- * Optimizes rules to be as effecient as possible.
+ * LinkRules and SymbolRules are very similar in that they both delegate to
+ * rules stored in the symbol map, the one difference being link rules adds its
+ * tokens to its parents tokens. Whilst a symbol rule generates a new branch.
  * 
  * @author jack
  * 
  */
 @Beta
-public class OptionRuleOptimizer extends AbstractRuleListOptimizer<ChoiceRule> implements Optimizer{
+public class DelegateRule extends SymbolRule {
 
-	@Override
-	protected ChoiceRule asInstance(Rule rule) {
-		return rule instanceof ChoiceRule ? (ChoiceRule)rule : null;
+	private static final long serialVersionUID = 1L;
+	
+	public DelegateRule(Boolean symbol, String pointer, Rule rule) {
+		super(symbol, pointer, rule);
 	}
 
-
-
+	
+	public DelegateRule() {
+		super();
+	}
+	
+	
+	protected Rule getDelegate(RuleEvaluator evaluator) {
+		if(rule == null){
+			rule = evaluator.ruleForName(pointer);
+		}
+		return rule;
+	}
 }

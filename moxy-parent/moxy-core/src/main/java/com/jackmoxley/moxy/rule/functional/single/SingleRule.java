@@ -16,68 +16,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.functional;
+package com.jackmoxley.moxy.rule.functional.single;
 
 import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
 /**
- * LinkRules and SymbolRules are very similar in that they both delegate to
- * rules stored in the symbol map, the one difference being link rules adds its
- * tokens to its parents tokens. Whilst a symbol rule generates a new branch.
+ * Single Rule is for functional rules that only have one rule to act against,
+ * by providing list like methods.
  * 
  * @author jack
  * 
  */
 @Beta
-public class DelegateRule extends SymbolRule {
+public abstract class SingleRule extends FunctionalRule {
 
 	private static final long serialVersionUID = 1L;
 	protected Rule rule;
-	
-	public DelegateRule(Boolean symbol, String pointer, Rule rule) {
-		super(symbol, pointer);
+
+	public SingleRule() {
+		super();
+	}
+
+	public SingleRule(Rule rule) {
 		this.rule = rule;
 	}
 
-	
-	public DelegateRule() {
-		super();
-	}
 	@Override
 	protected boolean doSubRulesTerminate(Set<Rule> history) {
-		if(rule == null){
+		if (rule == null) {
 			return true;
 		}
 		return rule.isNotCircular(history);
 	}
-	
-
-	protected Rule getDelegate(RuleEvaluator evaluator) {
-		if(rule == null){
-			rule = evaluator.ruleForName(pointer);
-		}
-		return rule;
-	}
-
 
 	public Rule getRule() {
 		return rule;
 	}
 
-
 	public void setRule(Rule rule) {
 		this.rule = rule;
 	}
 
-
 	@Override
 	public Rule get(int index) {
-		if(index == 0){
-			if(rule == null){
+		if (index == 0) {
+			if (rule == null) {
 				throw new IndexOutOfBoundsException();
 			}
 			return rule;
@@ -86,10 +73,9 @@ public class DelegateRule extends SymbolRule {
 		}
 	}
 
-
 	@Override
 	public Rule set(int index, Rule element) {
-		if(index == 0){
+		if (index == 0) {
 			Rule toReturn = rule;
 			rule = element;
 			return toReturn;
@@ -98,20 +84,18 @@ public class DelegateRule extends SymbolRule {
 		}
 	}
 
-
 	@Override
 	public void add(int index, Rule element) {
-		if(index == 0){
+		if (index == 0) {
 			rule = element;
 		} else {
 			throw new IndexOutOfBoundsException();
 		}
 	}
 
-
 	@Override
 	public Rule remove(int index) {
-		if(index == 0){
+		if (index == 0) {
 			Rule toReturn = rule;
 			rule = null;
 			return toReturn;
@@ -120,10 +104,8 @@ public class DelegateRule extends SymbolRule {
 		}
 	}
 
-
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return rule == null ? 0 : 1;
 	}
 

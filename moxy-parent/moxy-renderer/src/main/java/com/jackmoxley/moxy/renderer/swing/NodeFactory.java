@@ -28,8 +28,8 @@ import com.jackmoxley.moxy.renderer.swing.node.OptionNode;
 import com.jackmoxley.moxy.renderer.swing.node.SequenceNode;
 import com.jackmoxley.moxy.renderer.swing.node.TerminalNode;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.OptionRule;
-import com.jackmoxley.moxy.rule.functional.SequenceRule;
+import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 
 public class NodeFactory {
@@ -63,8 +63,8 @@ public class NodeFactory {
 			addNode(rule, node);
 			node.constructNodes(this);
 			return node;
-		} else if (rule instanceof OptionRule) {
-			OptionNode node = new OptionNode((OptionRule) rule, parent);
+		} else if (rule instanceof ChoiceRule) {
+			OptionNode node = new OptionNode((ChoiceRule) rule, parent);
 			addNode(rule, node);
 			node.constructNodes(this);
 			return node;

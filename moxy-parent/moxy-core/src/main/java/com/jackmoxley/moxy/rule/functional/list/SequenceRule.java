@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.functional;
+package com.jackmoxley.moxy.rule.functional.list;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
 @Beta
-public class SequenceRule extends RuleList  {
+public class SequenceRule extends ListRule  {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class SequenceRule extends RuleList  {
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
 
 		if(this.size() == 0){
-			decision.failed("SequentialRule failed no rules to consider");
+			decision.passed();
 			return;
 		}
 		RuleDecision subDecision;
@@ -40,7 +40,7 @@ public class SequenceRule extends RuleList  {
 			if (subDecision.hasPassed()) {
 				decision.add(subDecision);
 			} else {
-				decision.failed("SequentialRule failed rule due to SubRule: {}",i);
+				decision.failed("{} failed rule due to SubRule: {}",this,i);
 				return;
 			}
 		}
@@ -49,7 +49,10 @@ public class SequenceRule extends RuleList  {
 
 	@Override
 	public String toString() {
-		return "SequenceRule";
+		StringBuilder builder = new StringBuilder();
+		builder.append("SequenceRule [size=").append(size()).append("]");
+		return builder.toString();
 	}
+
 
 }

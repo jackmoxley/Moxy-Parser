@@ -27,7 +27,7 @@ import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
-import com.jackmoxley.moxy.rule.functional.PointerRule;
+import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 
