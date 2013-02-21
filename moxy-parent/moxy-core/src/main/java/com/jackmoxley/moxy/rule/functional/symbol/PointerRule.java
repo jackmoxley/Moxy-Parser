@@ -23,9 +23,18 @@ import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
 /**
- * LinkRules and SymbolRules are very similar in that they both delegate to
- * rules stored in the symbol map, the one difference being link rules adds its
- * tokens to its parents tokens. Whilst a symbol rule generates a new branch.
+ * Pointer rules allow us to point to directly to an already defined ruletree in
+ * our grammar. Because our grammars can be a collection from multiple places,
+ * this allows us to point to rules that may not of been created yet. The main
+ * use of this rule is to allow us to reuse already defined rules, rather than
+ * creating very length and often complicated rule graphs.
+ * 
+ * It should be pointed out that the fetched rule is not cached.
+ * 
+ * DelegateRules and PointerRules are very similar in that they both delegate to
+ * rules however DelegateRules have a rule already defined, and pointer rules
+ * fetch their's from the grammar each time.
+ * 
  * 
  * @author jack
  * 

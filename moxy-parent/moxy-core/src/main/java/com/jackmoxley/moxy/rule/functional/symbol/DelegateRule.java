@@ -23,9 +23,15 @@ import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
 /**
- * LinkRules and SymbolRules are very similar in that they both delegate to
- * rules stored in the symbol map, the one difference being link rules adds its
- * tokens to its parents tokens. Whilst a symbol rule generates a new branch.
+ * Delegate rules allow us to delegate to an existing rule, that we have defined
+ * elsewhere, their main use is envisaged for labeling parts of the parsed
+ * syntax to help us create a tree of tokens. As such by default symbol is set
+ * to true.
+ * 
+ * DelegateRules and PointerRules are very similar in that they both delegate to
+ * rules however DelegateRules have a rule already defined, and pointer rules
+ * fetch their's from the grammar each time.
+ * 
  * 
  * @author jack
  * 
@@ -34,21 +40,17 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
 public class DelegateRule extends SymbolRule {
 
 	private static final long serialVersionUID = 1L;
-	
-	public DelegateRule(Boolean symbol, String pointer, Rule rule) {
-		super(symbol, pointer, rule);
+
+	public DelegateRule(String pointer, Rule rule) {
+		super(true, pointer, rule);
 	}
 
-	
 	public DelegateRule() {
 		super();
+		symbol = true;
 	}
-	
-	
+
 	protected Rule getDelegate(RuleEvaluator evaluator) {
-		if(rule == null){
-			rule = evaluator.ruleForName(pointer);
-		}
 		return rule;
 	}
 }

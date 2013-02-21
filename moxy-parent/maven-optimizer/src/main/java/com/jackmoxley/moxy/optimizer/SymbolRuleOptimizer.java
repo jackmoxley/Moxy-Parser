@@ -44,7 +44,7 @@ public class SymbolRuleOptimizer implements Optimizer{
 				if (innerRule instanceof PointerRule) {
 					PointerRule pointer = (PointerRule)innerRule;
 					if(pointer.isSymbol()){
-						ruleList.set(i, new DelegateRule(true, pointer.getPointer(), grammer.get(pointer.getPointer()).getRule()));
+						ruleList.set(i, new DelegateRule(pointer.getPointer(), grammer.get(pointer.getPointer()).getRule()));
 						rulesOptimized++;
 					} else {
 						ruleList.set(i, grammer.get(pointer.getPointer()).getRule());

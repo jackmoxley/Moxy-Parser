@@ -26,9 +26,16 @@ import com.jackmoxley.moxy.rule.functional.single.SingleRule;
 import com.jackmoxley.moxy.token.SymbolToken;
 
 /**
- * LinkRules and SymbolRules are very similar in that they both delegate to
- * rules stored in the symbol map, the one difference being link rules adds its
- * tokens to its parents tokens. Whilst a symbol rule generates a new branch.
+ * Symbol rules allow us to delegate rule behaviour to an already definined
+ * RuleTree within our grammer, or via rule passed into the constructor. As the
+ * name implies they are merely a symbol and don't make any decisions and simply
+ * point to another rule and are effectively transparent in the parsing
+ * algorithim, bar the fact that the history of its decisions is retained.
+ * 
+ * However if the instance variable symbol is set to true, rather than tokens
+ * being copied to the end of the parents tokens, we effectively create a new
+ * branch called a symbol token and add all child rules tokens to that, and then
+ * add the symbol token to the parent. Thus creating a tree of tokens.
  * 
  * @author jack
  * 
@@ -39,7 +46,7 @@ public abstract class SymbolRule extends SingleRule {
 	private static final long serialVersionUID = 1L;
 
 	protected String pointer;
-	protected Boolean symbol = true;
+	protected Boolean symbol = false;
 
 	public SymbolRule() {
 		super();
