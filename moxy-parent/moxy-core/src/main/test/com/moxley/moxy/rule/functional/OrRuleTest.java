@@ -27,14 +27,14 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 import com.jackmoxley.moxy.rule.terminating.collecting.SkipRule;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
 @Beta
-public class ChoiceRuleTest {
+public class OrRuleTest {
 
 	@Test
 	public void testHappyPath_lazy_fail_pass() {
@@ -42,8 +42,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Lazy);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.First);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -60,8 +60,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Lazy);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.First);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -76,8 +76,8 @@ public class ChoiceRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Lazy);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.First);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -91,8 +91,8 @@ public class ChoiceRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Lazy);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.First);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -107,8 +107,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Lazy);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.First);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -123,8 +123,8 @@ public class ChoiceRuleTest {
 		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Lazy);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.First);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -140,8 +140,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -158,8 +158,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -174,8 +174,8 @@ public class ChoiceRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -191,8 +191,8 @@ public class ChoiceRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -207,8 +207,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -223,8 +223,8 @@ public class ChoiceRuleTest {
 		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -238,8 +238,8 @@ public class ChoiceRuleTest {
 	public void testUnHappyPath_longest_empty() {
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -253,8 +253,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -271,8 +271,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -287,8 +287,8 @@ public class ChoiceRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -303,8 +303,8 @@ public class ChoiceRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -319,8 +319,8 @@ public class ChoiceRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -335,8 +335,8 @@ public class ChoiceRuleTest {
 		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -350,8 +350,8 @@ public class ChoiceRuleTest {
 	public void testUnHappyPath_shortest_empty() {
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -364,8 +364,8 @@ public class ChoiceRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -386,8 +386,8 @@ public class ChoiceRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Longest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Longest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -406,8 +406,8 @@ public class ChoiceRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -427,8 +427,8 @@ public class ChoiceRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		ChoiceRule rule = new ChoiceRule();
-		rule.setType(ChoiceRule.Type.Shortest);
+		OrRule rule = new OrRule();
+		rule.setType(OrRule.Type.Shortest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);

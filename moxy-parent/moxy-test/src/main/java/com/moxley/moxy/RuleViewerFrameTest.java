@@ -23,7 +23,7 @@ import java.awt.HeadlessException;
 import com.jackmoxley.moxy.realizer.RealizedHolder;
 import com.jackmoxley.moxy.renderer.swing.RuleViewerFrame;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRangeRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
@@ -39,7 +39,7 @@ public class RuleViewerFrameTest  {
 		CharacterRule rule2 = new CharacterRule('c');
 		CharacterRule rule3 = new CharacterRule('d');
 		SequenceRule sequence = new SequenceRule();
-		ChoiceRule option = new ChoiceRule();
+		OrRule option = new OrRule();
 		sequence.add(new TextRule("Hello World!"));
 		sequence.add(option);
 		sequence.add(option);

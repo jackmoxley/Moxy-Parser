@@ -28,7 +28,7 @@ import com.jackmoxley.moxy.token.CharacterToken;
  * CharacterRangeRule allows us to check whether the character at this point in
  * the stream is between inclusive of the start and end characters. This is
  * envisaged mostly for being able to select any upper case character or any
- * lower case character without using ChoiceRule.
+ * lower case character without using OrRule.
  * 
  * @author jack
  * 

@@ -28,7 +28,7 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRangeRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
@@ -44,7 +44,7 @@ public class CharacterRangeRuleOptimizer implements Optimizer {
 
 	public int visitRule(Grammar grammer, FunctionalRule rule) {
 		int rulesOptimized = 0;
-		if (rule instanceof ChoiceRule) {
+		if (rule instanceof OrRule) {
 			List<RuleRange> ruleRanges = new ArrayList<RuleRange>();
 			for (Rule innerRule : rule) {
 				add(innerRule, ruleRanges);

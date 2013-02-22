@@ -30,21 +30,17 @@ import com.jackmoxley.moxy.token.Token;
  */
 public abstract class CollectingRule extends TerminatingRule {
 
-
 	private static final long serialVersionUID = -1l;
 	protected boolean collecting;
 	
-
 	public CollectingRule() {
 		super();
 	}
 	
-
 	public CollectingRule(boolean collecting) {
 		super();
 		this.collecting = collecting;
 	}
-
 	
 	protected void passed(RuleDecision decision, int nextIndex, List<? extends Token> tokens){
 		if(collecting){
@@ -62,5 +58,4 @@ public abstract class CollectingRule extends TerminatingRule {
 		this.collecting = collecting;
 	}
 	
-
 }

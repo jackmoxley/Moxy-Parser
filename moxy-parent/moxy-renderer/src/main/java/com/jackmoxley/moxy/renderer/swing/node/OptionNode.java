@@ -31,11 +31,11 @@ import java.util.List;
 
 import com.jackmoxley.moxy.renderer.swing.Dimensions;
 import com.jackmoxley.moxy.renderer.swing.Node;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.OrRule;
 
 public class OptionNode extends FunctionalNode {
 
-	public OptionNode(ChoiceRule rule, Node<?> parent) {
+	public OptionNode(OrRule rule, Node<?> parent) {
 		super(rule, parent);
 	}
 

@@ -48,7 +48,7 @@
 		</moxy:method>
 	</moxy:bean>
 
-	<moxy:bean name="expression" class="com.jackmoxley.moxy.rule.functional.list.ChoiceRule"
+	<moxy:bean name="expression" class="com.jackmoxley.moxy.rule.functional.list.OrRule"
 		extends="ruleList" />
 		
 	<moxy:bean name="list" class="com.jackmoxley.moxy.rule.functional.list.SequenceRule"

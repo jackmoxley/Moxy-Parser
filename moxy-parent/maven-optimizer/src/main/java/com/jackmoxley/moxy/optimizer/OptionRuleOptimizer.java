@@ -20,7 +20,7 @@ package com.jackmoxley.moxy.optimizer;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
+import com.jackmoxley.moxy.rule.functional.list.OrRule;
 
 /**
  * Optimizes rules to be as effecient as possible.
@@ -29,11 +29,11 @@ import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
  * 
  */
 @Beta
-public class OptionRuleOptimizer extends AbstractRuleListOptimizer<ChoiceRule> implements Optimizer{
+public class OptionRuleOptimizer extends AbstractRuleListOptimizer<OrRule> implements Optimizer{
 
 	@Override
-	protected ChoiceRule asInstance(Rule rule) {
-		return rule instanceof ChoiceRule ? (ChoiceRule)rule : null;
+	protected OrRule asInstance(Rule rule) {
+		return rule instanceof OrRule ? (OrRule)rule : null;
 	}
 
 

@@ -23,57 +23,35 @@ import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
+/**
+ * The and rule executes against every rule and if they all pass, it picks the
+ * longest, shortest or first.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
-public class ChoiceRule extends ListRule {
+public class AndRule extends LogicalListRule {
 
 	private static final long serialVersionUID = 1L;
 
-	public enum Type {
-		Lazy, Shortest, Longest
-	}
-
-	private Type type = Type.Lazy;
-
-	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-
-		if (this.size() == 0) {
-			decision.failed("{} failed no rules to consider", this);
-			return;
-		}
-
-		RuleDecision finalDecision = null;
-		switch (type) {
-		case Shortest:
-			finalDecision = considerShortest(visitor, decision);
-			break;
-		case Longest:
-			finalDecision = considerLongest(visitor, decision);
-			break;
-		case Lazy:
-		default:
-			finalDecision = considerLazy(visitor, decision);
-			break;
-		}
-
-		if (finalDecision != null) {
-			decision.add(finalDecision);
-			decision.passed();
-		} else {
-			decision.failed("{} failed", this);
-		}
-	}
-
-	protected RuleDecision considerLazy(RuleEvaluator visitor,
+	protected RuleDecision considerFirst(RuleEvaluator visitor,
 			RuleDecision decision) {
-		RuleDecision finalDecision;
+		RuleDecision finalDecision = null;
+
+		RuleDecision subDecision;
 		for (Rule rule : this) {
-			finalDecision = visitor.evaluate(rule, decision.getStartIndex());
-			if (finalDecision.hasPassed()) {
-				return finalDecision;
+			subDecision = visitor.evaluate(rule, decision.getStartIndex());
+			if (subDecision.hasPassed()) {
+				if (finalDecision == null) {
+					finalDecision = subDecision;
+				} else {
+					return null;
+				}
+
 			}
 		}
-		return null;
+		return finalDecision;
 	}
 
 	protected RuleDecision considerShortest(RuleEvaluator visitor,
@@ -88,6 +66,8 @@ public class ChoiceRule extends ListRule {
 						|| finalDecision.getNextIndex() > subDecision
 								.getNextIndex()) {
 					finalDecision = subDecision;
+				} else {
+					return null;
 				}
 			}
 		}
@@ -106,26 +86,12 @@ public class ChoiceRule extends ListRule {
 						|| finalDecision.getNextIndex() < subDecision
 								.getNextIndex()) {
 					finalDecision = subDecision;
+				} else {
+					return null;
 				}
 			}
 		}
 		return finalDecision;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ChoiceRule [type=").append(type).append(", size=")
-				.append(size()).append("]");
-		return builder.toString();
 	}
 
 }

@@ -21,8 +21,8 @@ package com.jackmoxley.moxy.grammer.bnf;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
-import com.jackmoxley.moxy.rule.functional.list.ChoiceRule.Type;
+import com.jackmoxley.moxy.rule.functional.list.LogicalListRule.Type;
+import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.symbol.DelegateRule;
 import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
@@ -83,7 +83,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	protected void syntaxDefinition() {
 		PointerRule rule = new PointerRule(true,"rule");
 		
-		ChoiceRule syntax = new ChoiceRule();
+		OrRule syntax = new OrRule();
 		syntax.setType(Type.Longest);
 		SequenceRule ended = new SequenceRule();
 		ended.add(rule);
@@ -121,11 +121,11 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <opt-whitespace> ::= " " <opt-whitespace> | ""  ; "" is empty string, i.e. no whitespace
 	 */
 	protected void optWhitespaceDefinition() {
-		ChoiceRule singlewhitespace = new ChoiceRule();
+		OrRule singlewhitespace = new OrRule();
 		for(char i = 0 ;i <= ' ';i++){
 			singlewhitespace.add(new CharacterRule(i));
 		}
-		ChoiceRule optionalWhitespace = new ChoiceRule();
+		OrRule optionalWhitespace = new OrRule();
 		optionalWhitespace.setType(Type.Longest);
 		SequenceRule whitespace = new SequenceRule();
 		whitespace.add(singlewhitespace);
@@ -143,7 +143,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		PointerRule list = new PointerRule(true,"list");
 		PointerRule optWhitespace = new PointerRule(false,"opt-whitespace");
 		
-		ChoiceRule expression = new ChoiceRule();
+		OrRule expression = new OrRule();
 		expression.setType(Type.Longest);
 		expression.add(list);
 		
@@ -175,7 +175,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	protected void listDefinition() {
 
 		PointerRule term = new PointerRule(false,"term");
-		ChoiceRule list = new ChoiceRule();
+		OrRule list = new OrRule();
 		list.setType(Type.Longest);
 		list.add(term);
 		SequenceRule nextItem = new SequenceRule();
@@ -193,7 +193,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <term>    ::= <literal> | "<" <rule-name> ">"
 	 */
 	protected void termDefinition() {
-		ChoiceRule term = new ChoiceRule();
+		OrRule term = new OrRule();
 		term.setType(Type.Longest);
 		SequenceRule ruleTerm = new SequenceRule();
 		ruleTerm.add(new CharacterRule("<"));
@@ -210,13 +210,13 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <literal> ::= '"' <text> '"' | "'" <text> "'" | '"' <character> '"' | "'" <character> "'" 
 	 */
 	protected void literalDefinition() {
-		ChoiceRule textOrSymbolSingle = new ChoiceRule();
+		OrRule textOrSymbolSingle = new OrRule();
 		textOrSymbolSingle.setType(Type.Longest);
 		textOrSymbolSingle.add(new PointerRule(true,"text"));
 		textOrSymbolSingle.add(new DelegateRule("text",new CharacterRule('\'')));
 		textOrSymbolSingle.add(new DelegateRule("text",new CharacterRule('<')));
 		textOrSymbolSingle.add(new DelegateRule("text",new CharacterRule('>')));
-		ChoiceRule textOrSymbolDouble = new ChoiceRule();
+		OrRule textOrSymbolDouble = new OrRule();
 		textOrSymbolDouble.setType(Type.Longest);
 		textOrSymbolDouble.add(new PointerRule(true,"text"));
 		textOrSymbolDouble.add(new DelegateRule("text", new CharacterRule('"')));
@@ -232,7 +232,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		singleQuote.add(new CharacterRule("'"));
 
 
-		ChoiceRule literal = new ChoiceRule();
+		OrRule literal = new OrRule();
 		literal.add(doubleQuote);
 		literal.add(singleQuote);
 		put("literal", literal);
@@ -263,7 +263,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <text> ::= <character> | <character> <text>
 	 */
 	protected void textDefinition(){
-		ChoiceRule text = new ChoiceRule();
+		OrRule text = new OrRule();
 		text.setType(Type.Longest);
 		PointerRule character = new PointerRule(false,"character");
 		text.add(character);
@@ -278,7 +278,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <character> ::= <upper-case> | <lower-case> | <number> | '-' | '_' | <opt-whitespace>
 	 */
 	protected void characterDefinition() {
-		ChoiceRule character = new ChoiceRule();
+		OrRule character = new OrRule();
 		character.add(new PointerRule(false,"upper-case"));
 		character.add(new PointerRule(false,"lower-case"));
 		character.add(new PointerRule(false,"number"));
@@ -296,7 +296,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <lower-case> ::= 'a' | 'b' | 'c' | 'd' | .. | 'z'
 	 */
 	protected void lowerCaseDefinition() {
-		ChoiceRule lowercase = new ChoiceRule();
+		OrRule lowercase = new OrRule();
 		for(char i = 'a' ;i <= 'z';i++){
 			lowercase.add(new CharacterRule(i));
 		}
@@ -307,7 +307,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <upper-case> ::= 'A' | 'B' | 'C' | 'D' | .. | 'Z'
 	 */
 	protected void upperCaseDefinition() {
-		ChoiceRule uppercase = new ChoiceRule();
+		OrRule uppercase = new OrRule();
 		for(char i = 'A' ;i <= 'Z';i++){
 			uppercase.add(new CharacterRule(i));
 		}
@@ -318,7 +318,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <number> ::= '0' | '1' | '2' | '3' | .. | '9'
 	 */
 	protected void numberDefinition() {
-		ChoiceRule number = new ChoiceRule();
+		OrRule number = new OrRule();
 		for(char i = '0' ;i <= '9';i++){
 			number.add(new CharacterRule(i));
 		}
@@ -329,7 +329,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 * <symbol> ::= '-' | '_' | '"' | "'" | ';' | '<' | '>' | '|' | ':' | '=' | '\';
 	 */
 	protected void symbolDefinition() {
-		ChoiceRule symbol = new ChoiceRule();
+		OrRule symbol = new OrRule();
 		symbol.add(new CharacterRule('_'));
 		symbol.add(new CharacterRule('-'));
 //		symbol.add(new CharacterRule('"'));

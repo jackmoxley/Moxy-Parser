@@ -25,17 +25,24 @@ import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.token.CharacterToken;
 
+/**
+ * Skip rule allows us to determine the number of tokens to skip. As long as
+ * that many characters exist we skip past them.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
 public class SkipRule extends CollectingRule {
 
 	private static final long serialVersionUID = 163168561429254410L;
 
 	private int tokensToSkip;
-	
+
 	public SkipRule() {
 		super();
 	}
-	
+
 	public SkipRule(boolean collecting) {
 		super(collecting);
 	}
@@ -44,7 +51,7 @@ public class SkipRule extends CollectingRule {
 		super();
 		this.tokensToSkip = tokensToSkip;
 	}
-	
+
 	public SkipRule(boolean collecting, int tokensToSkip) {
 		super(collecting);
 		this.tokensToSkip = tokensToSkip;
@@ -52,14 +59,16 @@ public class SkipRule extends CollectingRule {
 
 	@Override
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-		final int start = decision.getStartIndex(); //?
-		final int end = start+tokensToSkip;
-		List<CharacterToken> tokens = visitor.getSequence().tokens(start, tokensToSkip);
+		final int start = decision.getStartIndex(); // ?
+		final int end = start + tokensToSkip;
+		List<CharacterToken> tokens = visitor.getSequence().tokens(start,
+				tokensToSkip);
 		int tokensReturned = tokens.size();
-		if(tokensToSkip == tokensReturned) {
+		if (tokensToSkip == tokensReturned) {
 			passed(decision, end, tokens);
 		} else {
-			decision.failed("{} has failed as only {} tokens left", this, tokensReturned);
+			decision.failed("{} has failed as only {} tokens left", this,
+					tokensReturned);
 		}
 	}
 
