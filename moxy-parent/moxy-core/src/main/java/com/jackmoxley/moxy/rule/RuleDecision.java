@@ -27,18 +27,36 @@ import com.jackmoxley.moxy.token.Token;
 @Beta
 public class RuleDecision {
 
-	private DecisionState state = DecisionState.Unconsidered;
+	public enum State {
+		Passed,
+		Failed,
+		Considering,
+		Unconsidered
+	}
+	
+	private static final Object[] NO_ARGS = new Object[0];
+	private static RuleDecision cyclicFail = new RuleDecision(0);
+	static {
+		cyclicFail.failed("cyclic", NO_ARGS);
+	}
+	
+	
+	private State state = State.Unconsidered;
 	private List<Token> tokens = null;
 	private int nextIndex;
 	private final int startIndex;
 	private String failure = "";
-	private static final Object[] NO_ARGS = new Object[0];
 	private Object[] arguments = NO_ARGS;
+
 
 	public RuleDecision(int startIndex) {
 		super();
 		this.startIndex = startIndex;
 		this.nextIndex = startIndex;
+	}
+	
+	public static RuleDecision cyclic(){
+		return cyclicFail;
 	}
 	
 	public void add(RuleDecision subDecision){
@@ -64,11 +82,11 @@ public class RuleDecision {
 		this.nextIndex = nextIndex;
 	}
 
-	public DecisionState getState() {
+	public State getState() {
 		return state;
 	}
 
-	public void setState(DecisionState state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 
@@ -84,40 +102,38 @@ public class RuleDecision {
 	}
 
 	public boolean hasPassed() {
-		return DecisionState.Passed.equals(state);
+		return State.Passed.equals(state);
 	}
 
 	public boolean hasFailed() {
-		return DecisionState.Failed.equals(state);
+		return State.Failed.equals(state);
 	}
 
 	public boolean isUnconsidered() {
-		return DecisionState.Unconsidered.equals(state);
+		return State.Unconsidered.equals(state);
 	}
 
 	public boolean isConsidering() {
-		return DecisionState.Considering.equals(state);
+		return State.Considering.equals(state);
 	}
 	public void passed() {
-		state = DecisionState.Passed;
+		state = State.Passed;
 		failure = "";
 		arguments = NO_ARGS;
-//		logger.debug("Passed");
 	}
 
 	public void failed(String failure, Object... arguments) {
-		state = DecisionState.Failed;
-//		logger.debug(failure,arguments);
+		state = State.Failed;
 		this.failure = failure;
 		this.arguments = arguments;
 	}
 
 	public void unconsidered() {
-		state = DecisionState.Unconsidered;
+		state = State.Unconsidered;
 	}
 
 	public void considering() {
-		state = DecisionState.Considering;
+		state = State.Considering;
 	}
 
 

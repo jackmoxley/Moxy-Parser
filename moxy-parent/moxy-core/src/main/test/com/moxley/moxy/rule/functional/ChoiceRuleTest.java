@@ -49,7 +49,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		
 	}
 	
@@ -67,7 +67,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	@Test
 	public void testHappyPath_lazy_pass_pass() {
@@ -98,7 +98,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -130,7 +130,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -147,7 +147,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		
 	}
 	
@@ -165,7 +165,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -180,7 +180,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 
 	
@@ -198,7 +198,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -213,7 +213,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -230,7 +230,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 
 	@Test
@@ -243,7 +243,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(0, visitor.getRuleDecisions(0).size());
+		assertEquals(0, visitor.getHistory().getRuleDecisions(0).size());
 	}
 
 	@Test
@@ -260,7 +260,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		
 	}
 	
@@ -278,7 +278,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -293,7 +293,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -310,7 +310,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -325,7 +325,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(1, visitor.getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -342,7 +342,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 
 	@Test
@@ -355,7 +355,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(0, visitor.getRuleDecisions(0).size());
+		assertEquals(0, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	@Test
 	public void testHappyPath_longest_passLong_passShort() {
@@ -371,7 +371,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		assertEquals(decision.getTokens().size(), 2);
 		assertEquals(decision.getTokens().get(0).getValue(),"a");
 		assertEquals(decision.getTokens().get(1).getValue(),"b");
@@ -393,7 +393,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		assertEquals(decision.getTokens().size(), 2);
 		assertEquals(decision.getTokens().get(0).getValue(),"a");
 		assertEquals(decision.getTokens().get(1).getValue(),"b");
@@ -413,7 +413,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		assertEquals(decision.getTokens().size(), 1);
 		assertEquals(decision.getTokens().get(0).getValue(),"a");
 		
@@ -434,7 +434,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getRuleDecisions(0).size());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 		assertEquals(decision.getTokens().size(), 1);
 		assertEquals(decision.getTokens().get(0).getValue(),"a");
 		
