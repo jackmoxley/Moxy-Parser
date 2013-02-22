@@ -21,7 +21,6 @@ package com.jackmoxley.moxy.rule.terminating.collecting;
 import java.util.List;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 import com.jackmoxley.moxy.token.Token;
 

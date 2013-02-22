@@ -21,9 +21,6 @@ package com.jackmoxley.moxy.rule;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Map.Entry;
-
-import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
 
 /**
  * @author jack
