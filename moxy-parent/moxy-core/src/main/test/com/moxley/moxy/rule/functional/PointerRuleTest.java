@@ -27,6 +27,7 @@ import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
@@ -39,7 +40,7 @@ public class PointerRuleTest {
 	public void testHappyPath_symbol_pass() {
 		RuledGrammar grammar = new RuledGrammar();
 		grammar.put("passed", TrueRule.get());
-		RuleEvaluator visitor = new RuleEvaluator(grammar,null);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),null);
 		
 		PointerRule rule = new PointerRule();
 		rule.setSymbol(true);
@@ -56,7 +57,7 @@ public class PointerRuleTest {
 	public void testUnHappyPath_symbol_fail() {
 		RuledGrammar grammar = new RuledGrammar();
 		grammar.put("failed", FalseRule.get());
-		RuleEvaluator visitor = new RuleEvaluator(grammar,null);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),null);
 		
 		PointerRule rule = new PointerRule();
 		rule.setSymbol(true);
@@ -71,7 +72,7 @@ public class PointerRuleTest {
 	@Test
 	public void testUnHappyPath_symbol_null() {
 		RuledGrammar grammar = new RuledGrammar();
-		RuleEvaluator visitor = new RuleEvaluator(grammar,null);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),null);
 		
 		PointerRule rule = new PointerRule();
 		rule.setSymbol(true);
@@ -88,7 +89,7 @@ public class PointerRuleTest {
 	public void testHappyPath_link_pass() {
 		RuledGrammar grammar = new RuledGrammar();
 		grammar.put("passed", TrueRule.get());
-		RuleEvaluator visitor = new RuleEvaluator(grammar,null);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),null);
 		
 		PointerRule rule = new PointerRule();
 		rule.setSymbol(false);
@@ -105,7 +106,7 @@ public class PointerRuleTest {
 	public void testUnHappyPath_link_fail() {
 		RuledGrammar grammar = new RuledGrammar();
 		grammar.put("failed", FalseRule.get());
-		RuleEvaluator visitor = new RuleEvaluator(grammar,null);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),null);
 		
 		PointerRule rule = new PointerRule();
 		rule.setSymbol(false);
@@ -120,7 +121,7 @@ public class PointerRuleTest {
 	@Test
 	public void testUnHappyPath_link_null() {
 		Grammar grammar = new RuledGrammar();
-		RuleEvaluator visitor = new RuleEvaluator(grammar,null);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),null);
 		
 		
 		PointerRule rule = new PointerRule();

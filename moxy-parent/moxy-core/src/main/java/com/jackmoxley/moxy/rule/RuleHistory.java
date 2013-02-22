@@ -18,62 +18,15 @@
  */
 package com.jackmoxley.moxy.rule;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.Map.Entry;
-
-import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
 
 /**
  * @author jack
  *
  */
-public class RuleHistory {
-
-	private TreeMap<Integer, Map<Rule, RuleDecision>> rulesHistory = new TreeMap<Integer, Map<Rule, RuleDecision>>();
+public interface RuleHistory {
 	
-	public Entry<Rule, RuleDecision> getLastPassed() {
-		for (Entry<Integer, Map<Rule, RuleDecision>> entry : rulesHistory
-				.descendingMap().entrySet()) {
-			for (Entry<Rule, RuleDecision> ruleEntry : entry.getValue()
-					.entrySet()) {
-				if (ruleEntry.getKey() instanceof CharacterRule
-						&& ruleEntry.getValue().hasPassed()) {
-					return ruleEntry;
-				}
-			}
-		}
-		return null;
-	}
+	public Map<Rule, RuleDecision> getRuleDecisions(int startIndex);
 
-	public Entry<Rule, RuleDecision> getLast() {
-		for (Entry<Integer, Map<Rule, RuleDecision>> entry : rulesHistory
-				.descendingMap().entrySet()) {
-			for (Entry<Rule, RuleDecision> ruleEntry : entry.getValue()
-					.entrySet()) {
-				return ruleEntry;
-			}
-		}
-		return null;
-	}
-
-	public Map<Rule, RuleDecision> getRuleDecisions(int startIndex) {
-		Map<Rule, RuleDecision> history = rulesHistory.get(startIndex);
-		if (history == null) {
-			history = new HashMap<Rule, RuleDecision>();
-			rulesHistory.put(startIndex, history);
-		}
-		return history;
-	}
-
-	public RuleDecision getRuleDecision(Rule rule, int startIndex) {
-		Map<Rule, RuleDecision> history = getRuleDecisions(startIndex);
-		RuleDecision decision = history.get(rule);
-		if (decision == null) {
-			decision = new RuleDecision(startIndex);
-			history.put(rule, decision);
-		}
-		return decision;
-	}
+	public RuleDecision getRuleDecision(Rule rule, int startIndex);
 }

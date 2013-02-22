@@ -35,6 +35,7 @@ import com.jackmoxley.moxy.optimizer.SymbolRuleOptimizer;
 import com.jackmoxley.moxy.realizer.XMLRealizer;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.SymbolToken;
 import com.jackmoxley.moxy.token.Token;
@@ -112,43 +113,50 @@ public class RuleVisitorTest {
 		long time = 0;
 		Runtime runtime = Runtime.getRuntime();
 
-		System.gc();
+		runtime.gc();
 		Thread.sleep(2000l);
 		long startMemory = runtime.totalMemory() - runtime.freeMemory();
 		long currentMemory = startMemory;
 		System.out.println((currentMemory / 1024) + "kb");
+		RuleEvaluator visitor;
+		RuleDecision decision;
 		for (int r = ramp; r <= 100; r += ramp) {
 
+		
 			time = System.nanoTime();
 			for (int i = 0; i < r; i++) {
 
-				tokens = parse(stream, grammer, "syntax");
+				visitor = new RuleEvaluator(grammer,new RuleHistoryTreeMap(),stream);
+				decision = visitor.evaluate(grammer.get("syntax"));
+				tokens = decision.getTokens();
 			}
 			time = System.nanoTime() - time;
 			currentMemory = (runtime.totalMemory() - runtime.freeMemory())
 					- startMemory;
-			System.gc();
-			Thread.sleep(1000l);
+//			runtime.gc();
+//			Thread.sleep(2000l);
 			System.out.println(r + " Unoptimized " + formatNanos(time) + "s "
 					+ (currentMemory / 1024) + "kb");
 
 			time = System.nanoTime();
 			for (int i = 0; i < (r); i++) {
 
-				tokens = parse(stream, grammer2, "syntax");
+				visitor = new RuleEvaluator(grammer2,new RuleHistoryTreeMap(),stream);
+				decision = visitor.evaluate(grammer2.get("syntax"));
+				tokens = decision.getTokens();
 			}
 			time = System.nanoTime() - time;
 			currentMemory = (runtime.totalMemory() - runtime.freeMemory())
 					- startMemory;
-			System.gc();
-			Thread.sleep(1000l);
+//			runtime.gc();
+//			Thread.sleep(2000l);
 			System.out.println(r + " Optimized " + formatNanos(time) + "s "
 					+ (currentMemory / 1024) + "kb");
 
 		}
 		heirachy = 0;
-		printSymbols(heirachy, tokens);
-		System.out.println(stream);
+//		printSymbols(heirachy, tokens);
+//		System.out.println(stream);
 	}
 
 	private static String formatNanos(long nanos) {
@@ -176,7 +184,7 @@ public class RuleVisitorTest {
 	}
 	
 	public static List<Token> parse(TokenStream<CharacterToken> input, Grammar grammar, String start){
-		RuleEvaluator visitor = new RuleEvaluator(grammar,input);
+		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),input);
 		RuleDecision decision = visitor.evaluate(grammar.get(start));
 		return decision.getTokens();
 	}

@@ -62,11 +62,11 @@ public class RuleEvaluator {
 	 * @param grammar
 	 * @param sequence
 	 */
-	public RuleEvaluator(Grammar grammar, TokenStream<CharacterToken> sequence) {
+	public RuleEvaluator(Grammar grammar, RuleHistory history, TokenStream<CharacterToken> sequence) {
 		super();
 		this.grammar = grammar;
 		this.sequence = sequence;
-		this.history = new RuleHistory();
+		this.history = history;
 	}
 
 	public RuleDecision evaluate(RuleTree rule) {
