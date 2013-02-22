@@ -29,9 +29,10 @@ public class FalseRule extends TerminatingRule {
 
 	private static final FalseRule instance = new FalseRule();
 	
-	public FalseRule(){
+	private FalseRule(){
 		
 	}
+	
 	public static FalseRule get(){
 		return instance;
 	}
@@ -39,7 +40,7 @@ public class FalseRule extends TerminatingRule {
 	
 	@Override
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-		decision.failed("FailingRule failed");
+		decision.failed("FalseRule failed");
 	}
 	
 }

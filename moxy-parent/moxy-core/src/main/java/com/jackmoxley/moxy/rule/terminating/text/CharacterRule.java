@@ -24,6 +24,13 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 import com.jackmoxley.moxy.token.CharacterToken;
 
+/**
+ * CharacterRule provides functionality to determine whether the next charchter
+ * in the token stream is equal to the one specified in this instance.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
 public class CharacterRule extends TerminatingRule {
 
@@ -35,12 +42,13 @@ public class CharacterRule extends TerminatingRule {
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
 		int startIndex = decision.getStartIndex();
 		CharacterToken token = visitor.getSequence().tokenAt(startIndex);
-		if(token != null && character == token.getCharacter()) {
+		if (token != null && character == token.getCharacter()) {
 			decision.passed();
 			decision.getTokens().add(token);
 			decision.setNextIndex(startIndex + 1);
-		} else {			
-			decision.failed("CharacterRule '{}' failed got '{}'",character, token);
+		} else {
+			decision.failed("CharacterRule '{}' failed got '{}'", character,
+					token);
 
 		}
 	}

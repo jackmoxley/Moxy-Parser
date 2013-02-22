@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating;
+package com.jackmoxley.moxy.rule.terminating.collecting;
 
 import java.util.List;
 
@@ -26,18 +26,27 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.token.CharacterToken;
 
 @Beta
-public class SkipRule extends TerminatingRule {
+public class SkipRule extends CollectingRule {
 
 	private static final long serialVersionUID = 163168561429254410L;
 
 	private int tokensToSkip;
 	
-	public SkipRule(){
-		
+	public SkipRule() {
+		super();
 	}
 	
+	public SkipRule(boolean collecting) {
+		super(collecting);
+	}
+
 	public SkipRule(int tokensToSkip) {
 		super();
+		this.tokensToSkip = tokensToSkip;
+	}
+	
+	public SkipRule(boolean collecting, int tokensToSkip) {
+		super(collecting);
 		this.tokensToSkip = tokensToSkip;
 	}
 
@@ -48,9 +57,7 @@ public class SkipRule extends TerminatingRule {
 		List<CharacterToken> tokens = visitor.getSequence().tokens(start, tokensToSkip);
 		int tokensReturned = tokens.size();
 		if(tokensToSkip == tokensReturned) {
-			decision.getTokens().addAll(tokens);
-			decision.setNextIndex(end);
-			decision.passed();
+			passed(decision, end, tokens);
 		} else {
 			decision.failed("{} has failed as only {} tokens left", this, tokensReturned);
 		}
@@ -68,8 +75,7 @@ public class SkipRule extends TerminatingRule {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("SkipRule [tokensToSkip=").append(tokensToSkip)
-				.append("]");
+				.append(", collecting=").append(collecting).append("]");
 		return builder.toString();
 	}
-
 }

@@ -24,6 +24,15 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 import com.jackmoxley.moxy.token.CharacterToken;
 
+/**
+ * CharacterRangeRule allows us to check whether the character at this point in
+ * the stream is between inclusive of the start and end characters. This is
+ * envisaged mostly for being able to select any upper case character or any
+ * lower case character without using ChoiceRule.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
 public class CharacterRangeRule extends TerminatingRule {
 
@@ -37,15 +46,17 @@ public class CharacterRangeRule extends TerminatingRule {
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
 		int startIndex = decision.getStartIndex();
 		CharacterToken token = visitor.getSequence().tokenAt(startIndex);
-		
-		if(token != null && (token.getCharacter() >= start && token.getCharacter() <= end)) {
+
+		if (token != null
+				&& (token.getCharacter() >= start && token.getCharacter() <= end)) {
 			decision.passed();
 			decision.getTokens().add(token);
 			decision.setNextIndex(startIndex + 1);
-		} else {			
-			decision.failed("CharacterRangeRule '{}..{}' failed got '{}'",start,end, token == null ? null :token.getCharacter());
+		} else {
+			decision.failed("CharacterRangeRule '{}..{}' failed got '{}'",
+					start, end, token == null ? null : token.getCharacter());
 		}
-		
+
 	}
 
 	public CharacterRangeRule(char start, char end) {
@@ -56,8 +67,6 @@ public class CharacterRangeRule extends TerminatingRule {
 	public CharacterRangeRule() {
 		super();
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -107,7 +116,5 @@ public class CharacterRangeRule extends TerminatingRule {
 			return false;
 		return true;
 	}
-
-
 
 }

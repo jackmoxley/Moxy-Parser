@@ -16,30 +16,54 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating;
+package com.jackmoxley.moxy.rule.terminating.collecting;
+
+import java.util.Collections;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.token.CharacterToken;
 
+/**
+ * EOLRule checks to see if we have reached the end of our line or not. We do
+ * this by checking the line position of the next token.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
-public class TrueRule extends TerminatingRule {
+public class EOLRule extends CollectingRule {
 
 	private static final long serialVersionUID = 163168561429254410L;
 
-	private static final TrueRule instance = new TrueRule();
-	
-	private TrueRule(){
-		
+	public EOLRule() {
+		super();
 	}
 	
-	public static TrueRule get(){
-		return instance;
+	public EOLRule(boolean collecting) {
+		super(collecting);
 	}
-	
+
 	@Override
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-		decision.passed();
+		int startIndex = decision.getStartIndex();
+		CharacterToken token = visitor.getSequence().tokenAt(startIndex + 1);
+		if (token == null || token.getLinePos() == 1) {
+			passed(decision,startIndex+1,Collections.singletonList(token));
+		} else {
+			decision.failed("{} failed got",this);
+
+		}
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("EOLRule [collecting=").append(collecting).append("]");
+		return builder.toString();
+	}
+
+
 
 }

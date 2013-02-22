@@ -29,8 +29,8 @@ import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.functional.list.ChoiceRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
-import com.jackmoxley.moxy.rule.terminating.SkipRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
+import com.jackmoxley.moxy.rule.terminating.collecting.SkipRule;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
 @Beta
@@ -120,7 +120,7 @@ public class ChoiceRuleTest {
 	@Test
 	public void testUnHappyPath_lazy_fail_fail() {
 		FalseRule fail = FalseRule.get();
-		FalseRule fail2 = new FalseRule();
+		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -131,7 +131,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -188,7 +188,7 @@ public class ChoiceRuleTest {
 	@Test
 	public void testHappyPath_longest_pass_pass() {
 		TrueRule pass = TrueRule.get();
-		TrueRule pass2 = new TrueRule();
+		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -199,7 +199,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -220,7 +220,7 @@ public class ChoiceRuleTest {
 	@Test
 	public void testUnHappyPath_longest_fail_fail() {
 		FalseRule fail = FalseRule.get();
-		FalseRule fail2 = new FalseRule();
+		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -231,7 +231,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 
 	@Test
@@ -300,7 +300,7 @@ public class ChoiceRuleTest {
 	@Test
 	public void testHappyPath_shortest_pass_pass() {
 		TrueRule pass = TrueRule.get();
-		TrueRule pass2 = new TrueRule();
+		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -311,7 +311,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -332,7 +332,7 @@ public class ChoiceRuleTest {
 	@Test
 	public void testUnHappyPath_shortest_fail_fail() {
 		FalseRule fail = FalseRule.get();
-		FalseRule fail2 = new FalseRule();
+		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -343,7 +343,7 @@ public class ChoiceRuleTest {
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 	}
 
 	@Test
@@ -360,8 +360,8 @@ public class ChoiceRuleTest {
 	}
 	@Test
 	public void testHappyPath_longest_passLong_passShort() {
-		SkipRule shortPass = new SkipRule(1);
-		SkipRule longPass = new SkipRule(2);
+		SkipRule shortPass = new SkipRule(true, 1);
+		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -382,8 +382,8 @@ public class ChoiceRuleTest {
 
 	@Test
 	public void testHappyPath_longest_passShort_passLong() {
-		SkipRule shortPass = new SkipRule(1);
-		SkipRule longPass = new SkipRule(2);
+		SkipRule shortPass = new SkipRule(true, 1);
+		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -402,8 +402,8 @@ public class ChoiceRuleTest {
 	}
 	@Test
 	public void testHappyPath_shortest_passLong_passShort() {
-		SkipRule shortPass = new SkipRule(1);
-		SkipRule longPass = new SkipRule(2);
+		SkipRule shortPass = new SkipRule(true, 1);
+		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		ChoiceRule rule = new ChoiceRule();
@@ -423,8 +423,8 @@ public class ChoiceRuleTest {
 
 	@Test
 	public void testHappyPath_shortest_passShort_passLong() {
-		SkipRule shortPass = new SkipRule(1);
-		SkipRule longPass = new SkipRule(2);
+		SkipRule shortPass = new SkipRule(true, 1);
+		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		ChoiceRule rule = new ChoiceRule();

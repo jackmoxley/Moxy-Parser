@@ -26,9 +26,9 @@ import com.jackmoxley.moxy.rule.functional.list.ChoiceRule.Type;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.symbol.DelegateRule;
 import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
+import com.jackmoxley.moxy.rule.terminating.EOFRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
-import com.jackmoxley.moxy.rule.terminating.text.EOFRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 /**

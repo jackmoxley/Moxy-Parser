@@ -16,40 +16,52 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating.text;
+package com.jackmoxley.moxy.rule.terminating.collecting;
 
-import com.jackmoxley.meta.Beta;
+import java.util.List;
+
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
-import com.jackmoxley.moxy.token.CharacterToken;
+import com.jackmoxley.moxy.token.Token;
 
-@Beta
-public class EOFRule extends TerminatingRule {
+/**
+ * @author jack
+ *
+ */
+public abstract class CollectingRule extends TerminatingRule {
 
-	private static final long serialVersionUID = 163168561429254410L;
 
-	private static final EOFRule instance = new EOFRule();
+	private static final long serialVersionUID = -1l;
+	protected boolean collecting;
 	
-	private EOFRule(){
-		
+
+	public CollectingRule() {
+		super();
 	}
 	
-	public static EOFRule get(){
-		return instance;
+
+	public CollectingRule(boolean collecting) {
+		super();
+		this.collecting = collecting;
+	}
+
+	
+	protected void passed(RuleDecision decision, int nextIndex, List<? extends Token> tokens){
+		if(collecting){
+			decision.getTokens().addAll(tokens);
+		} 
+		decision.setNextIndex(nextIndex);
+		decision.passed();
+	}
+
+	public boolean isCollecting() {
+		return collecting;
+	}
+
+	public void setCollecting(boolean collecting) {
+		this.collecting = collecting;
 	}
 	
-	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-		int startIndex = decision.getStartIndex();
-		CharacterToken token = visitor.getSequence().tokenAt(startIndex);
-		if(token == null) {
-			decision.passed();
-			decision.setNextIndex(startIndex);
-		} else {			
-			decision.failed("EOFRule failed got '{}'", token == null ? null :token.getCharacter());
-
-		}
-	}
 
 }

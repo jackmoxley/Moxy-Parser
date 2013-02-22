@@ -29,11 +29,11 @@ import com.jackmoxley.moxy.renderer.swing.Node;
 import com.jackmoxley.moxy.renderer.swing.ScrolledPanel;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.symbol.SymbolRule;
+import com.jackmoxley.moxy.rule.terminating.EOFRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRangeRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
-import com.jackmoxley.moxy.rule.terminating.text.EOFRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 public class TerminalNode extends Node<Rule> {
