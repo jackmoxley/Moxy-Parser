@@ -23,31 +23,30 @@ import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 
-/**
- * The and rule executes against every rule and if they all pass, it picks the
- * longest, shortest or first.
- * 
- * @author jack
- * 
- */
 @Beta
-public class AndRule extends LogicalListRule {
+public class XOrRule extends LogicalListRule {
 
 	private static final long serialVersionUID = 1L;
+
+	private int exclusivity = 1;
+	
 
 	protected RuleDecision considerFirst(RuleEvaluator visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
-
+		
 		RuleDecision subDecision;
+		int count = 0;
 		for (Rule rule : this) {
 			subDecision = visitor.evaluate(rule, decision.getStartIndex());
 			if (subDecision.hasPassed()) {
+				count++;
+				if(count > exclusivity){
+					return null;
+				}
 				if (finalDecision == null) {
 					finalDecision = subDecision;
 				}
-			} else {
-				return null;
 			}
 		}
 		return finalDecision;
@@ -58,16 +57,19 @@ public class AndRule extends LogicalListRule {
 		RuleDecision finalDecision = null;
 
 		RuleDecision subDecision;
+		int count = 0;
 		for (Rule rule : this) {
 			subDecision = visitor.evaluate(rule, decision.getStartIndex());
 			if (subDecision.hasPassed()) {
+				count++;
+				if(count > exclusivity){
+					return null;
+				}
 				if (finalDecision == null
 						|| finalDecision.getNextIndex() > subDecision
 								.getNextIndex()) {
 					finalDecision = subDecision;
 				}
-			} else {
-				return null;
 			}
 		}
 		return finalDecision;
@@ -78,27 +80,43 @@ public class AndRule extends LogicalListRule {
 		RuleDecision finalDecision = null;
 
 		RuleDecision subDecision;
+		int count = 0;
 		for (Rule rule : this) {
 			subDecision = visitor.evaluate(rule, decision.getStartIndex());
 			if (subDecision.hasPassed()) {
+				count++;
+				if(count > exclusivity){
+					return null;
+				}
 				if (finalDecision == null
 						|| finalDecision.getNextIndex() < subDecision
 								.getNextIndex()) {
 					finalDecision = subDecision;
 				}
-			} else {
-				return null;
 			}
 		}
 		return finalDecision;
 	}
 
+	
+
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AndRule [type=").append(type).append(", size=")
+		builder.append("XOrRule [exclusivity=").append(exclusivity)
+				.append(", type=").append(type).append(", size=")
 				.append(size()).append("]");
 		return builder.toString();
+	}
+
+	public int getExclusivity() {
+		return exclusivity;
+	}
+
+	public void setExclusivity(int exclusivity) {
+		this.exclusivity = exclusivity;
 	}
 
 }

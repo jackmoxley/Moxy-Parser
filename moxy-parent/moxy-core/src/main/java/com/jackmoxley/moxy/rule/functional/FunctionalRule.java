@@ -48,7 +48,7 @@ public abstract class FunctionalRule extends AbstractList<Rule> implements Rule 
 	 * @param subDecision
 	 * @return
 	 */
-	public static boolean isCollecting(RuleDecision decision,
+	public static boolean isNotCollecting(RuleDecision decision,
 			RuleDecision subDecision) {
 
 		return subDecision.getNextIndex() == decision.getStartIndex();

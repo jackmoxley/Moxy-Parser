@@ -44,13 +44,18 @@ public class MinMaxRule extends SingleRule {
 		super();
 	}
 
+
+	public MinMaxRule(Rule rule) {
+		super(rule);
+	}
+	
 	/**
 	 * @param exact
 	 *            the exact number of times the sub rule needs to be applied -1
 	 *            means any number of times.
 	 * 
 	 */
-	public MinMaxRule(int exact, Rule rule) {
+	public MinMaxRule(Rule rule, int exact) {
 		super(rule);
 		this.setExact(exact);
 	}
@@ -65,7 +70,7 @@ public class MinMaxRule extends SingleRule {
 	 *            treated as though it is the same size as min.
 	 * 
 	 */
-	public MinMaxRule(int min, int max, Rule rule) {
+	public MinMaxRule(Rule rule, int min, int max) {
 		super(rule);
 		this.min = min;
 		this.max = max;
@@ -74,7 +79,7 @@ public class MinMaxRule extends SingleRule {
 	@Override
 	public void consider(RuleEvaluator visitor, RuleDecision decision) {
 		if (this.size() == 0) {
-			if (min == 0) {
+			if (min <= 0) {
 				// By its nature we always pass even if we have nothing to
 				// evaluate.
 				decision.passed();
@@ -99,7 +104,7 @@ public class MinMaxRule extends SingleRule {
 				 * set of tokens will always return the same result,
 				 * irrespective of what has come before.
 				 */
-				if (FunctionalRule.isCollecting(decision, subDecision)) {
+				if (FunctionalRule.isNotCollecting(decision, subDecision)) {
 					decision.passed();
 					return;
 				}
@@ -133,7 +138,7 @@ public class MinMaxRule extends SingleRule {
 				 * set of tokens will always return the same result,
 				 * irrespective of what has come before.
 				 */
-				if (FunctionalRule.isCollecting(decision, subDecision)) {
+				if (FunctionalRule.isNotCollecting(decision, subDecision)) {
 					decision.passed();
 					return;
 				}

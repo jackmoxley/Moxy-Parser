@@ -23,6 +23,7 @@ import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.RuleVisitor;
+import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
 @Beta
 public class UntilRule extends MinMaxRule {
@@ -37,58 +38,102 @@ public class UntilRule extends MinMaxRule {
 		super();
 	}
 
-	/**
-	 * @param min
-	 * @param max
-	 */
-	public UntilRule(int min, int max, Rule rule, Rule until, boolean include, boolean greedy) {
-		super(min, max, rule);
+	public UntilRule(Rule rule, Rule until) {
+		super(rule);
+		this.until = until;
+	}
+
+	public UntilRule(Rule rule, Rule until, boolean include) {
+		this(rule, until);
+		this.include = include;
+	}
+
+	public UntilRule(Rule rule, Rule until, boolean include, boolean greedy) {
+		this(rule, until, include);
+		this.greedy = greedy;
+	}
+
+	public UntilRule(Rule rule, int exact, Rule until, boolean include,
+			boolean greedy) {
+		super(rule, exact);
 		this.until = until;
 		this.include = include;
 		this.greedy = greedy;
 	}
-	
+
+	public UntilRule(Rule rule, int min, int max, Rule until, boolean include,
+			boolean greedy) {
+		super(rule, min, max);
+		this.until = until;
+		this.include = include;
+		this.greedy = greedy;
+	}
+
 	@Override
 	public void accept(RuleVisitor visitor) {
 		super.accept(visitor);
 		until.accept(visitor);
 	}
-	
+
 	protected void considerMax(RuleEvaluator visitor, RuleDecision decision) {
-		boolean unlimited = max < 0 ;
-		for (int i = min; (unlimited || (i < max)) ; i++) {
-			if((!greedy) && considerUntil(visitor,decision)){
-				decision.passed();
-				return;
-			}
-			RuleDecision subDecision = visitor.evaluate(rule, decision.getNextIndex());
+		boolean unlimited = max < 0;
+		RuleDecision current = new RuleDecision(decision.getStartIndex());
+		current.setNextIndex(decision.getNextIndex());
+		RuleDecision greedyCurrent = null;
+		RuleDecision subDecision;
+		for (int i = min; (unlimited || (i < max)); i++) {
+			subDecision = visitor.evaluate(until, current.getNextIndex());
 			if (subDecision.hasPassed()) {
-				decision.add(subDecision);
+				if (greedy) {
+					greedyCurrent = new RuleDecision(current);
+					if (include) {
+						greedyCurrent.add(subDecision);
+					}
+				} else {
+					if (include) {
+						current.add(subDecision);
+					}
+					decision.add(current);
+
+					decision.passed();
+					return;
+				}
+			}
+			subDecision = visitor.evaluate(rule, current.getNextIndex());
+			if (subDecision.hasPassed()) {
+				/*
+				 * If our subrule is non-collecting, if it passes once it will
+				 * continue to pass and in the case of unlimited maximums we
+				 * want to avoid the case of an infinite loop. Because it will
+				 * always pass, we know that the untilrule will always pass. It
+				 * is important to know that rules are presumed to be unchanging
+				 * between evaluations, i.e. a rule that is ran against the same
+				 * set of tokens will always return the same result,
+				 * irrespective of what has come before.
+				 */
+				if (FunctionalRule.isNotCollecting(current, subDecision)) {
+					break;
+				}
+				current.add(subDecision);
 			} else {
-				decision.passed();
 				break;
 			}
 		}
-		if(considerUntil(visitor,decision)){
-			decision.passed();
-		} else {
-			decision.failed("{} has failed as until rule was not achieved.",this);
-		}
-	}
-	
-	protected boolean considerUntil(RuleEvaluator visitor, RuleDecision decision){
-
-		RuleDecision subDecision = visitor.evaluate(until,
-				decision.getNextIndex());
+		subDecision = visitor.evaluate(until, current.getNextIndex());
 		if (subDecision.hasPassed()) {
+			decision.add(current);
 			if(include){
 				decision.add(subDecision);
 			}
-			return true;
-		} 
-		return false;
+			decision.passed();
+		} else if (greedy && greedyCurrent != null) {
+			decision.add(greedyCurrent);
+			decision.passed();
+		} else {
+			decision.failed("{} has failed as until rule was not achieved.",
+					this);
+		}
 	}
-	
 
 	public Rule getUntil() {
 		return until;
@@ -121,9 +166,5 @@ public class UntilRule extends MinMaxRule {
 				.append(include).append(", greedy=").append(greedy).append("]");
 		return builder.toString();
 	}
-
-
-	
-
 
 }

@@ -55,6 +55,15 @@ public class RuleDecision {
 		this.nextIndex = startIndex;
 	}
 	
+
+	public RuleDecision(RuleDecision subDecision) {
+		super();
+		this.startIndex = subDecision.startIndex;
+		this.nextIndex = subDecision.nextIndex;
+
+		getTokens().addAll(subDecision.getTokens());
+	}
+	
 	public static RuleDecision cyclic(){
 		return cyclicFail;
 	}
