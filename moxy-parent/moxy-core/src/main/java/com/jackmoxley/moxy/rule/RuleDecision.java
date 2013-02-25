@@ -70,6 +70,11 @@ public class RuleDecision {
 		getTokens().add(token);
 	}
 
+	public void addAll(List<? extends Token> tokens, int nextIndex){
+		this.nextIndex = nextIndex;
+		getTokens().addAll(tokens);
+	}
+
 	public int getStartIndex() {
 		return startIndex;
 	}

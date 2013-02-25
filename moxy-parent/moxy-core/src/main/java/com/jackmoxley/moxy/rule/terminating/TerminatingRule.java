@@ -18,8 +18,6 @@
  */
 package com.jackmoxley.moxy.rule.terminating;
 
-import java.util.Set;
-
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleVisitor;
@@ -28,11 +26,6 @@ import com.jackmoxley.moxy.rule.RuleVisitor;
 public abstract class TerminatingRule implements Rule {
 
 	private static final long serialVersionUID = 2846424087976600923L;
-
-	@Override
-	public boolean isNotCircular(Set<Rule> history) {
-		return true;
-	}
 
 	@Override
 	public void accept(RuleVisitor visitor) {

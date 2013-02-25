@@ -43,19 +43,16 @@ public class TextRule extends TerminatingRule {
 			decision.failed("{} failed, {} tokens returned, expected {}",this, size,text.length());
 			return;
 		}
-		CharacterToken token;
 		for (int i = 0; i < size; i++) {
-			token = tokens.get(i);
 			char character = text.charAt(i);
-			char characterToCheck = token.getCharacter();
+			char characterToCheck = tokens.get(i).getCharacter();
 			if (character != characterToCheck) {
 				decision.failed("{} failed at {} expected '{}' not '{}'",this, i,character,characterToCheck);
 				return;
 			}
-			decision.getTokens().add(token);
 		}
+		decision.addAll(tokens, startIndex + text.length());
 		decision.passed();
-		decision.setNextIndex(startIndex + text.length());
 	}
 
 	public TextRule(CharSequence value) {

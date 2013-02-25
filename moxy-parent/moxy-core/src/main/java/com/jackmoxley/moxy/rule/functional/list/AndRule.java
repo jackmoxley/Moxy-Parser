@@ -45,10 +45,9 @@ public class AndRule extends LogicalListRule {
 			if (subDecision.hasPassed()) {
 				if (finalDecision == null) {
 					finalDecision = subDecision;
-				} else {
-					return null;
 				}
-
+			} else {
+				return null;
 			}
 		}
 		return finalDecision;
@@ -66,9 +65,9 @@ public class AndRule extends LogicalListRule {
 						|| finalDecision.getNextIndex() > subDecision
 								.getNextIndex()) {
 					finalDecision = subDecision;
-				} else {
-					return null;
 				}
+			} else {
+				return null;
 			}
 		}
 		return finalDecision;
@@ -86,9 +85,9 @@ public class AndRule extends LogicalListRule {
 						|| finalDecision.getNextIndex() < subDecision
 								.getNextIndex()) {
 					finalDecision = subDecision;
-				} else {
-					return null;
 				}
+			} else {
+				return null;
 			}
 		}
 		return finalDecision;

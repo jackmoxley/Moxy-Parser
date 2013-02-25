@@ -44,8 +44,7 @@ public class CharacterRule extends TerminatingRule {
 		CharacterToken token = visitor.getSequence().tokenAt(startIndex);
 		if (token != null && character == token.getCharacter()) {
 			decision.passed();
-			decision.getTokens().add(token);
-			decision.setNextIndex(startIndex + 1);
+			decision.add(token, startIndex + 1);
 		} else {
 			decision.failed("CharacterRule '{}' failed got '{}'", character,
 					token);

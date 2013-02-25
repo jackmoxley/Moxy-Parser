@@ -19,34 +19,15 @@
 package com.jackmoxley.moxy.rule.functional;
 
 import java.util.AbstractList;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
+import com.jackmoxley.moxy.rule.RuleDecision;
 
 @Beta
 public abstract class FunctionalRule extends AbstractList<Rule> implements Rule {
 
 	private static final long serialVersionUID = -3106346677327869406L;
-
-	protected abstract boolean doSubRulesTerminate(Set<Rule> history);
-
-
-
-	@Override
-	public boolean isNotCircular(Set<Rule> history) {
-		if (history == null) {
-			history = new HashSet<Rule>();
-		}
-		if (history.contains(this)) {
-			return false;
-		}
-		history.add(this);
-		boolean terminating = doSubRulesTerminate(history);
-		history.remove(this);
-		return terminating;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -56,6 +37,21 @@ public abstract class FunctionalRule extends AbstractList<Rule> implements Rule 
 	@Override
 	public int hashCode() {
 		return System.identityHashCode(this);
+	}
+
+
+	/**
+	 * determines if the subDecision has collected any tokens, this is to help
+	 * us detect cycles in subrules that are repeatadly evaluated.
+	 * 
+	 * @param decision
+	 * @param subDecision
+	 * @return
+	 */
+	public static boolean isCollecting(RuleDecision decision,
+			RuleDecision subDecision) {
+
+		return subDecision.getNextIndex() == decision.getStartIndex();
 	}
 
 }

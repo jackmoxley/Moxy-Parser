@@ -22,23 +22,48 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
 @Beta
 public class MinMaxRule extends SingleRule {
 
 	private static final long serialVersionUID = 1L;
 
-	protected int min;
-	protected int max;
+	public static final int UNLIMITED = -1;
 
+	protected int min = UNLIMITED;
+	protected int max = UNLIMITED;
+
+	/**
+	 * Defaults to an unlimited number of rule checks, this will automatically
+	 * pass, even if the subrule fails the first time, but will collect every
+	 * time the subrule passes until the first fail. This is prone to
+	 * repetitiveness.
+	 */
 	public MinMaxRule() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param exact
+	 *            the exact number of times the sub rule needs to be applied -1
+	 *            means any number of times.
+	 * 
+	 */
+	public MinMaxRule(int exact, Rule rule) {
+		super(rule);
+		this.setExact(exact);
 	}
 
 	/**
 	 * @param min
+	 *            the minimum times the sub rule needs to be applied -1 means
+	 *            any number of times.
 	 * @param max
+	 *            the maximum times the sub rule needs to be applied -1 means
+	 *            any number of times. if max is lower than min, then it will be
+	 *            treated as though it is the same size as min.
+	 * 
 	 */
 	public MinMaxRule(int min, int max, Rule rule) {
 		super(rule);
@@ -54,8 +79,7 @@ public class MinMaxRule extends SingleRule {
 				// evaluate.
 				decision.passed();
 			} else {
-				decision.failed(
-						"{} failed no rules to consider",this, min,
+				decision.failed("{} failed no rules to consider", this, min,
 						max);
 			}
 			return;
@@ -65,10 +89,23 @@ public class MinMaxRule extends SingleRule {
 			RuleDecision subDecision = visitor.evaluate(rule,
 					decision.getNextIndex());
 			if (subDecision.hasPassed()) {
+				/*
+				 * If our subrule is non-collecting, if it passes once it will
+				 * continue to pass and in the case of unlimited maximums we
+				 * want to avoid the case of an infinite loop. Because it will
+				 * always pass, we know that the minmaxrule will always pass. It
+				 * is important to know that rules are presumed to be unchanging
+				 * between evaluations, i.e. a rule that is ran against the same
+				 * set of tokens will always return the same result,
+				 * irrespective of what has come before.
+				 */
+				if (FunctionalRule.isCollecting(decision, subDecision)) {
+					decision.passed();
+					return;
+				}
 				decision.add(subDecision);
 			} else {
-				decision.failed(
-						"{} failed rule due to iteration: {}",this, i);
+				decision.failed("{} failed rule due to iteration: {}", this, i);
 				return;
 			}
 		}
@@ -81,10 +118,25 @@ public class MinMaxRule extends SingleRule {
 	 * @param unlimited
 	 */
 	protected void considerMax(RuleEvaluator visitor, RuleDecision decision) {
-		boolean unlimited = max < 0 ;
+		boolean unlimited = max < 0;
 		for (int i = min; unlimited || (i < max); i++) {
-			RuleDecision subDecision = visitor.evaluate(rule, decision.getNextIndex());
+			RuleDecision subDecision = visitor.evaluate(rule,
+					decision.getNextIndex());
 			if (subDecision.hasPassed()) {
+				/*
+				 * If our subrule is non-collecting, if it passes once it will
+				 * continue to pass and in the case of unlimited maximums we
+				 * want to avoid the case of an infinite loop. Because it will
+				 * always pass, we know that the minmaxrule will always pass. It
+				 * is important to know that rules are presumed to be unchanging
+				 * between evaluations, i.e. a rule that is ran against the same
+				 * set of tokens will always return the same result,
+				 * irrespective of what has come before.
+				 */
+				if (FunctionalRule.isCollecting(decision, subDecision)) {
+					decision.passed();
+					return;
+				}
 				decision.add(subDecision);
 			} else {
 				decision.passed();
@@ -92,6 +144,11 @@ public class MinMaxRule extends SingleRule {
 			}
 		}
 		decision.passed();
+	}
+
+	public void setExact(int exact) {
+		this.min = exact;
+		this.max = exact;
 	}
 
 	public int getMin() {
@@ -117,6 +174,5 @@ public class MinMaxRule extends SingleRule {
 				.append(max).append("]");
 		return builder.toString();
 	}
-
 
 }

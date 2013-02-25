@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.moxley.moxy.rule.functional;
+package com.jackmoxley.moxy.rule.functional.list;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -27,14 +27,14 @@ import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
-import com.jackmoxley.moxy.rule.functional.list.OrRule;
+import com.jackmoxley.moxy.rule.functional.list.AndRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
 import com.jackmoxley.moxy.rule.terminating.collecting.SkipRule;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
 @Beta
-public class OrRuleTest {
+public class AndRuleTest {
 
 	@Test
 	public void testHappyPath_lazy_fail_pass() {
@@ -42,15 +42,15 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.First);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertTrue(decision.hasFailed());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 		
 	}
 	
@@ -60,15 +60,15 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.First);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasPassed());
-		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
+		assertTrue(decision.hasFailed());
+		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
 	@Test
@@ -76,8 +76,8 @@ public class OrRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.First);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -91,8 +91,8 @@ public class OrRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.First);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -107,8 +107,8 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.First);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -123,8 +123,8 @@ public class OrRuleTest {
 		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.First);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -140,15 +140,15 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertTrue(decision.hasFailed());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 		
 	}
 	
@@ -158,14 +158,14 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasPassed());
+		assertTrue(decision.hasFailed());
 		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
@@ -174,8 +174,8 @@ public class OrRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -191,8 +191,8 @@ public class OrRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -207,8 +207,8 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -223,8 +223,8 @@ public class OrRuleTest {
 		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -238,8 +238,8 @@ public class OrRuleTest {
 	public void testUnHappyPath_longest_empty() {
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -253,15 +253,15 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasPassed());
-		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
+		assertTrue(decision.hasFailed());
+		assertEquals(1, visitor.getHistory().getRuleDecisions(0).size());
 		
 	}
 	
@@ -271,14 +271,14 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
-		assertTrue(decision.hasPassed());
+		assertTrue(decision.hasFailed());
 		assertEquals(2, visitor.getHistory().getRuleDecisions(0).size());
 	}
 	
@@ -287,8 +287,8 @@ public class OrRuleTest {
 		TrueRule pass = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -303,8 +303,8 @@ public class OrRuleTest {
 		TrueRule pass2 = TrueRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -319,8 +319,8 @@ public class OrRuleTest {
 		FalseRule fail = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -335,8 +335,8 @@ public class OrRuleTest {
 		FalseRule fail2 = FalseRule.get();
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -350,8 +350,8 @@ public class OrRuleTest {
 	public void testUnHappyPath_shortest_empty() {
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -364,8 +364,8 @@ public class OrRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -386,8 +386,8 @@ public class OrRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Longest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -406,8 +406,8 @@ public class OrRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -427,8 +427,8 @@ public class OrRuleTest {
 		SkipRule longPass = new SkipRule(true, 2);
 		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
-		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		AndRule rule = new AndRule();
+		rule.setType(AndRule.Type.Shortest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);

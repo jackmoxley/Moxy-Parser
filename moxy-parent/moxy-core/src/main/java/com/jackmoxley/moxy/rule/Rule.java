@@ -19,22 +19,56 @@
 package com.jackmoxley.moxy.rule;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 
+/**
+ * Rule is the interface that defines the contract for a parsing rule. On top of
+ * the methods that need to be implemented, we have various assumptions, see the
+ * methods for these assumptions.
+ * 
+ * @author jack
+ * 
+ */
 @Beta
-public interface Rule extends Serializable{
+public interface Rule extends Serializable {
 
-	public boolean isNotCircular(Set<Rule> history);
-	
 	/**
-	 * Storing the result in the provided decision object,
-	 * determine if the rule should pass or not.
-	 * @param visitor 
+	 * Storing the result in the provided decision object, determine if the rule
+	 * should pass or not. Implementation of the method must follow the
+	 * following rules.
+	 * 
+	 * 1. A rule that is run against the same set of tokens will always return
+	 * the same result, irrespective of what has come before. That includes the
+	 * next index to execute against, the tokens returned and the decision.
+	 * 
+	 * 2. A rule must determine whether it has passed or failed at the very end
+	 * of its execution of its consider method. This is so that if we need to
+	 * consider any sub rules, then we don't mess up cyclic detection.
+	 * 
+	 * 3. When considering rules we should hand off to the RuleEvaluator via its
+	 * evaluate method, rather than directly calling consider. This is so we can
+	 * use the power of its ability to collect history, and detect cycles.
+	 * 
+	 * 4. If a rule could cause a cycle that is NOT due to its connections in
+	 * the rule graph, i.e. an infinite while/for loop, see MinMaxRule for an
+	 * example of this. Then the loop must be detected as early as possible and
+	 * exited out of in a safe manner.
+	 * 
+	 * 5. Although exceptions are handled in a safe manner, it is inadvisable to
+	 * throw an Exception to fail a rule if possible, instead just fail the
+	 * rule, via the decision.
+	 * 
+	 * 6. Rules are failed by calling passed() or failed() on the passed in
+	 * decision. It is up to the developer to decide whether to add tokens or
+	 * not to it. If you wish to include a subdecision's tokens and index to
+	 * this one, simple call add on the decision.
+	 * 
+	 * @param visitor
 	 * @param decision
 	 */
 	public void consider(RuleEvaluator visitor, RuleDecision decision);
-	
+
 	public void accept(RuleVisitor visitor);
+
 }

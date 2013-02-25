@@ -44,9 +44,10 @@ public abstract class CollectingRule extends TerminatingRule {
 	
 	protected void passed(RuleDecision decision, int nextIndex, List<? extends Token> tokens){
 		if(collecting){
-			decision.getTokens().addAll(tokens);
-		} 
-		decision.setNextIndex(nextIndex);
+			decision.addAll(tokens, nextIndex);
+		} else {
+			decision.setNextIndex(nextIndex);
+		}
 		decision.passed();
 	}
 

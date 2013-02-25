@@ -18,8 +18,6 @@
  */
 package com.jackmoxley.moxy.rule.functional.single;
 
-import java.util.Set;
-
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleVisitor;
@@ -45,19 +43,11 @@ public abstract class SingleRule extends FunctionalRule {
 	public SingleRule(Rule rule) {
 		this.rule = rule;
 	}
-	
+
 	@Override
 	public void accept(RuleVisitor visitor) {
 		visitor.visit(this);
 		rule.accept(visitor);
-	}
-
-	@Override
-	protected boolean doSubRulesTerminate(Set<Rule> history) {
-		if (rule == null) {
-			return true;
-		}
-		return rule.isNotCircular(history);
 	}
 
 	public Rule getRule() {

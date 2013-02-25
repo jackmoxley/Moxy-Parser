@@ -50,8 +50,7 @@ public class CharacterRangeRule extends TerminatingRule {
 		if (token != null
 				&& (token.getCharacter() >= start && token.getCharacter() <= end)) {
 			decision.passed();
-			decision.getTokens().add(token);
-			decision.setNextIndex(startIndex + 1);
+			decision.add(token, startIndex + 1);
 		} else {
 			decision.failed("CharacterRangeRule '{}..{}' failed got '{}'",
 					start, end, token == null ? null : token.getCharacter());

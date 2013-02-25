@@ -20,7 +20,6 @@ package com.jackmoxley.moxy.rule.functional.list;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
@@ -28,25 +27,15 @@ import com.jackmoxley.moxy.rule.RuleVisitor;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
 @Beta
-public abstract class ListRule extends FunctionalRule{
+public abstract class ListRule extends FunctionalRule {
 
 	private static final long serialVersionUID = -2601327856351809245L;
 	private final List<Rule> rules = new ArrayList<Rule>();
 
 	@Override
-	protected boolean doSubRulesTerminate(Set<Rule> history) {
-		for(Rule rule: rules) {
-			if(!rule.isNotCircular(history)){
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	@Override
 	public void accept(RuleVisitor visitor) {
 		visitor.visit(this);
-		for(Rule rule : this){
+		for (Rule rule : this) {
 			rule.accept(visitor);
 		}
 	}
