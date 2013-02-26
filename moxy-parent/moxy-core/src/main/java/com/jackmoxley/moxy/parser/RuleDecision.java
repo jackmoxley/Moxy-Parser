@@ -19,6 +19,7 @@
 package com.jackmoxley.moxy.parser;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import com.jackmoxley.meta.Beta;
@@ -28,14 +29,11 @@ import com.jackmoxley.moxy.token.Token;
 public class RuleDecision {
 
 	public enum State {
-		Passed, Failed, Considering, Unconsidered
+		Passed, Failed, Considering, Cyclic, Unconsidered
 	}
 
+	public static final EnumSet<State> FAILED_STATES = EnumSet.of(State.Failed, State.Cyclic) ;
 	private static final Object[] NO_ARGS = new Object[0];
-	private static RuleDecision cyclicFail = new RuleDecision(0);
-	static {
-		cyclicFail.failed("cyclic", NO_ARGS);
-	}
 
 	private State state = State.Unconsidered;
 	private List<Token> tokens = null;
@@ -56,10 +54,6 @@ public class RuleDecision {
 		this.nextIndex = subDecision.nextIndex;
 
 		getTokens().addAll(subDecision.getTokens());
-	}
-
-	public static RuleDecision cyclic() {
-		return cyclicFail;
 	}
 
 	public void add(RuleDecision subDecision) {
@@ -114,7 +108,7 @@ public class RuleDecision {
 	}
 
 	public boolean hasFailed() {
-		return State.Failed.equals(state);
+		return FAILED_STATES.contains(state);
 	}
 
 	public boolean isUnconsidered() {
@@ -128,6 +122,12 @@ public class RuleDecision {
 	public void passed() {
 		state = State.Passed;
 		failure = "";
+		arguments = NO_ARGS;
+	}
+	
+	public void cyclic() {
+		state = State.Cyclic;
+		failure = "Rule is Cyclic";
 		arguments = NO_ARGS;
 	}
 
@@ -162,5 +162,6 @@ public class RuleDecision {
 	public Object[] getArguments() {
 		return arguments;
 	}
+
 
 }

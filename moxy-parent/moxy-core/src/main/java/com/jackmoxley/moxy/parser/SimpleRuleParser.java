@@ -103,7 +103,8 @@ public class SimpleRuleParser implements RuleParser {
 			logger.debug("{} Cyclic Rule detected {}", --heirachy, rule);
 			// We fail at this branch, but we don't want to fail the whole rule,
 			// as they're maybe options where it does pass.
-			return RuleDecision.cyclic();
+			decision.cyclic();
+			return decision;
 		} else {
 			if (decision.isUnconsidered()) {
 				decision.considering();
