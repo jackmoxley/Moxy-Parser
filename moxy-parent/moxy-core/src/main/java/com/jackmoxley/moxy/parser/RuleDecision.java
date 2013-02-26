@@ -28,19 +28,15 @@ import com.jackmoxley.moxy.token.Token;
 public class RuleDecision {
 
 	public enum State {
-		Passed,
-		Failed,
-		Considering,
-		Unconsidered
+		Passed, Failed, Considering, Unconsidered
 	}
-	
+
 	private static final Object[] NO_ARGS = new Object[0];
 	private static RuleDecision cyclicFail = new RuleDecision(0);
 	static {
 		cyclicFail.failed("cyclic", NO_ARGS);
 	}
-	
-	
+
 	private State state = State.Unconsidered;
 	private List<Token> tokens = null;
 	private int nextIndex;
@@ -48,13 +44,11 @@ public class RuleDecision {
 	private String failure = "";
 	private Object[] arguments = NO_ARGS;
 
-
 	public RuleDecision(int startIndex) {
 		super();
 		this.startIndex = startIndex;
 		this.nextIndex = startIndex;
 	}
-	
 
 	public RuleDecision(RuleDecision subDecision) {
 		super();
@@ -63,23 +57,23 @@ public class RuleDecision {
 
 		getTokens().addAll(subDecision.getTokens());
 	}
-	
-	public static RuleDecision cyclic(){
+
+	public static RuleDecision cyclic() {
 		return cyclicFail;
 	}
-	
-	public void add(RuleDecision subDecision){
+
+	public void add(RuleDecision subDecision) {
 		nextIndex = subDecision.getNextIndex();
 
 		getTokens().addAll(subDecision.getTokens());
 	}
-	
-	public void add(Token token, int nextIndex){
+
+	public void add(Token token, int nextIndex) {
 		this.nextIndex = nextIndex;
 		getTokens().add(token);
 	}
 
-	public void addAll(List<? extends Token> tokens, int nextIndex){
+	public void addAll(List<? extends Token> tokens, int nextIndex) {
 		this.nextIndex = nextIndex;
 		getTokens().addAll(tokens);
 	}
@@ -105,7 +99,7 @@ public class RuleDecision {
 	}
 
 	public List<Token> getTokens() {
-		if(tokens == null){
+		if (tokens == null) {
 			tokens = new ArrayList<Token>();
 		}
 		return tokens;
@@ -130,6 +124,7 @@ public class RuleDecision {
 	public boolean isConsidering() {
 		return State.Considering.equals(state);
 	}
+
 	public void passed() {
 		state = State.Passed;
 		failure = "";
@@ -150,14 +145,12 @@ public class RuleDecision {
 		state = State.Considering;
 	}
 
-
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RuleDecision [state=").append(state)
-				.append(", tokens=").append(tokens).append(", nextIndex=")
-				.append(nextIndex).append(", startIndex=").append(startIndex)
+				.append(", tokens=").append(tokens).append(", startIndex=")
+				.append(startIndex).append(", nextIndex=").append(nextIndex)
 				.append("]");
 		return builder.toString();
 	}
@@ -169,6 +162,5 @@ public class RuleDecision {
 	public Object[] getArguments() {
 		return arguments;
 	}
-
 
 }
