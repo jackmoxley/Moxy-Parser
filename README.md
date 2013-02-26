@@ -10,7 +10,7 @@ If you want to help please get in contact.
 
 Jack
 
-###How we parse
+##How we parse
 
 We keep our parsing efficient by sacrificing memory (although not as much as you may think), something which in the old days wasn't possible. Additionally optimizers are provided to further reduce some of the complex overheads of large rule graphs, by removing the human element in grammar design.
 
