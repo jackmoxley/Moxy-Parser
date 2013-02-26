@@ -26,7 +26,7 @@ import com.jackmoxley.moxy.rule.Rule;
  * @author jack
  *
  */
-public class RuleTree implements Serializable {
+public class RuleGraph implements Serializable {
 
 	private static final long serialVersionUID = -7247252355309117368L;
 	
@@ -37,7 +37,7 @@ public class RuleTree implements Serializable {
 	/**
 	 * @param rule
 	 */
-	public RuleTree(Rule rule) {
+	public RuleGraph(Rule rule) {
 		this(rule,new StringBuilder("Rule:").append(rule.hashCode()).toString(),"");
 	}
 	
@@ -45,7 +45,7 @@ public class RuleTree implements Serializable {
 	 * @param rule
 	 * @param name
 	 */
-	public RuleTree(Rule rule, String name) {
+	public RuleGraph(Rule rule, String name) {
 		this(rule,name,"");
 	}
 	
@@ -54,7 +54,7 @@ public class RuleTree implements Serializable {
 	 * @param name
 	 * @param syntax
 	 */
-	public RuleTree(Rule rule, String name, String syntax) {
+	public RuleGraph(Rule rule, String name, String syntax) {
 		super();
 		this.rule = rule;
 		this.name = name;
@@ -73,7 +73,7 @@ public class RuleTree implements Serializable {
 
 	@Override
 	public String toString() {
-		return "RuleTree [name=" + name + ", rule=" + rule + ", syntax="
+		return "RuleGraph [name=" + name + ", rule=" + rule + ", syntax="
 				+ syntax + "]";
 	}
 

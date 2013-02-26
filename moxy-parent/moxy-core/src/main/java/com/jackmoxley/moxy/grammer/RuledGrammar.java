@@ -30,33 +30,33 @@ public class RuledGrammar implements Grammar  {
 
 	private static final long serialVersionUID = -1L;
 	
-	protected Map<String,RuleTree> ruleTrees  = new LinkedHashMap<>();
+	protected Map<String,RuleGraph> ruleGraphs  = new LinkedHashMap<>();
 	
 
-	public Map<String, RuleTree> getRuleTrees() {
-		return ruleTrees;
+	public Map<String, RuleGraph> getRuleTrees() {
+		return ruleGraphs;
 	}
 
-	public void setRuleTrees(Map<String, RuleTree> ruleTrees) {
-		this.ruleTrees = ruleTrees;
+	public void setRuleTrees(Map<String, RuleGraph> ruleGraphs) {
+		this.ruleGraphs = ruleGraphs;
 	}
 	
-	public RuleTree get(String ruleName){
+	public RuleGraph get(String ruleName){
 		return this.getRuleTrees().get(ruleName);
 	}
 
 
 	public void put(String ruleName, Rule rule) {
-		getRuleTrees().put(ruleName, new RuleTree(rule,ruleName));
+		getRuleTrees().put(ruleName, new RuleGraph(rule,ruleName));
 	}
 
 	public void put(String ruleName, Rule rule, String textualSyntax) {
-		getRuleTrees().put(ruleName, new RuleTree(rule,ruleName,textualSyntax));
+		getRuleTrees().put(ruleName, new RuleGraph(rule,ruleName,textualSyntax));
 	}
 
 	@Override
 	public String toString() {
-		return "RuledGrammar [ruleTrees=" + ruleTrees + "]";
+		return "RuledGrammar [ruleGraphs=" + ruleGraphs + "]";
 	}
 	
 }

@@ -27,7 +27,7 @@ import com.jackmoxley.moxy.token.SymbolToken;
 
 /**
  * Symbol rules allow us to delegate rule behaviour to an already definined
- * RuleTree within our grammer, or via rule passed into the constructor. As the
+ * RuleGraph within our grammer, or via rule passed into the constructor. As the
  * name implies they are merely a symbol and don't make any decisions and simply
  * point to another rule and are effectively transparent in the parsing
  * algorithim, bar the fact that the history of its decisions is retained.

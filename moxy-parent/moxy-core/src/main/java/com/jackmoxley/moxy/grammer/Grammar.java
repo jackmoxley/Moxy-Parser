@@ -34,7 +34,7 @@ import com.jackmoxley.meta.Beta;
 public interface Grammar extends Serializable {
 
 
-	public Map<String, RuleTree> getRuleTrees();
+	public Map<String, RuleGraph> getRuleTrees();
 	
-	public RuleTree get(String name);
+	public RuleGraph get(String name);
 }

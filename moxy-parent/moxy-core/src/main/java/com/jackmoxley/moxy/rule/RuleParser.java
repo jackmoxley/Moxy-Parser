@@ -19,7 +19,7 @@
 package com.jackmoxley.moxy.rule;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.grammer.RuleTree;
+import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 
@@ -32,7 +32,7 @@ import com.jackmoxley.moxy.token.stream.TokenStream;
 @Beta
 public interface RuleParser {
 
-	public RuleDecision parse(RuleTree rule);
+	public RuleDecision parse(RuleGraph rule);
 
 	public RuleDecision parse(Rule rule);
 

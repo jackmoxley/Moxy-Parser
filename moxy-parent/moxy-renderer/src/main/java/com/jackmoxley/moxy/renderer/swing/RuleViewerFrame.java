@@ -27,7 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import com.jackmoxley.moxy.grammer.Grammar;
-import com.jackmoxley.moxy.grammer.RuleTree;
+import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.rule.Rule;
 
 public class RuleViewerFrame extends JFrame {
@@ -42,13 +42,13 @@ public class RuleViewerFrame extends JFrame {
 
 	
 	
-	public RuleViewerFrame(Collection<RuleTree> trees) throws HeadlessException {
+	public RuleViewerFrame(Collection<RuleGraph> trees) throws HeadlessException {
 		super("RuleViewFrame: " + trees.size());
 		this.setSize(new Dimension(640, 480));
 
 		parent = new ScrolledPanel(trees);
         
-		for (RuleTree tree : trees) {
+		for (RuleGraph tree : trees) {
 			addRule(tree.getRule(),tree.getName(),tree.getSyntax());
 		}
 

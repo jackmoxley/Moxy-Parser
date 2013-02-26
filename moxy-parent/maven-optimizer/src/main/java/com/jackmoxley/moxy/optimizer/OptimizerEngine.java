@@ -25,7 +25,7 @@ import java.util.Map;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
-import com.jackmoxley.moxy.grammer.RuleTree;
+import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
@@ -74,9 +74,9 @@ public class OptimizerEngine {
 		int totalRulesOptimized = 0;
 
 		int rulesOptimized = 0;
-		for (RuleTree ruleTree : grammer.getRuleTrees().values()) {
+		for (RuleGraph ruleGraph : grammer.getRuleTrees().values()) {
 			do {
-				Rule root = ruleTree.getRule();
+				Rule root = ruleGraph.getRule();
 				if (root instanceof FunctionalRule) {
 					optimizerStates.clear();
 					rulesOptimized = optimize(grammer, (FunctionalRule) root);

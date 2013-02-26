@@ -23,16 +23,27 @@ import org.slf4j.LoggerFactory;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
-import com.jackmoxley.moxy.grammer.RuleTree;
+import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 
 /**
- * RuleParser is the meat behind the parsing engine. It is fairly simple in
- * its design but very powerful. We perform our LL(*) parsing and keep it
- * Efficient by sacrificing memory, something which in the old days wasn't
- * possible. Additionally optimizers are provided to further reduce some of the
- * complex overheads of large rule graphs.
+ * SimpleRuleParser is the meat behind the parsing engine. It is fairly simple
+ * in its design but very powerful. We keep our parsing efficient by sacrificing
+ * memory, something which in the old days wasn't possible. Additionally
+ * optimizers are provided to further reduce some of the complex overheads of
+ * large rule graphs.
+ * 
+ * When parsing we choose the root of our rule-graph and ask it to consider our
+ * sequence of tokens, typically with a given index of that sequence to start
+ * from, most often the beginning. If terminal, the rule will assess the
+ * relevant tokens from the sequence, it will then make a decision as to whether
+ * it has passed or failed. It it has failed we make a not of why, and if it has
+ * passed we typically add those tokens to its decision. If functional, the rule
+ * will ask the parser to consider its child rules and thus in a depth first
+ * traversal we visit all the nodes, the parser will return the decision made by
+ * the child rule, and typically the functional rule will add those that
+ * decision's tokens to its own, and mark the next index.
  * 
  * For every character in our stream, we maintain a history of every rule
  * whether passed failed or still evaluating, that started evaluating on that
@@ -62,7 +73,8 @@ public class SimpleRuleParser implements RuleParser {
 	 * @param grammar
 	 * @param sequence
 	 */
-	public SimpleRuleParser(Grammar grammar, RuleHistory history, TokenStream<CharacterToken> sequence) {
+	public SimpleRuleParser(Grammar grammar, RuleHistory history,
+			TokenStream<CharacterToken> sequence) {
 		super();
 		this.grammar = grammar;
 		this.sequence = sequence;
@@ -70,7 +82,7 @@ public class SimpleRuleParser implements RuleParser {
 	}
 
 	@Override
-	public RuleDecision parse(RuleTree rule) {
+	public RuleDecision parse(RuleGraph rule) {
 		return parse(rule.getRule());
 	}
 
@@ -117,7 +129,7 @@ public class SimpleRuleParser implements RuleParser {
 
 	@Override
 	public Rule ruleForName(String symbol) {
-		RuleTree tree = grammar.get(symbol);
+		RuleGraph tree = grammar.get(symbol);
 		return tree == null ? null : tree.getRule();
 	}
 
