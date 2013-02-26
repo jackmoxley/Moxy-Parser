@@ -27,7 +27,11 @@ import com.jackmoxley.moxy.token.CharacterToken;
 
 /**
  * EOLRule checks to see if we have reached the end of our line or not. We do
- * this by checking the line position of the next token.
+ * this by checking the line position of the next token. EOLRule will return
+ * true if this character is the last character on the line, in the middle of a
+ * character stream this might be the '\n' character, whilst at the end it might
+ * be the last char. This differs from the EOFRule which will always look for
+ * the non-existence of a token at the end of the stream
  * 
  * @author jack
  * 
@@ -40,7 +44,7 @@ public class EOLRule extends CollectingRule {
 	public EOLRule() {
 		super();
 	}
-	
+
 	public EOLRule(boolean collecting) {
 		super(collecting);
 	}
@@ -50,9 +54,9 @@ public class EOLRule extends CollectingRule {
 		int startIndex = decision.getStartIndex();
 		CharacterToken token = visitor.getSequence().tokenAt(startIndex + 1);
 		if (token == null || token.getLinePos() == 1) {
-			passed(decision,startIndex+1,Collections.singletonList(token));
+			passed(decision, startIndex + 1, Collections.singletonList(token));
 		} else {
-			decision.failed("{} failed got",this);
+			decision.failed("{} failed got", this);
 
 		}
 	}
@@ -63,7 +67,5 @@ public class EOLRule extends CollectingRule {
 		builder.append("EOLRule [collecting=").append(collecting).append("]");
 		return builder.toString();
 	}
-
-
 
 }

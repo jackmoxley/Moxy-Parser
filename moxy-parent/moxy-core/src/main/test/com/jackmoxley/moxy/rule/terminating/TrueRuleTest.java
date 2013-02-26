@@ -18,46 +18,32 @@
  */
 package com.jackmoxley.moxy.rule.terminating;
 
-import com.jackmoxley.meta.Beta;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import com.jackmoxley.moxy.rule.RuleDecision;
 import com.jackmoxley.moxy.rule.RuleEvaluator;
-import com.jackmoxley.moxy.token.CharacterToken;
+import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 
 /**
- * EOFRule checks to see if we have reached the end of our token stream or not.
- * It will check to see if the current index is past that of the stream of
- * tokens.
- * 
  * @author jack
  * 
  */
-@Beta
-public class EOFRule extends TerminatingRule {
+public class TrueRuleTest {
 
-	private static final long serialVersionUID = 163168561429254410L;
+	@Test
+	public void testHappyPath() {
 
-	private static final EOFRule instance = new EOFRule();
+		RuleEvaluator visitor = new RuleEvaluator(null,
+				new RuleHistoryTreeMap(), null);
 
-	private EOFRule() {
-
-	}
-
-	public static EOFRule get() {
-		return instance;
-	}
-
-	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
-		int startIndex = decision.getStartIndex();
-		CharacterToken token = visitor.getSequence().tokenAt(startIndex);
-		if (token == null) {
-			decision.passed();
-			decision.setNextIndex(startIndex);
-		} else {
-			decision.failed("EOFRule failed got '{}'", token == null ? null
-					: token.getCharacter());
-
-		}
+		// always take the first character
+		TrueRule rule = TrueRule.get();
+		RuleDecision decision = new RuleDecision(0);
+		assertTrue(decision.isUnconsidered());
+		rule.consider(visitor, decision);
+		assertTrue(decision.hasPassed());
 	}
 
 }
