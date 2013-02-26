@@ -5,3 +5,13 @@
 /.settings
 
 moxy-parent/moxy-core/.settings/org.eclipse.jdt.core.prefs
+
+moxy-parent/maven-optimizer/.settings/org.eclipse.core.resources.prefs
+
+moxy-parent/maven-optimizer/.settings/org.eclipse.core.resources.prefs
+
+moxy-parent/moxy-grammer/.settings/org.eclipse.core.resources.prefs
+
+moxy-parent/moxy-realizer/.settings/org.eclipse.core.resources.prefs
+
+moxy-parent/moxy-renderer/.settings/org.eclipse.core.resources.prefs
