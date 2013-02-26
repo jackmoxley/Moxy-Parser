@@ -20,7 +20,7 @@ package com.jackmoxley.moxy.rule.functional.symbol;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 /**
  * Delegate rules allow us to delegate to an existing rule, that we have defined
@@ -50,7 +50,7 @@ public class DelegateRule extends SymbolRule {
 		symbol = true;
 	}
 
-	protected Rule getDelegate(RuleEvaluator evaluator) {
+	protected Rule getDelegate(RuleParser evaluator) {
 		return rule;
 	}
 }

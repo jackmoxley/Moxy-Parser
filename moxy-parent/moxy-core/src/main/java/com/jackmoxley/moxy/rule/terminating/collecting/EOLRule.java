@@ -22,7 +22,7 @@ import java.util.Collections;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 import com.jackmoxley.moxy.token.CharacterToken;
 
 /**
@@ -50,7 +50,7 @@ public class EOLRule extends CollectingRule {
 	}
 
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 		int startIndex = decision.getStartIndex();
 		CharacterToken token = visitor.getSequence().tokenAt(startIndex + 1);
 		if (token == null || token.getLinePos() == 1) {

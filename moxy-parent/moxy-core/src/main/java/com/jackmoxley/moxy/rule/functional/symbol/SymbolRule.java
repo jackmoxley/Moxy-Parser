@@ -21,7 +21,7 @@ package com.jackmoxley.moxy.rule.functional.symbol;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 import com.jackmoxley.moxy.rule.functional.single.SingleRule;
 import com.jackmoxley.moxy.token.SymbolToken;
 
@@ -79,10 +79,10 @@ public abstract class SymbolRule extends SingleRule {
 		this.symbol = symbol;
 	}
 
-	protected abstract Rule getDelegate(RuleEvaluator evaluator);
+	protected abstract Rule getDelegate(RuleParser evaluator);
 
 	@Override
-	public void consider(RuleEvaluator evaluator, RuleDecision decision) {
+	public void consider(RuleParser evaluator, RuleDecision decision) {
 		Rule delegate = getDelegate(evaluator);
 		if (delegate == null) {
 			decision.failed("Rule {} does not exist", pointer);

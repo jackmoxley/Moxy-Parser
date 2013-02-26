@@ -16,31 +16,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule.terminating;
+package com.jackmoxley.moxy.rule;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleParser;
+import com.jackmoxley.moxy.grammer.RuleTree;
+import com.jackmoxley.moxy.token.CharacterToken;
+import com.jackmoxley.moxy.token.stream.TokenStream;
 
+/**
+ * RuleParser is the interface for our rule parsers, each rule may call one of
+ * the evaluate methods, or may try and query more specific information like the
+ * sequence of characters or fetch a rule for a particular name.
+ * 
+ */
 @Beta
-public class FalseRule extends TerminatingRule {
+public interface RuleParser {
 
-	private static final long serialVersionUID = 2838775015098939760L;
+	public RuleDecision parse(RuleTree rule);
 
-	private static final FalseRule instance = new FalseRule();
-	
-	private FalseRule(){
-		
-	}
-	
-	public static FalseRule get(){
-		return instance;
-	}
-	
-	
-	@Override
-	public void consider(RuleParser visitor, RuleDecision decision) {
-		decision.failed("FalseRule failed");
-	}
-	
+	public RuleDecision parse(Rule rule);
+
+	public RuleDecision evaluate(Rule rule, int startIndex);
+
+	public Rule ruleForName(String symbol);
+
+	public TokenStream<CharacterToken> getSequence();
+
 }

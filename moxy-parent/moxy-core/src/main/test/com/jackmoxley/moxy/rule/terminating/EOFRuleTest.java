@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
@@ -37,7 +37,7 @@ public class EOFRuleTest {
 	public void testHappyPath_singleLine() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -53,7 +53,7 @@ public class EOFRuleTest {
 	public void testHappyPath_doubleLine_middle() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -70,7 +70,7 @@ public class EOFRuleTest {
 	public void testHappyPath_doubleLine_end() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -86,7 +86,7 @@ public class EOFRuleTest {
 	public void testUnHappyPath_singleLine_begining() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -102,7 +102,7 @@ public class EOFRuleTest {
 	public void testUnHappyPath_singleLine_penultimate() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -118,7 +118,7 @@ public class EOFRuleTest {
 	public void testUnHappyPath_doubleLine_begining() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -134,7 +134,7 @@ public class EOFRuleTest {
 	public void testUnHappyPath_doubleLine_penultimate_middle() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -151,7 +151,7 @@ public class EOFRuleTest {
 	public void testUnHappyPath_doubleLine_after_middle() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -168,7 +168,7 @@ public class EOFRuleTest {
 	public void testUnHappyPath_doubleLine_penultimate_end() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 

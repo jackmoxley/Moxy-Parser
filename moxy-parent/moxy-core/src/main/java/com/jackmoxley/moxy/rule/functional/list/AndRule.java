@@ -21,7 +21,7 @@ package com.jackmoxley.moxy.rule.functional.list;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 /**
  * The and rule executes against every rule and if they all pass, it picks the
@@ -35,7 +35,7 @@ public class AndRule extends LogicalListRule {
 
 	private static final long serialVersionUID = 1L;
 
-	protected RuleDecision considerFirst(RuleEvaluator visitor,
+	protected RuleDecision considerFirst(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 
@@ -53,7 +53,7 @@ public class AndRule extends LogicalListRule {
 		return finalDecision;
 	}
 
-	protected RuleDecision considerShortest(RuleEvaluator visitor,
+	protected RuleDecision considerShortest(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 
@@ -73,7 +73,7 @@ public class AndRule extends LogicalListRule {
 		return finalDecision;
 	}
 
-	protected RuleDecision considerLongest(RuleEvaluator visitor,
+	protected RuleDecision considerLongest(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 

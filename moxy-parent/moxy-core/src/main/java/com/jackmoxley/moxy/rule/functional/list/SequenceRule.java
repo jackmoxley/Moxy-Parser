@@ -20,7 +20,7 @@ package com.jackmoxley.moxy.rule.functional.list;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 @Beta
 public class SequenceRule extends ListRule  {
@@ -28,7 +28,7 @@ public class SequenceRule extends ListRule  {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 
 		if(this.size() == 0){
 			decision.passed();

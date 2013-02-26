@@ -20,7 +20,7 @@ package com.jackmoxley.moxy.rule.functional.single;
 
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 /**
  * As the NotRule implies, if we come across the given rule and it passes, we fail.
@@ -39,10 +39,10 @@ public class NotRule extends SingleRule {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.jackmoxley.moxy.rule.Rule#consider(com.jackmoxley.moxy.rule.RuleEvaluator, com.jackmoxley.moxy.rule.RuleDecision)
+	 * @see com.jackmoxley.moxy.rule.Rule#consider(com.jackmoxley.moxy.rule.RuleParser, com.jackmoxley.moxy.rule.RuleDecision)
 	 */
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 		if (this.size() == 0) {
 			// By its nature we always pass even if we have nothing to evaluate.
 			decision.passed(); 

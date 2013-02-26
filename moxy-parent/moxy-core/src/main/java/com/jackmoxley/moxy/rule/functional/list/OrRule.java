@@ -21,7 +21,7 @@ package com.jackmoxley.moxy.rule.functional.list;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 @Beta
 public class OrRule extends LogicalListRule {
@@ -30,7 +30,7 @@ public class OrRule extends LogicalListRule {
 
 	
 
-	protected RuleDecision considerFirst(RuleEvaluator visitor,
+	protected RuleDecision considerFirst(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision;
 		for (Rule rule : this) {
@@ -42,7 +42,7 @@ public class OrRule extends LogicalListRule {
 		return null;
 	}
 
-	protected RuleDecision considerShortest(RuleEvaluator visitor,
+	protected RuleDecision considerShortest(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 
@@ -60,7 +60,7 @@ public class OrRule extends LogicalListRule {
 		return finalDecision;
 	}
 
-	protected RuleDecision considerLongest(RuleEvaluator visitor,
+	protected RuleDecision considerLongest(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 

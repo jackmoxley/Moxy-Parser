@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
@@ -35,7 +35,7 @@ public class DelegateRuleTest {
 	
 	@Test
 	public void testHappyPath_symbol_pass() {
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		DelegateRule rule = new DelegateRule();
 		rule.setSymbol(true);
@@ -51,7 +51,7 @@ public class DelegateRuleTest {
 	
 	@Test
 	public void testUnHappyPath_symbol_fail() {
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		DelegateRule rule = new DelegateRule();
 		rule.setSymbol(true);
@@ -66,7 +66,7 @@ public class DelegateRuleTest {
 
 	@Test
 	public void testUnHappyPath_symbol_null() {
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		DelegateRule rule = new DelegateRule();
 		rule.setSymbol(true);
@@ -81,7 +81,7 @@ public class DelegateRuleTest {
 	
 	@Test
 	public void testHappyPath_link_pass() {
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		DelegateRule rule = new DelegateRule();
 		rule.setSymbol(false);
@@ -97,7 +97,7 @@ public class DelegateRuleTest {
 	
 	@Test
 	public void testUnHappyPath_link_fail() {
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		DelegateRule rule = new DelegateRule();
 		rule.setSymbol(false);
@@ -112,7 +112,7 @@ public class DelegateRuleTest {
 
 	@Test
 	public void testUnHappyPath_link_null() {
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		
 		DelegateRule rule = new DelegateRule();

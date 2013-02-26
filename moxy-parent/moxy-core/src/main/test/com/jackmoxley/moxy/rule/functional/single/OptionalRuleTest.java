@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
@@ -39,7 +39,7 @@ public class OptionalRuleTest {
 	public void testEmpty(){
 		OptionalRule testRule = new OptionalRule();
 
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -50,7 +50,7 @@ public class OptionalRuleTest {
 		TrueRule trueRule = TrueRule.get();
 		OptionalRule testRule = new OptionalRule(trueRule);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -61,7 +61,7 @@ public class OptionalRuleTest {
 		FalseRule falseRule = FalseRule.get();
 		OptionalRule testRule = new OptionalRule(falseRule);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());

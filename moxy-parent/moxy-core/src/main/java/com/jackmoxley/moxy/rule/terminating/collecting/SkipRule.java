@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 import com.jackmoxley.moxy.token.CharacterToken;
 
 /**
@@ -58,7 +58,7 @@ public class SkipRule extends CollectingRule {
 	}
 
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 		final int start = decision.getStartIndex(); // ?
 		final int end = start + tokensToSkip;
 		List<CharacterToken> tokens = visitor.getSequence().tokens(start,

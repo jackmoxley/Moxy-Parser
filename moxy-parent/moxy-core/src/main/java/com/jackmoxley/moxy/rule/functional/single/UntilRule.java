@@ -21,7 +21,7 @@ package com.jackmoxley.moxy.rule.functional.single;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 import com.jackmoxley.moxy.rule.RuleVisitor;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
@@ -75,7 +75,7 @@ public class UntilRule extends MinMaxRule {
 		until.accept(visitor);
 	}
 
-	protected void considerMax(RuleEvaluator visitor, RuleDecision decision) {
+	protected void considerMax(RuleParser visitor, RuleDecision decision) {
 		boolean unlimited = max < 0;
 		RuleDecision current = new RuleDecision(decision.getStartIndex());
 		current.setNextIndex(decision.getNextIndex());

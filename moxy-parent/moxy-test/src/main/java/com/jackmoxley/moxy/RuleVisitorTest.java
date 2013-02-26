@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.moxley.moxy;
+package com.jackmoxley.moxy;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,7 +34,7 @@ import com.jackmoxley.moxy.optimizer.StringRuleOptimizer;
 import com.jackmoxley.moxy.optimizer.SymbolRuleOptimizer;
 import com.jackmoxley.moxy.realizer.XMLRealizer;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.SymbolToken;
@@ -118,7 +118,7 @@ public class RuleVisitorTest {
 		long startMemory = runtime.totalMemory() - runtime.freeMemory();
 		long currentMemory = startMemory;
 		System.out.println((currentMemory / 1024) + "kb");
-		RuleEvaluator visitor;
+		SimpleRuleParser visitor;
 		RuleDecision decision;
 		for (int r = ramp; r <= 100; r += ramp) {
 
@@ -126,8 +126,8 @@ public class RuleVisitorTest {
 			time = System.nanoTime();
 			for (int i = 0; i < r; i++) {
 
-				visitor = new RuleEvaluator(grammer,new RuleHistoryTreeMap(),stream);
-				decision = visitor.evaluate(grammer.get("syntax"));
+				visitor = new SimpleRuleParser(grammer,new RuleHistoryTreeMap(),stream);
+				decision = visitor.parse(grammer.get("syntax"));
 				tokens = decision.getTokens();
 			}
 			time = System.nanoTime() - time;
@@ -141,8 +141,8 @@ public class RuleVisitorTest {
 			time = System.nanoTime();
 			for (int i = 0; i < (r); i++) {
 
-				visitor = new RuleEvaluator(grammer2,new RuleHistoryTreeMap(),stream);
-				decision = visitor.evaluate(grammer2.get("syntax"));
+				visitor = new SimpleRuleParser(grammer2,new RuleHistoryTreeMap(),stream);
+				decision = visitor.parse(grammer2.get("syntax"));
 				tokens = decision.getTokens();
 			}
 			time = System.nanoTime() - time;
@@ -184,8 +184,8 @@ public class RuleVisitorTest {
 	}
 	
 	public static List<Token> parse(TokenStream<CharacterToken> input, Grammar grammar, String start){
-		RuleEvaluator visitor = new RuleEvaluator(grammar,new RuleHistoryTreeMap(),input);
-		RuleDecision decision = visitor.evaluate(grammar.get(start));
+		SimpleRuleParser visitor = new SimpleRuleParser(grammar,new RuleHistoryTreeMap(),input);
+		RuleDecision decision = visitor.parse(grammar.get(start));
 		return decision.getTokens();
 	}
 

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
@@ -42,7 +42,7 @@ public class MinMaxRuleTest {
 	public void testEmpty(){
 		MinMaxRule testRule = new MinMaxRule();
 
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -53,7 +53,7 @@ public class MinMaxRuleTest {
 		TrueRule trueRule = TrueRule.get();
 		MinMaxRule testRule = new MinMaxRule(trueRule);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -64,7 +64,7 @@ public class MinMaxRuleTest {
 		FalseRule falseRule = FalseRule.get();
 		MinMaxRule testRule = new MinMaxRule(falseRule);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -75,7 +75,7 @@ public class MinMaxRuleTest {
 		TrueRule trueRule = TrueRule.get();
 		MinMaxRule testRule = new MinMaxRule(trueRule, 1, MinMaxRule.UNLIMITED);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -86,7 +86,7 @@ public class MinMaxRuleTest {
 		FalseRule falseRule = FalseRule.get();
 		MinMaxRule testRule = new MinMaxRule(falseRule, 1, MinMaxRule.UNLIMITED);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
@@ -95,7 +95,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testHappyPath_collecting_unlimited() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		MinMaxRule rule = new MinMaxRule(skip);
 		
@@ -119,7 +119,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with6() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdef"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdef"));
 		
 		MinMaxRule rule = new MinMaxRule(skip,3,5);
 		
@@ -140,7 +140,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with4() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcd"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcd"));
 		
 		MinMaxRule rule = new MinMaxRule(skip,3,5);
 		
@@ -160,7 +160,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with5() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
 		
 		MinMaxRule rule = new MinMaxRule(skip,3,5);
 		
@@ -180,7 +180,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with3() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abc"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abc"));
 		
 		MinMaxRule rule = new MinMaxRule(skip,3,5);
 		
@@ -198,7 +198,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testUnHappyPath_collecting_min3_max5_with2() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("ab"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("ab"));
 		
 		MinMaxRule rule = new MinMaxRule(skip,3,5);
 		
@@ -212,7 +212,7 @@ public class MinMaxRuleTest {
 	@Test
 	public void testUnHappyPath_collecting_min3_max5_with0() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream(""));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream(""));
 		
 		MinMaxRule rule = new MinMaxRule(skip,3,5);
 		

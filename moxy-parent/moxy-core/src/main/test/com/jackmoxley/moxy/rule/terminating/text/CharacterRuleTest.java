@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
@@ -37,7 +37,7 @@ public class CharacterRuleTest {
 	public void testHappyPath_char() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -52,7 +52,7 @@ public class CharacterRuleTest {
 	public void testHappyPath_string() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -68,7 +68,7 @@ public class CharacterRuleTest {
 	public void testUnHappyPath_char() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -83,7 +83,7 @@ public class CharacterRuleTest {
 	public void testUnHappyPath_string() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -100,7 +100,7 @@ public class CharacterRuleTest {
 	public void testUnHappyPath_char_notokens() {
 		String textToCheck = "";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -115,7 +115,7 @@ public class CharacterRuleTest {
 	public void testUnHappyPath_string_notokens() {
 		String textToCheck = "";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 

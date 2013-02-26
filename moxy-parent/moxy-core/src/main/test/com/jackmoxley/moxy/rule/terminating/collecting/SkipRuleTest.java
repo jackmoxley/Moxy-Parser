@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
@@ -38,7 +38,7 @@ public class SkipRuleTest {
 	public void testHappyPath_skip_0() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -57,7 +57,7 @@ public class SkipRuleTest {
 	public void testHappyPath_skip_4() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -80,7 +80,7 @@ public class SkipRuleTest {
 	public void testHappyPath_skip_7() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -106,7 +106,7 @@ public class SkipRuleTest {
 	public void testUnHappyPath_skip_8() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -123,7 +123,7 @@ public class SkipRuleTest {
 	public void testHappyPath_skip_0_notcollecting() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -142,7 +142,7 @@ public class SkipRuleTest {
 	public void testHappyPath_skip_4_notcollecting() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -161,7 +161,7 @@ public class SkipRuleTest {
 	public void testHappyPath_skip_7_notcollecting() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -180,7 +180,7 @@ public class SkipRuleTest {
 	public void testUnHappyPath_skip_8_notcollecting() {
 		String textToCheck = "abcdefg";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 

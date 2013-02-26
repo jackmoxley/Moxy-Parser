@@ -21,7 +21,7 @@ package com.jackmoxley.moxy.rule.functional.single;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 @Beta
 public class OptionalRule extends SingleRule {
@@ -45,7 +45,7 @@ public class OptionalRule extends SingleRule {
 	}
 
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 		if (this.size() == 0) {
 			// By its nature we always pass even if we have nothing to evaluate.
 			decision.passed(); 

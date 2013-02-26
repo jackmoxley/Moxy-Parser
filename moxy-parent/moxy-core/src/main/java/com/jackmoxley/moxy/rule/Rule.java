@@ -46,7 +46,7 @@ public interface Rule extends Serializable {
 	 * of its execution of its consider method. This is so that if we need to
 	 * consider any sub rules, then we don't mess up cyclic detection.
 	 * 
-	 * 3. When considering rules we should hand off to the RuleEvaluator via its
+	 * 3. When considering rules we should hand off to the RuleParser via its
 	 * evaluate method, rather than directly calling consider. This is so we can
 	 * use the power of its ability to collect history, and detect cycles.
 	 * 
@@ -67,7 +67,7 @@ public interface Rule extends Serializable {
 	 * @param visitor
 	 * @param decision
 	 */
-	public void consider(RuleEvaluator visitor, RuleDecision decision);
+	public void consider(RuleParser visitor, RuleDecision decision);
 
 	public void accept(RuleVisitor visitor);
 

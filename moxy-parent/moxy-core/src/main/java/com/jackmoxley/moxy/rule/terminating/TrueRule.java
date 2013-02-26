@@ -20,7 +20,7 @@ package com.jackmoxley.moxy.rule.terminating;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 @Beta
 public class TrueRule extends TerminatingRule {
@@ -38,7 +38,7 @@ public class TrueRule extends TerminatingRule {
 	}
 	
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 		decision.passed();
 	}
 

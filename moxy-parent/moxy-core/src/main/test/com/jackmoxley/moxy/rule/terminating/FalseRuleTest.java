@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 
 /**
@@ -35,7 +35,7 @@ public class FalseRuleTest {
 	@Test
 	public void testUnHappyPath() {
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), null);
 
 		// always take the first character

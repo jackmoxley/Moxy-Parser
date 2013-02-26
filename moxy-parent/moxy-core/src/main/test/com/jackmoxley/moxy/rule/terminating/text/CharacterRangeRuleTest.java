@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.token.stream.CharSequenceTokenStream;
 
@@ -37,7 +37,7 @@ public class CharacterRangeRuleTest {
 	public void testHappyPath() {
 		String textToCheck = "abcdefG\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -53,7 +53,7 @@ public class CharacterRangeRuleTest {
 	public void testUnHappyPath() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -70,7 +70,7 @@ public class CharacterRangeRuleTest {
 	public void testUnHappyPath_notokens() {
 		String textToCheck = "";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -86,7 +86,7 @@ public class CharacterRangeRuleTest {
 	public void testHappyPath_begining() {
 		String textToCheck = "Abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -100,7 +100,7 @@ public class CharacterRangeRuleTest {
 	public void testUnHappyPath_begining() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -114,7 +114,7 @@ public class CharacterRangeRuleTest {
 	public void testHappyPath_end() {
 		String textToCheck = "abcdefg\nhijklmnoP";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 
@@ -128,7 +128,7 @@ public class CharacterRangeRuleTest {
 	public void testUnHappyPath_end() {
 		String textToCheck = "abcdefg\nhijklmnop";
 
-		RuleEvaluator visitor = new RuleEvaluator(null,
+		SimpleRuleParser visitor = new SimpleRuleParser(null,
 				new RuleHistoryTreeMap(), new CharSequenceTokenStream(
 						textToCheck));
 

@@ -19,7 +19,7 @@
 package com.jackmoxley.moxy.rule.functional.list;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 /**
  * @author jack
@@ -36,7 +36,7 @@ public abstract class LogicalListRule extends ListRule {
 	protected Type type = Type.First;
 
 	@Override
-	public void consider(RuleEvaluator visitor, RuleDecision decision) {
+	public void consider(RuleParser visitor, RuleDecision decision) {
 
 		if (this.size() == 0) {
 			decision.failed("{} failed no rules to consider", this);
@@ -65,13 +65,13 @@ public abstract class LogicalListRule extends ListRule {
 		}
 	}
 
-	protected abstract RuleDecision considerFirst(RuleEvaluator visitor,
+	protected abstract RuleDecision considerFirst(RuleParser visitor,
 			RuleDecision decision) ;
 
-	protected abstract RuleDecision considerShortest(RuleEvaluator visitor,
+	protected abstract RuleDecision considerShortest(RuleParser visitor,
 			RuleDecision decision) ;
 
-	protected abstract RuleDecision considerLongest(RuleEvaluator visitor,
+	protected abstract RuleDecision considerLongest(RuleParser visitor,
 			RuleDecision decision) ;
 	
 	public Type getType() {

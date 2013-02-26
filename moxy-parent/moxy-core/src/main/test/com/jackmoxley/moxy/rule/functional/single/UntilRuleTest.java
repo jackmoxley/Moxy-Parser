@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.SimpleRuleParser;
 import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;
@@ -43,7 +43,7 @@ public class UntilRuleTest {
 	public void testEmpty(){
 		UntilRule testRule = new UntilRule();
 
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -55,7 +55,7 @@ public class UntilRuleTest {
 		TrueRule until  = TrueRule.get();
 		UntilRule testRule = new UntilRule(trueRule,until);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -67,7 +67,7 @@ public class UntilRuleTest {
 		TrueRule until  = TrueRule.get();
 		UntilRule testRule = new UntilRule(falseRule,until);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -79,7 +79,7 @@ public class UntilRuleTest {
 		TrueRule until  = TrueRule.get();
 		UntilRule testRule = new UntilRule(trueRule, 1, UntilRule.UNLIMITED,until,false,false);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasPassed());
@@ -91,7 +91,7 @@ public class UntilRuleTest {
 		TrueRule until  = TrueRule.get();
 		UntilRule testRule = new UntilRule(falseRule, 1, UntilRule.UNLIMITED,until, false,false);
 		
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),null);
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		RuleDecision decision = new RuleDecision(0);
 		testRule.consider(visitor, decision);
 		assertTrue(decision.hasFailed());
@@ -101,7 +101,7 @@ public class UntilRuleTest {
 	public void testHappyPath_collecting_unlimited() {
 		SkipRule skip = new SkipRule(true, 1);
 		TrueRule until  = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		UntilRule rule = new UntilRule(skip,until);
 		
@@ -118,7 +118,7 @@ public class UntilRuleTest {
 	public void testHappyPath_collecting_unlimited_greedy() {
 		SkipRule skip = new SkipRule(true, 1);
 		TrueRule until  = TrueRule.get();
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		UntilRule rule = new UntilRule(skip,until);
 		rule.setGreedy(true);
@@ -142,7 +142,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with6() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdef"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdef"));
 
 		TrueRule until  = TrueRule.get();
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -162,7 +162,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with4() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcd"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcd"));
 
 		TrueRule until  = TrueRule.get();
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -182,7 +182,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with5() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
 
 		TrueRule until  = TrueRule.get();
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -201,7 +201,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with3() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abc"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abc"));
 
 		TrueRule until  = TrueRule.get();
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -220,7 +220,7 @@ public class UntilRuleTest {
 	@Test
 	public void testUnHappyPath_collecting_min3_max5_with2() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("ab"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("ab"));
 
 		TrueRule until  = TrueRule.get();
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -235,7 +235,7 @@ public class UntilRuleTest {
 	@Test
 	public void testUnHappyPath_collecting_min3_max5_with0() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream(""));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream(""));
 
 		TrueRule until  = TrueRule.get();
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -249,7 +249,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with5_untilD() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
 
 		CharacterRule until  = new CharacterRule('d');
 		UntilRule rule = new UntilRule(skip,3,5,until,false,false);
@@ -267,7 +267,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with5_untilD_include() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcde"));
 
 		CharacterRule until  = new CharacterRule('d');
 		UntilRule rule = new UntilRule(skip,3,5,until,true,false);
@@ -286,7 +286,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with6_untilD_greedy() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdde"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdde"));
 
 		CharacterRule until  = new CharacterRule('d');
 		UntilRule rule = new UntilRule(skip,3,5,until,false,true);
@@ -305,7 +305,7 @@ public class UntilRuleTest {
 	@Test
 	public void testHappyPath_collecting_min3_max5_with6_untilD_include_greedy() {
 		SkipRule skip = new SkipRule(true, 1);
-		RuleEvaluator visitor = new RuleEvaluator(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdde"));
+		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdde"));
 
 		CharacterRule until  = new CharacterRule('d');
 		UntilRule rule = new UntilRule(skip,3,5,until,true,true);

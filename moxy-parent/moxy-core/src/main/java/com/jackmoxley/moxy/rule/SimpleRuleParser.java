@@ -28,7 +28,7 @@ import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 
 /**
- * RuleEvaluator is the meat behind the parsing engine. It is fairly simple in
+ * RuleParser is the meat behind the parsing engine. It is fairly simple in
  * its design but very powerful. We perform our LL(*) parsing and keep it
  * Efficient by sacrificing memory, something which in the old days wasn't
  * possible. Additionally optimizers are provided to further reduce some of the
@@ -49,10 +49,10 @@ import com.jackmoxley.moxy.token.stream.TokenStream;
  * 
  */
 @Beta
-public class RuleEvaluator {
+public class SimpleRuleParser implements RuleParser {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(RuleEvaluator.class);
+			.getLogger(SimpleRuleParser.class);
 	private TokenStream<CharacterToken> sequence;
 	private Grammar grammar;
 	private int heirachy = 0;
@@ -62,21 +62,24 @@ public class RuleEvaluator {
 	 * @param grammar
 	 * @param sequence
 	 */
-	public RuleEvaluator(Grammar grammar, RuleHistory history, TokenStream<CharacterToken> sequence) {
+	public SimpleRuleParser(Grammar grammar, RuleHistory history, TokenStream<CharacterToken> sequence) {
 		super();
 		this.grammar = grammar;
 		this.sequence = sequence;
 		this.history = history;
 	}
 
-	public RuleDecision evaluate(RuleTree rule) {
-		return evaluate(rule.getRule());
+	@Override
+	public RuleDecision parse(RuleTree rule) {
+		return parse(rule.getRule());
 	}
 
-	public RuleDecision evaluate(Rule rule) {
+	@Override
+	public RuleDecision parse(Rule rule) {
 		return evaluate(rule, 0);
 	}
 
+	@Override
 	public RuleDecision evaluate(Rule rule, int startIndex) {
 		logger.debug("{} Visiting {}", heirachy++, rule);
 		// Lets check to see if we have already considered this branch
@@ -112,11 +115,13 @@ public class RuleEvaluator {
 		return decision;
 	}
 
+	@Override
 	public Rule ruleForName(String symbol) {
 		RuleTree tree = grammar.get(symbol);
 		return tree == null ? null : tree.getRule();
 	}
 
+	@Override
 	public TokenStream<CharacterToken> getSequence() {
 		return sequence;
 	}

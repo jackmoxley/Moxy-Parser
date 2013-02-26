@@ -21,7 +21,7 @@ package com.jackmoxley.moxy.rule.functional.list;
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleEvaluator;
+import com.jackmoxley.moxy.rule.RuleParser;
 
 @Beta
 public class XOrRule extends LogicalListRule {
@@ -31,7 +31,7 @@ public class XOrRule extends LogicalListRule {
 	private int exclusivity = 1;
 	
 
-	protected RuleDecision considerFirst(RuleEvaluator visitor,
+	protected RuleDecision considerFirst(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 		
@@ -52,7 +52,7 @@ public class XOrRule extends LogicalListRule {
 		return finalDecision;
 	}
 
-	protected RuleDecision considerShortest(RuleEvaluator visitor,
+	protected RuleDecision considerShortest(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 
@@ -75,7 +75,7 @@ public class XOrRule extends LogicalListRule {
 		return finalDecision;
 	}
 
-	protected RuleDecision considerLongest(RuleEvaluator visitor,
+	protected RuleDecision considerLongest(RuleParser visitor,
 			RuleDecision decision) {
 		RuleDecision finalDecision = null;
 
