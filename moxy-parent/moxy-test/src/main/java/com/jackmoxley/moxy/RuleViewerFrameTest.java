@@ -20,41 +20,13 @@ package com.jackmoxley.moxy;
 
 import java.awt.HeadlessException;
 
-import com.jackmoxley.moxy.realizer.RealizedHolder;
 import com.jackmoxley.moxy.renderer.swing.RuleViewerFrame;
-import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.list.OrRule;
-import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
-import com.jackmoxley.moxy.rule.terminating.text.CharacterRangeRule;
-import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
-import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 public class RuleViewerFrameTest  {
 
 
 
 	public static void main(String... args) throws HeadlessException, Exception {
-		CharacterRule rule = new CharacterRule('a');
-		CharacterRule rule1 = new CharacterRule('b');
-		CharacterRule rule2 = new CharacterRule('c');
-		CharacterRule rule3 = new CharacterRule('d');
-		SequenceRule sequence = new SequenceRule();
-		OrRule option = new OrRule();
-		sequence.add(new TextRule("Hello World!"));
-		sequence.add(option);
-		sequence.add(option);
-		sequence.add(rule2);
-		sequence.add(new CharacterRangeRule('0', '9'));
-
-		option.add(rule);
-		option.add(sequence);
-		option.add(new CharacterRangeRule('A', 'Z'));
-		option.add(rule1);
-		option.add(rule2);
-		option.add(rule2);
-		option.add(rule3);
-		RealizedHolder<? extends Rule> ruleHolder1 = new RealizedHolder<>("My Sequence",sequence);
-		RealizedHolder<? extends Rule> ruleHolder2 = new RealizedHolder<>("My Option",option);
 		
 		RuleViewerFrame viewer = new RuleViewerFrame(RuleVisitorTest.basicTest());
 		viewer.setVisible(true);
