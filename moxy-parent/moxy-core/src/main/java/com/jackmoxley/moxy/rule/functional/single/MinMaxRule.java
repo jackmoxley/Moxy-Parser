@@ -19,9 +19,9 @@
 package com.jackmoxley.moxy.rule.functional.single;
 
 import com.jackmoxley.meta.Beta;
+import com.jackmoxley.moxy.parser.RuleDecision;
+import com.jackmoxley.moxy.parser.RuleParser;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleParser;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
 @Beta

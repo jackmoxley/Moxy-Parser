@@ -24,9 +24,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.SimpleRuleParser;
-import com.jackmoxley.moxy.rule.RuleHistoryTreeMap;
+import com.jackmoxley.moxy.parser.RuleDecision;
+import com.jackmoxley.moxy.parser.SimpleRuleParser;
+import com.jackmoxley.moxy.parser.history.RuleHistoryTreeMap;
 import com.jackmoxley.moxy.rule.functional.list.AndRule;
 import com.jackmoxley.moxy.rule.terminating.FalseRule;
 import com.jackmoxley.moxy.rule.terminating.TrueRule;

@@ -19,8 +19,8 @@
 package com.jackmoxley.moxy.rule.functional.list;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleParser;
+import com.jackmoxley.moxy.parser.RuleDecision;
+import com.jackmoxley.moxy.parser.RuleParser;
 
 @Beta
 public class SequenceRule extends ListRule  {

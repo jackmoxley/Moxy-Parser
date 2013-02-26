@@ -16,10 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jackmoxley.moxy.rule;
+package com.jackmoxley.moxy.parser;
 
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.RuleGraph;
+import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.token.CharacterToken;
 import com.jackmoxley.moxy.token.stream.TokenStream;
 

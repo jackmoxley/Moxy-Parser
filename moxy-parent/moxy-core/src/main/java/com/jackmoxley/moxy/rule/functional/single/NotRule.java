@@ -18,9 +18,9 @@
  */
 package com.jackmoxley.moxy.rule.functional.single;
 
+import com.jackmoxley.moxy.parser.RuleDecision;
+import com.jackmoxley.moxy.parser.RuleParser;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleDecision;
-import com.jackmoxley.moxy.rule.RuleParser;
 
 /**
  * As the NotRule implies, if we come across the given rule and it passes, we fail.

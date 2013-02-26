@@ -21,8 +21,8 @@ package com.jackmoxley.moxy.rule.functional;
 import java.util.AbstractList;
 
 import com.jackmoxley.meta.Beta;
+import com.jackmoxley.moxy.parser.RuleDecision;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.RuleDecision;
 
 @Beta
 public abstract class FunctionalRule extends AbstractList<Rule> implements Rule {

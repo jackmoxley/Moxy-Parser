@@ -21,6 +21,8 @@ package com.jackmoxley.moxy.rule;
 import java.io.Serializable;
 
 import com.jackmoxley.meta.Beta;
+import com.jackmoxley.moxy.parser.RuleDecision;
+import com.jackmoxley.moxy.parser.RuleParser;
 
 /**
  * Rule is the interface that defines the contract for a parsing rule. On top of
