@@ -37,6 +37,7 @@ public interface RuleParser {
 
 	public RuleDecision parse(Rule rule);
 
+
 	public RuleDecision evaluate(Rule rule, int startIndex);
 
 	public Rule ruleForName(String symbol);

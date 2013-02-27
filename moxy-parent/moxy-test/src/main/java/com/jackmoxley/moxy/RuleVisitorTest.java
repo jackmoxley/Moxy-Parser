@@ -109,7 +109,7 @@ public class RuleVisitorTest {
 		printSymbols(heirachy, tokens);
 		System.out.println("Rules Optimized=" + optimized);
 
-		int ramp = 20;
+		int ramp = 100;
 		long time = 0;
 		Runtime runtime = Runtime.getRuntime();
 
@@ -120,7 +120,7 @@ public class RuleVisitorTest {
 		System.out.println((currentMemory / 1024) + "kb");
 		SimpleRuleParser visitor;
 		RuleDecision decision;
-		for (int r = ramp; r <= 100; r += ramp) {
+		for (int r = ramp; r <= 500; r += ramp) {
 
 		
 			time = System.nanoTime();

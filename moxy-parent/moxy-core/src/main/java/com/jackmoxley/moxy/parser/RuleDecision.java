@@ -33,6 +33,9 @@ public class RuleDecision {
 	}
 
 	public static final EnumSet<State> FAILED_STATES = EnumSet.of(State.Failed, State.Cyclic) ;
+	public static final EnumSet<State> COMPLETE_STATES = EnumSet.of(State.Passed, State.Failed, State.Cyclic) ;
+	public static final EnumSet<State> INCOMPLETE_STATES = EnumSet.of(State.Considering, State.Unconsidered) ;
+	
 	private static final Object[] NO_ARGS = new Object[0];
 
 	private State state = State.Unconsidered;
@@ -117,6 +120,13 @@ public class RuleDecision {
 
 	public boolean isConsidering() {
 		return State.Considering.equals(state);
+	}
+
+	public boolean isComplete() {
+		return COMPLETE_STATES.contains(state);
+	}
+	public boolean isIncomplete() {
+		return INCOMPLETE_STATES.contains(state);
 	}
 
 	public void passed() {
