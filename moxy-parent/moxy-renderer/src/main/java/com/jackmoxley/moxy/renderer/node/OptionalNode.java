@@ -44,14 +44,18 @@ public class OptionalNode extends FunctionalNode<OptionalRule> {
 		node.prepare(g);
 		Style style = StyleManager.currentStyle();
 		double cornerX = style.lineStyle.cornerRadius.x;
+		double cornerY = style.lineStyle.cornerRadius.y;
+		double internalOffset = node.yOffset()+(cornerY/2);
 //		System.out.println(nodeBounds);
-		line.set(0, Vertex.ZERO.addX(cornerX));
-		line.set(1, Vertex.ZERO);
-		line.set(2, new Vertex(0, -node.yOffset()));
-		line.set(3, new Vertex(node.size().x+cornerX+cornerX, -node.yOffset()));
-		line.set(4, new Vertex(node.size().x+cornerX+cornerX, 0));
-		line.set(5, new Vertex(node.size().x+cornerX, 0));
+		node.localTranslation(new Vertex(0,internalOffset));
+		line.set(0, new Vertex(cornerX,internalOffset));
+		line.set(1,  new Vertex(0,internalOffset));
+		line.set(2, new Vertex(0, -(cornerY/2)));
+		line.set(3, new Vertex(node.size().x, -(cornerY/2)));
+		line.set(4, new Vertex(node.size().x, internalOffset));
+		line.set(5, new Vertex(node.size().x-cornerX, internalOffset));
 		line.prepare(g);
+		this.size(new Vertex(node.size().x, node.size().y+cornerY));
 	}
 
 

@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jackmoxley.moxy.renderer.swing.node.TerminalNode;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.list.LogicalListRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
+import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 
 public class SimpleNodeFactory extends NodeFactory {
@@ -35,22 +37,19 @@ public class SimpleNodeFactory extends NodeFactory {
 			node.constructNodes();
 			return node;
 		} else if (rule instanceof LogicalListRule) {
-			LogicalListNode node = new LogicalListNode(parent,(LogicalListRule) rule);
+			LogicalListNode node = new LogicalListNode(parent,
+					(LogicalListRule) rule);
 			addNode(rule, node);
 			node.constructNodes();
 			return node;
+		} else if (rule instanceof OptionalRule) {
+			OptionalNode node = new OptionalNode(parent, (OptionalRule) rule);
+			addNode(rule, node);
+			node.constructNodes();
+			return node;
+		} else {
+			return null;
 		}
-		return null;
-		// else if (rule instanceof OptionalRule) {
-		// OptionalNode node = new OptionalNode((OptionalRule) rule, parent);
-		// addNode(rule, node);
-		// node.constructNodes(this);
-		// return node;
-		// } else {
-		// TerminalNode node = new TerminalNode(rule, parent);
-		// addNode(rule, node);
-		// return node;
-		// }
 	}
 
 	private void addNode(Rule rule, Node<?> node) {

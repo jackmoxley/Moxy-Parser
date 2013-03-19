@@ -22,6 +22,7 @@ import com.jackmoxley.moxy.renderer.node.NodeFactory;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
+import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 public class RenderableTest extends JPanel {
@@ -76,11 +77,10 @@ public class RenderableTest extends JPanel {
 		orRule.add(new TextRule("Rule B - a bit bigger"));
 		orRule.add(new TextRule("Rule C"));
 		add(orRule);
-		// nodes.add(llNode);
-		// OptionalRule optionalRule = new OptionalRule();
-		// optionalRule.add(new TextRule("Rule A"));
-		// OptionalNode optional = new OptionalNode(optionalRule);
-		// nodes.add(optional);
+		
+		OptionalRule optionalRule = new OptionalRule();
+		optionalRule.add(new TextRule("Rule A"));
+		add(optionalRule);
 	}
 
 	private void paintGrid(Graphics2D g, int gridSize) {
