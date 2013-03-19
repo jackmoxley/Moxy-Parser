@@ -159,8 +159,12 @@ public class SimpleRuleParser implements RuleParser {
 		if (decision.hasPassed()) {
 			logger.debug("Passed {}: ", rule);
 		} else if (logger.isDebugEnabled()) {
-			logger.debug("Failed " + rule + ": " + decision.getFailure()
-					+ ": " + decision, decision.getArguments());
+			Object[] arguments = decision.getArguments();
+			Object[] newArguments = new Object[arguments.length+1];
+			newArguments[0] = rule;
+			System.arraycopy(arguments, 0, newArguments, 1, arguments.length);
+			logger.debug("Failed {}: " + decision.getFailure()
+					+ ": ", newArguments);
 		}
 		return decision;
 	}

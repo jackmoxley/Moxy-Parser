@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.jackmoxley.moxy.renderer.swing.node.LinkToNode;
-import com.jackmoxley.moxy.renderer.swing.node.OptionNode;
+import com.jackmoxley.moxy.renderer.swing.node.LogicalListNode;
 import com.jackmoxley.moxy.renderer.swing.node.SequenceNode;
 import com.jackmoxley.moxy.renderer.swing.node.TerminalNode;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.list.OrRule;
+import com.jackmoxley.moxy.rule.functional.list.LogicalListRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 
@@ -63,8 +63,8 @@ public class NodeFactory {
 			addNode(rule, node);
 			node.constructNodes(this);
 			return node;
-		} else if (rule instanceof OrRule) {
-			OptionNode node = new OptionNode((OrRule) rule, parent);
+		} else if (rule instanceof LogicalListRule) {
+			LogicalListNode node = new LogicalListNode((LogicalListRule) rule, parent);
 			addNode(rule, node);
 			node.constructNodes(this);
 			return node;

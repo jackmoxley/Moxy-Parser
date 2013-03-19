@@ -31,11 +31,11 @@ import java.util.List;
 
 import com.jackmoxley.moxy.renderer.swing.Dimensions;
 import com.jackmoxley.moxy.renderer.swing.Node;
-import com.jackmoxley.moxy.rule.functional.list.OrRule;
+import com.jackmoxley.moxy.rule.functional.list.LogicalListRule;
 
-public class OptionNode extends FunctionalNode {
+public class LogicalListNode extends FunctionalNode {
 
-	public OptionNode(OrRule rule, Node<?> parent) {
+	public LogicalListNode(LogicalListRule rule, Node<?> parent) {
 		super(rule, parent);
 	}
 
@@ -72,7 +72,7 @@ public class OptionNode extends FunctionalNode {
 
 		return new Dimensions(size, bounds, stubLeft, stubRight, localStubY);
 	}
-
+	
 	@Override
 	public void render(Graphics2D g) {
 		double leftConnect = dim.stubLeft.getX() + HALF_MARGIN;

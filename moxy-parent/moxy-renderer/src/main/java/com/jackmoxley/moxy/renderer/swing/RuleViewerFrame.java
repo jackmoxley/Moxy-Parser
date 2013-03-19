@@ -63,20 +63,6 @@ public class RuleViewerFrame extends JFrame {
 		this(rules.getRuleTrees().values());
 	}
 	
-//	private static Map<String, Rule> getBestMap(Grammer rules){
-//		if(rules instanceof RealizedRuledGrammer){
-//			RealizedRuledGrammer rrules = (RealizedRuledGrammer)rules;
-//			Map<String,Rule> map = new LinkedHashMap<String,Rule>();
-//			for(String ruleName: rrules.getRuleMap().keySet()) {
-//				map.put(rrules.getTextualSyntax(ruleName), rrules.getRule(ruleName));
-//			}
-//			return map;
-//		} else {
-//			return rules.getRuleMap();
-//		}
-//		
-//	}
-	
 
 	public void addRule(Rule rule, String name, String syntax) {
 

@@ -100,62 +100,40 @@ public class SymbolToken extends ArrayList<Token> implements Token {
 	 * @return
 	 */
 	
-//	public List<SymbolToken> getOrNull(String name) {
-//
-//		if(name == null){
-//			return Collections.emptyList();
-//		}
-//		logger.info("getOrNull {}",name);
-//		String[] subnames = name.split("[.]");
-//		String subname = subnames[0];
-//		List<SymbolToken> tokens = new ArrayList<SymbolToken>();
-//		
-//		for (Token token : this) {
-//			if (token instanceof SymbolToken) {
-//				SymbolToken symbol = (SymbolToken) token;
-//				logger.info("getOrNull considering {} {}, {}",1,symbol,subname);
-//				if (subname.equals(symbol.getSymbol())) {
-//					if (1 >= subnames.length) {
-//						logger.info("getOrNull found {} {}",1,symbol);
-//						tokens.add(symbol);
-//					} else {
-//						logger.info("getOrNull traversing {} {}",1,subnames);
-//						if(!symbol.get(tokens, subnames, 1)){
-//							tokens.add(null);
-//						}
-//					}
-//				} else {
-//					tokens.add(null);
-//				}
-//			}
-//		}
-//		return tokens;
-//	}
-	
 	public boolean get(List<SymbolToken> tokens, String[] names, int count) {
 		int nextCount = count + 1;
 		String name = names[count];
-		boolean many = name.contains("*") || name.contains("+");
-		boolean optional = name.contains("*") || name.contains("?"); 
+		int length = name.length();
+		name = name.replace("*", "");
+		final boolean star = name.length() != length;
+
+		length = name.length();
+		name = name.replace("+", "");
+		final boolean plus = name.length() != length;
+
+		length = name.length();
+		name = name.replace("?", "");
+		final boolean question = name.length() != length;
+		
+		final boolean many = star || plus;
+		final boolean optional = question || star; 
 		// we use this to determine whether we should add null for non entities
-		if(many || optional){
-			name = name.replace("*", "").replace("+", "").replace("?", "");
-		}
+
 		for (Token token : this) {
 			if (token instanceof SymbolToken) {
 				SymbolToken symbol = (SymbolToken) token;
 
-				logger.info("get considering {}, {}, {}",nextCount,symbol,name);
+				logger.trace("get considering {}, {}, {}",nextCount,symbol,name);
 				if (name.equals(symbol.getSymbol())) {
 					if (nextCount >= names.length) {
-						logger.info("get found {}, {}, {}",nextCount,symbol,name);
+						logger.trace("get found {}, {}, {}",nextCount,symbol,name);
 						tokens.add(symbol);
 						if(!many){
 							return true;
 						}
 					} else {
 
-						logger.info("get traversing {}, {}, {}",nextCount,names);
+						logger.trace("get traversing {}, {}, {}",nextCount,names);
 						if(symbol.get(tokens, names, nextCount) && !many){
 							return true;
 						}
