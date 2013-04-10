@@ -1,0 +1,32 @@
+/* Application wide styles */
+
+.text {
+}
+.rule {
+    -moxy-gap: 20px;
+}
+
+.rule:hover {
+    -moxy-gap: 20px;
+}
+.rule:hover .path{
+    -fx-stroke: red;
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+	-fx-label-padding: 5px 12px 5px 12px;
+    -fx-text-fill: #333333;
+    -fx-underline: false;
+    -fx-effect: dropshadow( gaussian , rgba(200,200,200,0.5) , 0,0,1,1 );
+}
+.label:hover {
+    -fx-text-fill: #FF3333;
+}
+
+.outline {
+	-fx-fill: transparent;
+    -fx-stroke: #BBBBCC;
+}
+
