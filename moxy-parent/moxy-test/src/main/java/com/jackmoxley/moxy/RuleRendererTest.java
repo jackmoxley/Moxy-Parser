@@ -18,11 +18,9 @@
  */
 package com.jackmoxley.moxy;
 
-import java.awt.HeadlessException;
-
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuledGrammar;
-import com.jackmoxley.moxy.renderer.swing.RuleViewerFrame;
+import com.jackmoxley.moxy.renderer.javafx.RuleRenderer;
 import com.jackmoxley.moxy.rule.functional.list.AndRule;
 import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
@@ -42,17 +40,16 @@ import com.jackmoxley.moxy.rule.terminating.text.CharacterRangeRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
-public class RuleRendererTest {
+public class RuleRendererTest extends RuleRenderer {
 
-	public static void main(String... args) throws HeadlessException, Exception {
+	public static void main(String... args) throws Exception {
 
-		RuleViewerFrame viewer = new RuleViewerFrame(
-				createGrammarForEveryRule());
-		viewer.setVisible(true);
+		RuleRendererTest.launch(args);
 
 	}
-
-	private static Grammar createGrammarForEveryRule() {
+	
+	@Override
+	public Grammar getGrammar() {
 		RuledGrammar grammar = new RuledGrammar();
 		// Terminating
 		EOLRule eol = new EOLRule();

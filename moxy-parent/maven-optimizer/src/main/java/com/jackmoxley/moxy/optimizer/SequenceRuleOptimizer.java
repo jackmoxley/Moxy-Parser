@@ -19,7 +19,6 @@
 package com.jackmoxley.moxy.optimizer;
 
 import com.jackmoxley.meta.Beta;
-import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 
 /**
@@ -29,10 +28,10 @@ import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
  * 
  */
 @Beta
-public class SequenceRuleOptimizer extends AbstractRuleListOptimizer<SequenceRule> implements Optimizer {
+public class SequenceRuleOptimizer extends ListRuleOptimizer<SequenceRule> implements Optimizer {
 
 	@Override
-	protected SequenceRule asInstance(Rule rule) {
+	protected SequenceRule asInstance(Object rule) {
 		return rule instanceof SequenceRule ? (SequenceRule)rule : null;
 	}
 

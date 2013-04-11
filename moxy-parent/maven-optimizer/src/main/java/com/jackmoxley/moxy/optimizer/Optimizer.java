@@ -18,11 +18,13 @@
  */
 package com.jackmoxley.moxy.optimizer;
 
+import java.util.List;
+
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
-import com.jackmoxley.moxy.rule.functional.FunctionalRule;
+import com.jackmoxley.moxy.rule.Rule;
 
 @Beta
 public interface Optimizer {
-	int visitRule(Grammar grammer, FunctionalRule parent); // we want to drive off this one.
+	int visitRule(Grammar grammer, List<Rule> parent); // we want to drive off this one.
 }

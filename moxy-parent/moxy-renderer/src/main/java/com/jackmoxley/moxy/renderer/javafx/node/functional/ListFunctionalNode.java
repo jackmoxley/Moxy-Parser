@@ -131,12 +131,8 @@ public abstract class ListFunctionalNode<FR extends ListRule> extends
 		if (before != null && after != null) {
 			unbindChildren(before, after);
 		}
-		if (before != null) {
-			bindChildren(before, node);
-		}
-		if (after != null) {
-			bindChildren(node, after);
-		}
+		bindChildren(before, node);
+		bindChildren(node, after);
 		bindChild(node);
 		this.getRuleNode().getChildren().add(node);
 	}
@@ -146,7 +142,7 @@ public abstract class ListFunctionalNode<FR extends ListRule> extends
 		if (pathList == null) {
 			return null;
 		}
-		if (index >= pathList.size()){
+		if (index >= pathList.size()) {
 			return null;
 		}
 		return pathList.get(index);

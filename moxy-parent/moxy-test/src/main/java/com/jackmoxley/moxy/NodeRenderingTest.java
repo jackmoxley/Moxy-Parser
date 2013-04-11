@@ -1,4 +1,4 @@
-package com.jackmoxley.moxy.renderer.javafx;
+package com.jackmoxley.moxy;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -12,10 +12,11 @@ import com.jackmoxley.moxy.renderer.javafx.node.TerminatingNode;
 import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
+import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 
-public class MoxyApplication extends Application {
+public class NodeRenderingTest extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -63,6 +64,14 @@ public class MoxyApplication extends Application {
 		OptionalRule optionalRule2 = new OptionalRule();
 		optionalRule2.add(new TextRule("Optional"));
 		ruleNode = NodeFactory.getInstance().getNodeFor(scene, optionalRule2);
+		ruleNode.setLayoutY(600);
+		ruleNode.layoutYProperty().bind(last.endYProperty());
+		last = ruleNode;
+		group.getChildren().add(ruleNode);
+		
+		PointerRule pointer = new PointerRule(true, "I am a Pointer");
+
+		ruleNode = NodeFactory.getInstance().getNodeFor(scene, pointer);
 		ruleNode.setLayoutY(600);
 		ruleNode.layoutYProperty().bind(last.endYProperty());
 		last = ruleNode;

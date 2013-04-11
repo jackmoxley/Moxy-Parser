@@ -18,10 +18,11 @@
  */
 package com.jackmoxley.moxy.optimizer;
 
+import java.util.List;
+
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 import com.jackmoxley.moxy.rule.functional.list.ListRule;
 
 /**
@@ -31,7 +32,7 @@ import com.jackmoxley.moxy.rule.functional.list.ListRule;
  * 
  */
 @Beta
-public abstract class AbstractRuleListOptimizer <RL extends ListRule> implements Optimizer{
+public abstract class ListRuleOptimizer <RL extends ListRule> implements Optimizer{
 
 
 	/**
@@ -41,10 +42,10 @@ public abstract class AbstractRuleListOptimizer <RL extends ListRule> implements
 	 * @param rule
 	 * @return the converted rule or null
 	 */
-	protected abstract RL asInstance(Rule rule);
+	protected abstract RL asInstance(Object rule);
 
 	@Override
-	public int visitRule(Grammar grammer, FunctionalRule parent) {
+	public int visitRule(Grammar grammer, List<Rule> parent) {
 		int rulesOptimized = 0;
 		boolean parentIsInstance = asInstance(parent) != null;
 		for(int i =0;i < parent.size();i++){

@@ -1,4 +1,4 @@
-package com.jackmoxley.moxy.renderer.javafx.node;
+package com.jackmoxley.moxy.renderer.javafx.node.functional;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.NumberBinding;
@@ -14,7 +14,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 import javafx.scene.text.TextAlignment;
 
-import com.jackmoxley.moxy.renderer.javafx.node.functional.ListFunctionalNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.renderer.javafx.property.math.MaximumDoubleBinding;
 import com.jackmoxley.moxy.renderer.javafx.property.math.MinimumDoubleBinding;
 import com.jackmoxley.moxy.renderer.javafx.property.math.PropertyMath;
@@ -56,20 +56,31 @@ public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 			alignmentProperty.set(TextAlignment.LEFT);
 			break;
 		}
+		System.out.println("LogicalList Size "+rule.size());
+		super.onMouseClicked(event);
 	}
 
 	@Override
 	protected void bindChildren(RuleNode<?> first, RuleNode<?> second) {
-		second.layoutYProperty().bind(first.endYProperty().add(gapProperty()));
+		if(first == null){
+			second.layoutXProperty().set(0);
+		} else if(second != null){
+			second.layoutYProperty().bind(first.endYProperty().add(gapProperty()));
+		}
 	}
 
 	@Override
 	protected void unbindChildren(RuleNode<?> first, RuleNode<?> second) {
-		second.layoutYProperty().unbind();
+		if(second != null){
+			second.layoutYProperty().unbind();
+		}
 	}
 
 	@Override
 	protected void bindChild(RuleNode<?> node) {
+		if(rule.size()==1){
+			System.out.println("Do the singular");
+		}
 		maxWidth.addExpression(node.widthProperty());
 
 		NumberBinding x = new When(alignmentProperty.isEqualTo(TextAlignment.LEFT))

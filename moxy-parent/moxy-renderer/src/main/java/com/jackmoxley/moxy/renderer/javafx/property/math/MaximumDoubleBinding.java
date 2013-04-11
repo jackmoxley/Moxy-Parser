@@ -13,7 +13,7 @@ public class MaximumDoubleBinding extends RangedDoubleBinding {
 	}
 
 	@Override
-	protected double computeValue() {
+	protected double calculate() {
 		double value = Double.MIN_VALUE;
 		for(NumberExpression expression: expressions){
 			double expressionValue = expression.doubleValue();

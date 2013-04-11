@@ -7,10 +7,15 @@ import java.util.Map;
 
 import javafx.scene.Scene;
 
+import com.jackmoxley.moxy.renderer.javafx.node.functional.LogicalListNode;
+import com.jackmoxley.moxy.renderer.javafx.node.functional.SequenceNode;
 import com.jackmoxley.moxy.rule.Rule;
+import com.jackmoxley.moxy.rule.functional.list.ListRule;
 import com.jackmoxley.moxy.rule.functional.list.LogicalListRule;
+import com.jackmoxley.moxy.rule.functional.list.SequenceAnyOrderRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
+import com.jackmoxley.moxy.rule.functional.symbol.SymbolRule;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 
 public class SimpleNodeFactory extends NodeFactory {
@@ -33,8 +38,8 @@ public class SimpleNodeFactory extends NodeFactory {
 			return node;
 		}
 
-		if (rule instanceof SequenceRule) {
-			SequenceNode node = new SequenceNode((SequenceRule) rule);
+		if (rule instanceof SequenceRule || rule instanceof SequenceAnyOrderRule) {
+			SequenceNode node = new SequenceNode((ListRule) rule);
 			list.add(node);
 			node.constructNodes(scene);
 			return node;
@@ -48,7 +53,11 @@ public class SimpleNodeFactory extends NodeFactory {
 			list.add(node);
 			node.constructNode(scene);
 			return node;
-		} else {
+		} else if (rule instanceof SymbolRule) {
+			SymbolNode node = new SymbolNode((SymbolRule) rule);
+			list.add(node);
+			return node;
+		}  else {
 			return null;
 		}
 	}

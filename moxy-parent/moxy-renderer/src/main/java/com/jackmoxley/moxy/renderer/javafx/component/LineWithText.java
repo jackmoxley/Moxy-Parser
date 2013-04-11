@@ -33,6 +33,7 @@ public class LineWithText extends StubPane{
 		textLabel.textProperty().bindBidirectional(text);
 		this.getStyleClass().add("LineWithText");
 		line.getStyleClass().add("path");
+		textLabel.getStyleClass().add("text");
 	}
 
 	@Override

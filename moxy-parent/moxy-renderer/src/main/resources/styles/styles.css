@@ -3,7 +3,7 @@
 .text {
 }
 .rule {
-    -moxy-gap: 20px;
+    -moxy-gap: 10px;
 }
 
 .rule:hover {
@@ -26,7 +26,59 @@
 }
 
 .outline {
+	-fx-arc-width: 10px;
+	-fx-arc-height: 10px;
 	-fx-fill: transparent;
     -fx-stroke: #BBBBCC;
 }
+
+.box {
+    
+	-fx-fill: transparent;
+}
+
+.TextRule .textbox .box, .CharacterRule .textbox .box, .CharacterRangeRule .textbox .box {
+	-fx-arc-width: 15px;
+	-fx-arc-height: 15px;
+	-fx-fill: #BBFFCC;
+    -fx-stroke: #339966;
+}
+
+.TextRule:hover .textbox .box, .CharacterRule:hover .textbox .box, .CharacterRangeRule:hover .textbox .box {
+	-fx-fill: #339966;
+    -fx-stroke: #BBFFCC;
+}
+
+.TextRule:hover .textbox .text, .CharacterRule:hover .textbox .text, .CharacterRangeRule:hover .textbox .text {
+	-fx-fill: #BBFFCC;
+}
+
+
+.TextRule .textbox .text, .CharacterRule .textbox .text, .CharacterRangeRule .textbox .text {
+	-fx-fill: #339966;
+}
+
+
+.SymbolNode .textbox .box {
+	-fx-arc-width: 0px;
+	-fx-arc-height: 0px;
+	-fx-fill: #FFE0C0;
+    -fx-stroke: #665500;
+}
+
+.SymbolNode:hover .textbox .box {
+	-fx-fill: #665500;
+    -fx-stroke: #FFE0C0;
+}
+
+.SymbolNode .textbox .text {
+	-fx-fill: #665500;
+}
+
+.SymbolNode:hover .textbox .text {
+	-fx-fill: #FFE0C0;
+}
+
+
+
 

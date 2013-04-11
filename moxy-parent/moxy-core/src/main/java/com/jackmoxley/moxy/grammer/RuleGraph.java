@@ -19,6 +19,8 @@
 package com.jackmoxley.moxy.grammer;
 
 import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.List;
 
 import com.jackmoxley.moxy.rule.Rule;
 
@@ -26,11 +28,11 @@ import com.jackmoxley.moxy.rule.Rule;
  * @author jack
  *
  */
-public class RuleGraph implements Serializable {
+public class RuleGraph extends AbstractList<Rule> implements Serializable, List<Rule>{
 
 	private static final long serialVersionUID = -7247252355309117368L;
 	
-	private final Rule rule;
+	private Rule rule;
 	private final String name;
 	private final String syntax;
 	
@@ -75,6 +77,36 @@ public class RuleGraph implements Serializable {
 	public String toString() {
 		return "RuleGraph [name=" + name + ", rule=" + rule + ", syntax="
 				+ syntax + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see java.util.AbstractList#get(int)
+	 */
+	@Override
+	public Rule get(int index) {
+		return rule;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.util.AbstractCollection#size()
+	 */
+	@Override
+	public int size() {
+		return 1;
+	}
+
+	@Override
+	public Rule set(int index, Rule element) {
+		Rule old = this.rule;
+		this.rule = element;
+		return old;
+	}
+
+	@Override
+	public Rule remove(int index) {
+		Rule old = this.rule;
+		this.rule = null;
+		return old;
 	}
 
 }

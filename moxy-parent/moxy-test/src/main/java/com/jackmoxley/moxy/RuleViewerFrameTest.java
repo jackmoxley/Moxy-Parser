@@ -18,19 +18,22 @@
  */
 package com.jackmoxley.moxy;
 
-import java.awt.HeadlessException;
+import com.jackmoxley.moxy.grammer.Grammar;
+import com.jackmoxley.moxy.renderer.javafx.RuleRenderer;
 
-import com.jackmoxley.moxy.renderer.swing.RuleViewerFrame;
-
-public class RuleViewerFrameTest  {
-
+public class RuleViewerFrameTest extends RuleRenderer {
 
 
-	public static void main(String... args) throws HeadlessException, Exception {
-		
-		RuleViewerFrame viewer = new RuleViewerFrame(RuleVisitorTest.basicTest());
-		viewer.setVisible(true);
-		
+
+	public static void main(String... args) throws Exception {
+
+		RuleViewerFrameTest.launch(args);
 
 	}
+
+	@Override
+	protected Grammar getGrammar() throws Exception {
+		return RuleVisitorTest.basicTest();
+	}
+
 }

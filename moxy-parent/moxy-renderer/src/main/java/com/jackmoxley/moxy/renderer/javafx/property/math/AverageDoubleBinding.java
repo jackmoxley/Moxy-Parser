@@ -14,7 +14,7 @@ public class AverageDoubleBinding extends RangedDoubleBinding {
 	}
 
 	@Override
-	protected double computeValue() {
+	protected double calculate() {
 		double value = 0;
 		for(NumberExpression expression: expressions){
 			value += expression.getValue().doubleValue();

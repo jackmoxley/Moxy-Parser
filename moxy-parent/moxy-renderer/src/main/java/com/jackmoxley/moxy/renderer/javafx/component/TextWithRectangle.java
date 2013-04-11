@@ -2,7 +2,6 @@ package com.jackmoxley.moxy.renderer.javafx.component;
 
 
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class TextWithRectangle extends StubPane{
@@ -18,9 +17,9 @@ public class TextWithRectangle extends StubPane{
 	public TextWithRectangle(String string) {
 		super();
 		text = new Label();
+		text.getStyleClass().add("text");
 		rectangle = new Rectangle();
-		rectangle.setStroke(Color.BLACK);
-		rectangle.setFill(Color.WHITE);
+		rectangle.getStyleClass().add("box");
 		this.getChildren().add(rectangle);
 		this.getChildren().add(text);
 		setString(string);

@@ -18,6 +18,19 @@ public abstract class RangedDoubleBinding extends DoubleBinding {
 		this.bind(expressions);
 	}
 
+	protected abstract double calculate();
+	
+	@Override
+	protected double computeValue() {
+		if(expressions.isEmpty()){
+			return 0;
+		}
+		if(expressions.size() == 1){
+			return expressions.get(0).doubleValue();
+		}
+		return calculate();
+	}
+	
     @Override
     @ReturnsUnmodifiableCollection
     public ObservableList<?> getDependencies() {

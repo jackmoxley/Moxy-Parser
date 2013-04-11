@@ -50,7 +50,7 @@ public class OptimizerEngine {
 	}
 
 	private List<Optimizer> optimizers = new ArrayList<Optimizer>();
-	private Map<Rule, OptimizerDecision> optimizerStates = new HashMap<Rule, OptimizerDecision>();
+	private Map<Object, OptimizerDecision> optimizerStates = new HashMap<Object, OptimizerDecision>();
 
 	public OptimizerEngine() {
 		super();
@@ -61,7 +61,7 @@ public class OptimizerEngine {
 		add(optimizers);
 	}
 
-	protected OptimizerDecision getOptimizerDecision(Rule rule) {
+	protected OptimizerDecision getOptimizerDecision(Object rule) {
 		OptimizerDecision decision = optimizerStates.get(rule);
 		if (decision == null) {
 			decision = new OptimizerDecision();
@@ -76,18 +76,15 @@ public class OptimizerEngine {
 		int rulesOptimized = 0;
 		for (RuleGraph ruleGraph : grammer.getRuleTrees().values()) {
 			do {
-				Rule root = ruleGraph.getRule();
-				if (root instanceof FunctionalRule) {
-					optimizerStates.clear();
-					rulesOptimized = optimize(grammer, (FunctionalRule) root);
-					totalRulesOptimized += rulesOptimized;
-				}
+				optimizerStates.clear();
+				rulesOptimized = optimize(grammer, ruleGraph);
+				totalRulesOptimized += rulesOptimized;
 			} while (rulesOptimized != 0);
 		}
 		return totalRulesOptimized;
 	}
 
-	public int optimize(final Grammar grammer, final FunctionalRule parent) {
+	public int optimize(final Grammar grammer, final List<Rule> parent) {
 		OptimizerDecision decision = getOptimizerDecision(parent);
 		if (decision.getState() != OptimizerState.Unconsidered) {
 			return 0;

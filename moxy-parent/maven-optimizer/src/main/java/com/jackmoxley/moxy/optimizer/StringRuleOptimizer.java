@@ -18,10 +18,11 @@
  */
 package com.jackmoxley.moxy.optimizer;
 
+import java.util.List;
+
 import com.jackmoxley.meta.Beta;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.rule.Rule;
-import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.terminating.text.CharacterRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
@@ -35,7 +36,7 @@ import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 @Beta
 public class StringRuleOptimizer implements Optimizer{
 
-	public int visitRule(Grammar grammer, FunctionalRule rule) {
+	public int visitRule(Grammar grammer, List<Rule> rule) {
 		int rulesOptimized = 0;
 		if (rule instanceof SequenceRule) {
 			SequenceRule ruleList = (SequenceRule) rule;
