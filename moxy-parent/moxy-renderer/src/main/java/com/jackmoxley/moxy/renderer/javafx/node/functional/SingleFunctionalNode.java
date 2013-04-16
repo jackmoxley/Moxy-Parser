@@ -46,9 +46,11 @@ public abstract class SingleFunctionalNode<FR extends SingleRule> extends
 		if (old != null) {
 			unbindChild(old);
 			this.getRuleNode().getChildren().remove(old);
+			old.boundsInLocalProperty().removeListener(this);
 		}
 		bindChild(node);
 		this.getRuleNode().getChildren().add(node);
+		node.boundsInLocalProperty().addListener(this);
 	}
 
 	protected Path getPath(int index) {

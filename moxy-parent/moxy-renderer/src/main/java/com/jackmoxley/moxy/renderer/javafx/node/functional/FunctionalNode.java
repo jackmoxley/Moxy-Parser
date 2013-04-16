@@ -2,6 +2,7 @@ package com.jackmoxley.moxy.renderer.javafx.node.functional;
 
 import javafx.scene.shape.Rectangle;
 
+import com.jackmoxley.moxy.renderer.javafx.component.StubPane;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
 
@@ -23,6 +24,8 @@ public abstract class FunctionalNode<FR extends FunctionalRule> extends
 		outline.layoutYProperty().bind(ruleNode.layoutYProperty());
 		outline.widthProperty().bind(ruleNode.widthProperty());
 		outline.heightProperty().bind(ruleNode.heightProperty());
+
+		ruleNode.boundsInLocalProperty().addListener(this);
 		super.setup();
 	}
 

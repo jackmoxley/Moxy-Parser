@@ -1,6 +1,7 @@
 package com.jackmoxley.moxy.renderer.javafx.node;
 
 import javafx.beans.binding.DoubleExpression;
+import javafx.scene.input.MouseEvent;
 
 import com.jackmoxley.moxy.renderer.javafx.component.LineWithText;
 import com.jackmoxley.moxy.renderer.javafx.component.StubPane;
@@ -70,6 +71,12 @@ public class RuleNode<R extends Rule> extends StubPane {
 
 	public R getRule() {
 		return rule;
+	}
+
+	@Override
+	protected void onMouseClicked(MouseEvent event) {
+		event.consume();
+		super.onMouseClicked(event);
 	}
 
 }

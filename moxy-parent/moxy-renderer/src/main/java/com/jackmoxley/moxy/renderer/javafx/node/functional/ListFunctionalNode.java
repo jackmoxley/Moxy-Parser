@@ -124,10 +124,14 @@ public abstract class ListFunctionalNode<FR extends ListRule> extends
 		unbindChild(node);
 		this.getRuleNode().getChildren().remove(node);
 		paths.remove(node);
+
+		node.boundsInLocalProperty().removeListener(this);
 	}
 
 	protected void addChild(RuleNode<?> before, RuleNode<?> node,
 			RuleNode<?> after) {
+
+		node.boundsInLocalProperty().addListener(this);
 		if (before != null && after != null) {
 			unbindChildren(before, after);
 		}

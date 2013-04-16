@@ -79,6 +79,26 @@
 	-fx-fill: #FFE0C0;
 }
 
+.textbox .box {
+	-fx-arc-width: 0px;
+	-fx-arc-height: 0px;
+	-fx-fill: #FFE0C0;
+    -fx-stroke: #665500;
+}
+
+.textbox:hover .box {
+	-fx-fill: #665500;
+    -fx-stroke: #FFE0C0;
+}
+
+.textbox .text {
+	-fx-fill: #665500;
+}
+
+.textbox:hover .text {
+	-fx-fill: #FFE0C0;
+}
+
 
 
 
