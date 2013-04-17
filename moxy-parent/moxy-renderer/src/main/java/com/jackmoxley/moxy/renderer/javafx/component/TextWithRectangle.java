@@ -1,6 +1,7 @@
 package com.jackmoxley.moxy.renderer.javafx.component;
 
 
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Rectangle;
 
@@ -16,6 +17,8 @@ public class TextWithRectangle extends StubPane{
 	
 	public TextWithRectangle(String string) {
 		super();
+		this.getStyleClass().add("textbox");
+		this.getStyleClass().add("TextWithRectangle");
 		text = new Label();
 		text.getStyleClass().add("text");
 		rectangle = new Rectangle();
@@ -36,5 +39,9 @@ public class TextWithRectangle extends StubPane{
 	
 	public String getString(){
 		return text.getText();
+	}
+	
+	public StringProperty textProperty(){
+		return text.textProperty();
 	}
 }

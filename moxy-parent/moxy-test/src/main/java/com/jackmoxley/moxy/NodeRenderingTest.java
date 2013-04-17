@@ -1,14 +1,17 @@
 package com.jackmoxley.moxy;
 
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import com.jackmoxley.moxy.grammer.Grammar;
+import com.jackmoxley.moxy.grammer.RuleGraph;
+import com.jackmoxley.moxy.grammer.RuledGrammar;
+import com.jackmoxley.moxy.renderer.javafx.RuleRenderer;
+import com.jackmoxley.moxy.renderer.javafx.component.StubPane;
 import com.jackmoxley.moxy.renderer.javafx.node.NodeFactory;
-import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
-import com.jackmoxley.moxy.renderer.javafx.node.TerminatingNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.rule.functional.list.OrRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
@@ -16,31 +19,20 @@ import com.jackmoxley.moxy.rule.functional.symbol.PointerRule;
 import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 
-public class NodeRenderingTest extends Application {
+public class NodeRenderingTest extends RuleRenderer {
 
-	@Override
-	public void start(Stage stage) throws Exception {
-
-		Group group = new Group();
-
-        Scene scene = new Scene(group, 1000, 1000, Color.WHITE);
-        
-		RuleNode<?> ruleNode = new TerminatingNode(new TextRule("Hello World!"));
-		group.getChildren().add(ruleNode);
-
-		RuleNode<?> last = ruleNode;
-		ruleNode.setLayoutY(0);
-		
+    @Override
+	protected Grammar getGrammar() throws Exception {
+    	RuledGrammar grammer = new RuledGrammar();
+    	
+    	grammer.put("Text Rule", new TextRule("Hello World!"));
+    	
 		SequenceRule sequenceRule = new SequenceRule();
 		sequenceRule.add(new TextRule("I"));
 		sequenceRule.add(new TextRule("Am"));
 		sequenceRule.add(new TextRule("Sequential"));
-		ruleNode = NodeFactory.getInstance().getNodeFor(scene, sequenceRule);
+    	grammer.put("Sequence Rule",sequenceRule);
 
-		ruleNode.layoutYProperty().bind(last.endYProperty());
-		last = ruleNode;
-		group.getChildren().add(ruleNode);
-		
 		OrRule orRule2 = new OrRule();
 		orRule2.add(new TextRule("I"));
 		orRule2.add(new TextRule("Am An"));
@@ -56,35 +48,24 @@ public class NodeRenderingTest extends Application {
 		orRule.add(optionalRule);
 		orRule.add(optionalRule);
 		orRule.add(new TextRule("Rule"));
-		ruleNode = NodeFactory.getInstance().getNodeFor(scene, orRule);
-		ruleNode.layoutYProperty().bind(last.endYProperty());
-		last = ruleNode;
-		group.getChildren().add(ruleNode);
+    	grammer.put("Or Rule",orRule);
 		
 		OptionalRule optionalRule2 = new OptionalRule();
 		optionalRule2.add(new TextRule("Optional"));
-		ruleNode = NodeFactory.getInstance().getNodeFor(scene, optionalRule2);
-		ruleNode.setLayoutY(600);
-		ruleNode.layoutYProperty().bind(last.endYProperty());
-		last = ruleNode;
-		group.getChildren().add(ruleNode);
+    	grammer.put("Optional Rule",optionalRule2);
 		
 		PointerRule pointer = new PointerRule(true, "I am a Pointer");
+    	grammer.put("Pointer Rule",pointer);
 
-		ruleNode = NodeFactory.getInstance().getNodeFor(scene, pointer);
-		ruleNode.setLayoutY(600);
-		ruleNode.layoutYProperty().bind(last.endYProperty());
-		last = ruleNode;
-		group.getChildren().add(ruleNode);
-		
-        scene.getStylesheets().add("/styles/styles.css");
-
-        stage.setTitle("Hello JavaFX and Maven");
-        stage.setScene(scene);
-        stage.show();
+    	
+		return grammer;
 	}
 
-    public static void main(String[] args) throws Exception {
+
+
+
+
+	public static void main(String[] args) throws Exception {
         launch(args);
     }
 }

@@ -2,6 +2,18 @@
 
 .text {
 }
+
+.RuleGraph {
+    -moxy-gap: 5px;
+}
+
+
+.RuleGraph .in, .RuleGraph .out{
+	-fx-fill: transparent;
+    -fx-stroke: black;
+}
+
+
 .rule {
     -moxy-gap: 10px;
 }
@@ -97,6 +109,28 @@
 
 .textbox:hover .text {
 	-fx-fill: #FFE0C0;
+}
+
+
+
+.info .box {
+	-fx-arc-width: 10px;
+	-fx-arc-height: 10px;
+	-fx-fill: #CCCCDD;
+    -fx-stroke: #BBBBCC;
+}
+
+.info:hover .box {
+	-fx-fill: #BBBBCC;
+    -fx-stroke: #BBBBCC;
+}
+
+.info  .text {
+	-fx-fill: #000033;
+}
+
+.info:hover .text {
+	-fx-fill: #111133;
 }
 
 

@@ -43,7 +43,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		rule.setType(OrRule.Type.AcceptFirst);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -61,7 +61,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		rule.setType(OrRule.Type.AcceptFirst);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -77,7 +77,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		rule.setType(OrRule.Type.AcceptFirst);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -92,7 +92,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		rule.setType(OrRule.Type.AcceptFirst);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -108,7 +108,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		rule.setType(OrRule.Type.AcceptFirst);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -124,7 +124,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.First);
+		rule.setType(OrRule.Type.AcceptFirst);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -141,7 +141,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -159,7 +159,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -175,7 +175,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -192,7 +192,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -208,7 +208,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -224,7 +224,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -239,7 +239,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -254,7 +254,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -272,7 +272,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -288,7 +288,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -304,7 +304,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -320,7 +320,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -336,7 +336,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -351,7 +351,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -365,7 +365,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -387,7 +387,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Longest);
+		rule.setType(OrRule.Type.AcceptLongest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -407,7 +407,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -428,7 +428,7 @@ public class OrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		OrRule rule = new OrRule();
-		rule.setType(OrRule.Type.Shortest);
+		rule.setType(OrRule.Type.AcceptShortest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);

@@ -48,4 +48,8 @@ public class LineWithText extends StubPane{
 	public String getText(){
 		return text.get();
 	}
+
+	public StringProperty textProperty(){
+		return text;
+	}
 }

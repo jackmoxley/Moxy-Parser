@@ -6,8 +6,8 @@ import com.jackmoxley.moxy.rule.Rule;
 public abstract class BoxNode<R extends Rule> extends RuleNode<R>{
 	public final TextWithRectangle text;
 	
-	public BoxNode(R rule) {
-		super(rule);
+	public BoxNode(R rule, ParentNode parent) {
+		super(rule, parent);
 		text = new TextWithRectangle();
 		text.setString(generateText());
 		text.getStyleClass().add("textbox");

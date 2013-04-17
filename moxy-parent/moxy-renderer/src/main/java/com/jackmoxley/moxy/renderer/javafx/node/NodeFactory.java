@@ -19,7 +19,7 @@ public abstract class NodeFactory {
 		NodeFactory.instance = instance;
 	}
 
-	public abstract RuleNode<?> getNodeFor(Scene scene, Rule subRule);
+	public abstract RuleNode<?> getNodeFor(Scene scene,ParentNode parent,  Rule subRule);
 	
 	
 	

@@ -43,7 +43,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -61,7 +61,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -77,7 +77,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -92,7 +92,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -108,7 +108,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -124,7 +124,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -141,7 +141,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -159,7 +159,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -175,7 +175,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -192,7 +192,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -208,7 +208,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -224,7 +224,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -239,7 +239,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -254,7 +254,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(fail);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
@@ -272,7 +272,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(pass);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
@@ -288,7 +288,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(pass);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -304,7 +304,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(pass);
 		rule.add(pass2);
 		RuleDecision decision = new RuleDecision(0);
@@ -320,7 +320,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(fail);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
@@ -336,7 +336,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(fail);
 		rule.add(fail2);
 		RuleDecision decision = new RuleDecision(0);
@@ -351,7 +351,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),null);
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		RuleDecision decision = new RuleDecision(0);
 		assertTrue(decision.isUnconsidered());
 		rule.consider(visitor, decision);
@@ -365,7 +365,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -383,7 +383,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -400,7 +400,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(longPass);
 		rule.add(shortPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -418,7 +418,7 @@ public class XOrRuleTest {
 		SimpleRuleParser visitor = new SimpleRuleParser(null,new RuleHistoryTreeMap(),new CharSequenceTokenStream("abcdefg"));
 		
 		XOrRule rule = new XOrRule();
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(shortPass);
 		rule.add(longPass);
 		RuleDecision decision = new RuleDecision(0);
@@ -437,7 +437,7 @@ public class XOrRuleTest {
 		
 		XOrRule rule = new XOrRule();
 		rule.setExclusivity(2);
-		rule.setType(XOrRule.Type.Shortest);
+		rule.setType(XOrRule.Type.AcceptShortest);
 		rule.add(longPass);
 		rule.add(FalseRule.get());
 		rule.add(shortPass);
@@ -459,7 +459,7 @@ public class XOrRuleTest {
 		
 		XOrRule rule = new XOrRule();
 		rule.setExclusivity(2);
-		rule.setType(XOrRule.Type.Longest);
+		rule.setType(XOrRule.Type.AcceptLongest);
 		rule.add(longPass);
 		rule.add(FalseRule.get());
 		rule.add(shortPass);
@@ -482,7 +482,7 @@ public class XOrRuleTest {
 		
 		XOrRule rule = new XOrRule();
 		rule.setExclusivity(2);
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(longPass);
 		rule.add(FalseRule.get());
 		rule.add(shortPass);
@@ -504,7 +504,7 @@ public class XOrRuleTest {
 		
 		XOrRule rule = new XOrRule();
 		rule.setExclusivity(2);
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(FalseRule.get());
 		rule.add(longPass);
 		rule.add(shortPass);
@@ -526,7 +526,7 @@ public class XOrRuleTest {
 		
 		XOrRule rule = new XOrRule();
 		rule.setExclusivity(2);
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(FalseRule.get());
 		rule.add(shortPass);
 		rule.add(longPass);
@@ -547,7 +547,7 @@ public class XOrRuleTest {
 		
 		XOrRule rule = new XOrRule();
 		rule.setExclusivity(1);
-		rule.setType(XOrRule.Type.First);
+		rule.setType(XOrRule.Type.AcceptFirst);
 		rule.add(FalseRule.get());
 		rule.add(shortPass);
 		rule.add(longPass);

@@ -14,6 +14,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 import javafx.scene.text.TextAlignment;
 
+import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.renderer.javafx.property.math.MaximumDoubleBinding;
 import com.jackmoxley.moxy.renderer.javafx.property.math.MinimumDoubleBinding;
@@ -28,8 +29,8 @@ public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 	protected DoubleBinding fullCurve;
 	protected ObjectProperty<TextAlignment> alignmentProperty = new SimpleObjectProperty<TextAlignment>(TextAlignment.LEFT);
 
-	public LogicalListNode(LogicalListRule rule) {
-		super(rule);
+	public LogicalListNode(LogicalListRule rule,ParentNode parent) {
+		super(rule,parent);
 		
 	}
 
@@ -63,7 +64,7 @@ public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 	@Override
 	protected void bindChildren(RuleNode<?> first, RuleNode<?> second) {
 		if(first == null){
-			second.layoutXProperty().set(0);
+			second.layoutYProperty().set(0);
 		} else if(second != null){
 			second.layoutYProperty().bind(first.endYProperty().add(gapProperty()));
 		}
@@ -91,7 +92,7 @@ public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 		
 		node.layoutXProperty().bind(x);
 		DoubleBinding y = node.stubYProperty().subtract(
-				this.layoutToStubYProperty());
+				ruleNode.layoutToStubYProperty());
 		DoubleBinding direction = PropertyMath.abs(y).divide(y);
 		MinimumDoubleBinding curve = PropertyMath.min(fullCurve,
 				PropertyMath.abs(y.divide(2)));
@@ -119,7 +120,7 @@ public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 		path1.getElements().add(arcDestinationLeft);
 		path1.getElements().add(leftHorizontal);
 
-		moveLeft.yProperty().bind(this.layoutToStubYProperty());
+		moveLeft.yProperty().bind(ruleNode.layoutToStubYProperty());
 
 		arcSourceLeft.radiusXProperty().bind(fullCurve);
 		arcSourceLeft.radiusYProperty().bind(curve);
@@ -181,7 +182,7 @@ public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 		arcSourceRight.setAbsolute(false);
 
 		rightVertical.yProperty().bind(
-				this.layoutToStubYProperty().add(curveWithDirection));
+				ruleNode.layoutToStubYProperty().add(curveWithDirection));
 		rightVertical.setAbsolute(true);
 
 		arcDestinationRight.radiusXProperty().bind(fullCurve);

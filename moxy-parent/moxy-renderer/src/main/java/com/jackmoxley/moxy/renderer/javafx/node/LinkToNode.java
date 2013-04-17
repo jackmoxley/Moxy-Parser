@@ -4,11 +4,13 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
+import com.jackmoxley.moxy.renderer.javafx.component.StubPane;
 import com.jackmoxley.moxy.rule.Rule;
 
 public class LinkToNode extends BoxNode<Rule> implements InvalidationListener {
@@ -16,8 +18,8 @@ public class LinkToNode extends BoxNode<Rule> implements InvalidationListener {
 	private final Path in;
 	private final Path out;
 
-	public LinkToNode(Scene scene, RuleNode<? extends Rule> node) {
-		super(node.getRule());
+	public LinkToNode(Scene scene, ParentNode parent, RuleNode<? extends Rule> node) {
+		super(node.getRule(), parent);
 		this.node = node;
 		in = new Path();
 		out = new Path();
@@ -29,7 +31,7 @@ public class LinkToNode extends BoxNode<Rule> implements InvalidationListener {
 		out.getElements().add(outMoveTo);
 		out.getElements().add(new LineTo());
 
-		Group root = (Group)scene.getRoot();
+		Group root = (Group)((ScrollPane)scene.getRoot()).getContent();
 		root.getChildren().add(out);
 		root.getChildren().add(in);
 		

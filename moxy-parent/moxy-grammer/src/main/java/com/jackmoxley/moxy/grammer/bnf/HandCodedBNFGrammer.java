@@ -84,7 +84,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		PointerRule rule = new PointerRule(true,"rule");
 		
 		OrRule syntax = new OrRule();
-		syntax.setType(Type.Longest);
+		syntax.setType(Type.AcceptLongest);
 		SequenceRule ended = new SequenceRule();
 		ended.add(rule);
 		ended.add(EOFRule.get());
@@ -126,7 +126,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 			singlewhitespace.add(new CharacterRule(i));
 		}
 		OrRule optionalWhitespace = new OrRule();
-		optionalWhitespace.setType(Type.Longest);
+		optionalWhitespace.setType(Type.AcceptLongest);
 		SequenceRule whitespace = new SequenceRule();
 		whitespace.add(singlewhitespace);
 		whitespace.add(optionalWhitespace);
@@ -144,7 +144,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 		PointerRule optWhitespace = new PointerRule(false,"opt-whitespace");
 		
 		OrRule expression = new OrRule();
-		expression.setType(Type.Longest);
+		expression.setType(Type.AcceptLongest);
 		expression.add(list);
 		
 		SequenceRule or = new SequenceRule();
@@ -176,7 +176,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 
 		PointerRule term = new PointerRule(false,"term");
 		OrRule list = new OrRule();
-		list.setType(Type.Longest);
+		list.setType(Type.AcceptLongest);
 		list.add(term);
 		SequenceRule nextItem = new SequenceRule();
 		nextItem.add(term);
@@ -194,7 +194,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 */
 	protected void termDefinition() {
 		OrRule term = new OrRule();
-		term.setType(Type.Longest);
+		term.setType(Type.AcceptLongest);
 		SequenceRule ruleTerm = new SequenceRule();
 		ruleTerm.add(new CharacterRule("<"));
 		ruleTerm.add(new PointerRule(true,"rule-name"));
@@ -211,13 +211,13 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 */
 	protected void literalDefinition() {
 		OrRule textOrSymbolSingle = new OrRule();
-		textOrSymbolSingle.setType(Type.Longest);
+		textOrSymbolSingle.setType(Type.AcceptLongest);
 		textOrSymbolSingle.add(new PointerRule(true,"text"));
 		textOrSymbolSingle.add(new DelegateRule("text",new CharacterRule('\'')));
 		textOrSymbolSingle.add(new DelegateRule("text",new CharacterRule('<')));
 		textOrSymbolSingle.add(new DelegateRule("text",new CharacterRule('>')));
 		OrRule textOrSymbolDouble = new OrRule();
-		textOrSymbolDouble.setType(Type.Longest);
+		textOrSymbolDouble.setType(Type.AcceptLongest);
 		textOrSymbolDouble.add(new PointerRule(true,"text"));
 		textOrSymbolDouble.add(new DelegateRule("text", new CharacterRule('"')));
 		textOrSymbolDouble.add(new DelegateRule("text",new CharacterRule('<')));
@@ -264,7 +264,7 @@ public class HandCodedBNFGrammer extends RuledGrammar implements Grammar {
 	 */
 	protected void textDefinition(){
 		OrRule text = new OrRule();
-		text.setType(Type.Longest);
+		text.setType(Type.AcceptLongest);
 		PointerRule character = new PointerRule(false,"character");
 		text.add(character);
 		SequenceRule more = new SequenceRule();

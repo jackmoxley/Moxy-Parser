@@ -30,10 +30,10 @@ public abstract class LogicalListRule extends ListRule {
 	private static final long serialVersionUID = 1L;
 	
 	public enum Type {
-		First, Shortest, Longest
+		AcceptFirst, AcceptShortest, AcceptLongest
 	}
 
-	protected Type type = Type.First;
+	protected Type type = Type.AcceptFirst;
 
 	@Override
 	public void consider(RuleParser visitor, RuleDecision decision) {
@@ -45,13 +45,13 @@ public abstract class LogicalListRule extends ListRule {
 
 		RuleDecision finalDecision = null;
 		switch (type) {
-		case Shortest:
+		case AcceptShortest:
 			finalDecision = considerShortest(visitor, decision);
 			break;
-		case Longest:
+		case AcceptLongest:
 			finalDecision = considerLongest(visitor, decision);
 			break;
-		case First:
+		case AcceptFirst:
 		default:
 			finalDecision = considerFirst(visitor, decision);
 			break;

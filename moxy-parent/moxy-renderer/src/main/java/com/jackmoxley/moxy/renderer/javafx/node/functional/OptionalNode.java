@@ -1,4 +1,4 @@
-package com.jackmoxley.moxy.renderer.javafx.node;
+package com.jackmoxley.moxy.renderer.javafx.node.functional;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.DoubleExpression;
@@ -8,17 +8,16 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 
-import com.jackmoxley.moxy.renderer.javafx.node.functional.SingleFunctionalNode;
+import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
 
 public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 
-	public OptionalNode(OptionalRule rule) {
-		super(rule);
+	public OptionalNode(OptionalRule rule,ParentNode parent) {
+		super(rule,parent);
 
 	}
-
-
 
 	@Override
 	protected void bindChild(RuleNode<?> node) {
@@ -26,7 +25,7 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 		DoubleBinding fullCurve = gapProperty().divide(2);
 
 		node.layoutXProperty().bind(gapProperty());
-		node.stubYProperty().bind(this.layoutToStubYProperty());
+		node.stubYProperty().bind(ruleNode.layoutToStubYProperty());
 
 
 		Path path1 = getPath(0);
@@ -56,7 +55,7 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 
 
 		MoveTo leftMoveTo = new MoveTo();
-		leftMoveTo.yProperty().bind(this.layoutToStubYProperty());
+		leftMoveTo.yProperty().bind(ruleNode.layoutToStubYProperty());
 		leftMoveTo.xProperty().set(0);
 		leftMoveTo.setAbsolute(true);
 
@@ -72,7 +71,7 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 
 		MoveTo rightMoveTo = new MoveTo();
 		rightMoveTo.xProperty().bind(node.endXProperty());
-		rightMoveTo.yProperty().bind(this.layoutToStubYProperty());
+		rightMoveTo.yProperty().bind(ruleNode.layoutToStubYProperty());
 		rightMoveTo.setAbsolute(true);
 
 
@@ -90,7 +89,7 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 		// Left
 
 		leftMoveTo = new MoveTo();
-		leftMoveTo.yProperty().bind(this.layoutToStubYProperty());
+		leftMoveTo.yProperty().bind(ruleNode.layoutToStubYProperty());
 		leftMoveTo.xProperty().set(0);
 		leftMoveTo.setAbsolute(true);
 
@@ -135,7 +134,7 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 		bypassArcSourceRight.setAbsolute(false);
 
 		VLineTo bypassRightVertical = new VLineTo();
-		bypassRightVertical.yProperty().bind(this.layoutToStubYProperty().add(fullCurve));
+		bypassRightVertical.yProperty().bind(ruleNode.layoutToStubYProperty().add(fullCurve));
 		bypassRightVertical.setAbsolute(true);
 
 		ArcTo bypassArcDestinationRight = new ArcTo();

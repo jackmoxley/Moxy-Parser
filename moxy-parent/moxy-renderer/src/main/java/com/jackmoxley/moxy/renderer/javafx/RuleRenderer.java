@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import com.jackmoxley.moxy.grammer.Grammar;
 import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.renderer.javafx.node.NodeFactory;
-import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 
 
 public abstract class RuleRenderer extends Application {
@@ -31,11 +31,11 @@ public abstract class RuleRenderer extends Application {
         
 
 		Map<String, RuleGraph> graphs =grammar.getRuleTrees();
-		RuleNode<?> ruleNode;
+		RuleGraphNode ruleNode;
 		Property<Number> start = new SimpleIntegerProperty(0);
 		for(RuleGraph graph : graphs.values()){
-			ruleNode = NodeFactory.getInstance().getNodeFor(scene, graph.getRule());
-			System.out.println(graph.getName()+" "+graph.getRule());
+			ruleNode = new RuleGraphNode(scene, graph);
+//			System.out.println(graph.getName()+" "+graph.getRule());
 			group.getChildren().add(ruleNode);
 			ruleNode.layoutYProperty().bind(start);
 			start =ruleNode.endYProperty();

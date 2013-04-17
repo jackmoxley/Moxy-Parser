@@ -8,6 +8,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 
 import com.jackmoxley.moxy.renderer.javafx.node.NodeFactory;
+import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.single.SingleRule;
@@ -18,8 +19,8 @@ public abstract class SingleFunctionalNode<FR extends SingleRule> extends
 	private List<Path> paths;
 	protected Rectangle outline;
 
-	public SingleFunctionalNode(FR fRule) {
-		super(fRule);
+	public SingleFunctionalNode(FR fRule,ParentNode parent) {
+		super(fRule,parent);
 		this.getStyleClass().add("single");
 	}
 
@@ -31,7 +32,7 @@ public abstract class SingleFunctionalNode<FR extends SingleRule> extends
 	public void constructNode(Scene scene) {
 		paths.clear();
 		Rule subRule = rule.getRule();
-		RuleNode<?> node = NodeFactory.getInstance().getNodeFor(scene, subRule);
+		RuleNode<?> node = NodeFactory.getInstance().getNodeFor(scene, this,subRule);
 		setChildNode(node);
 		node.getStyleClass().add("child");
 	}

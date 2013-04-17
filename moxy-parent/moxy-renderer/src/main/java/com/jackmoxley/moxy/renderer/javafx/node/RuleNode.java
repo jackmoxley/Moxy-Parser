@@ -1,6 +1,7 @@
 package com.jackmoxley.moxy.renderer.javafx.node;
 
 import javafx.beans.binding.DoubleExpression;
+import javafx.beans.property.StringProperty;
 import javafx.scene.input.MouseEvent;
 
 import com.jackmoxley.moxy.renderer.javafx.component.LineWithText;
@@ -14,17 +15,19 @@ public class RuleNode<R extends Rule> extends StubPane {
 	protected LineWithText in;
 	protected LineWithText out;
 	protected StubPane ruleNode;
+	protected ParentNode parentNode;
 	protected final R rule;
 	
 	/**
 	 * 
 	 */
-	public RuleNode(R rule) {
+	public RuleNode(R rule, ParentNode parentNode) {
 		super();
+		this.parentNode = parentNode;
 		this.rule = rule;
 		this.ruleNode = new StubPane();
-		in = new LineWithText("In");
-		out = new LineWithText("Out");
+		in = new LineWithText();
+		out = new LineWithText();
 		setup();
 	}
 	
@@ -78,5 +81,12 @@ public class RuleNode<R extends Rule> extends StubPane {
 		event.consume();
 		super.onMouseClicked(event);
 	}
+	
+	public StringProperty inTextProperty(){
+		return in.textProperty();
+	}
 
+	public StringProperty outTextProperty(){
+		return out.textProperty();
+	}
 }
