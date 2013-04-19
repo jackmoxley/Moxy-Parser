@@ -31,18 +31,18 @@ public abstract class RuleRenderer extends Application {
         
 
 		Map<String, RuleGraph> graphs =grammar.getRuleTrees();
-		RuleGraphNode ruleNode;
+		RuleGraphNode graphNode;
 		Property<Number> start = new SimpleIntegerProperty(0);
 		for(RuleGraph graph : graphs.values()){
-			ruleNode = new RuleGraphNode(scene, graph);
-//			System.out.println(graph.getName()+" "+graph.getRule());
-			group.getChildren().add(ruleNode);
-			ruleNode.layoutYProperty().bind(start);
-			start =ruleNode.endYProperty();
+			graphNode = NodeFactory.getInstance().getGraphFor(graph);
+			group.getChildren().add(graphNode);
+			graphNode.setup();
+			graphNode.layoutYProperty().bind(start);
+			start =graphNode.endYProperty();
 		}
         scene.getStylesheets().add("/styles/styles.css");
 
-        stage.setTitle("Hello JavaFX and Maven");
+        stage.setTitle("RuleRenderer");
         stage.setScene(scene);
         stage.show();
 	}

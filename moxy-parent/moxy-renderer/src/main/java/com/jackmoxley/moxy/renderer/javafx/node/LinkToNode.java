@@ -3,14 +3,11 @@ package com.jackmoxley.moxy.renderer.javafx.node;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-import com.jackmoxley.moxy.renderer.javafx.component.StubPane;
 import com.jackmoxley.moxy.rule.Rule;
 
 public class LinkToNode extends BoxNode<Rule> implements InvalidationListener {
@@ -18,8 +15,9 @@ public class LinkToNode extends BoxNode<Rule> implements InvalidationListener {
 	private final Path in;
 	private final Path out;
 
-	public LinkToNode(Scene scene, ParentNode parent, RuleNode<? extends Rule> node) {
-		super(node.getRule(), parent);
+	public LinkToNode(RuleNode<? extends Rule> node, ParentNode parent,
+			RuleGraphNode graph) {
+		super(node.getRule(), parent, graph);
 		this.node = node;
 		in = new Path();
 		out = new Path();
@@ -31,43 +29,50 @@ public class LinkToNode extends BoxNode<Rule> implements InvalidationListener {
 		out.getElements().add(outMoveTo);
 		out.getElements().add(new LineTo());
 
-		Group root = (Group)((ScrollPane)scene.getRoot()).getContent();
-		root.getChildren().add(out);
-		root.getChildren().add(in);
-		
+		// Group root = (Group)((ScrollPane)scene.getRoot()).getContent();
+		graph.getChildren().add(out);
+		graph.getChildren().add(in);
+
 		node.ruleNode.stubYProperty().addListener(this);
 		node.ruleNode.endXProperty().addListener(this);
 		this.ruleNode.endXProperty().addListener(this);
 		this.ruleNode.stubYProperty().addListener(this);
 		this.ruleNode.localToSceneTransformProperty().addListener(this);
 		node.ruleNode.localToSceneTransformProperty().addListener(this);
-		
+
 		calculatePaths();
 	}
 
 	@Override
 	protected void finalize() throws Throwable {
 		try {
-			Group root = (Group)node.getScene().getRoot();
+			Group root = (Group) node.getScene().getRoot();
 			root.getChildren().remove(out);
 			root.getChildren().remove(in);
-		} catch(Throwable t){ }
+		} catch (Throwable t) {
+		}
 	}
 
 	protected void calculatePaths() {
-		MoveTo move = (MoveTo)in.getElements().get(0);
-		move.setX(this.ruleNode.getLocalToSceneTransform().getTx() );
-		move.setY(this.ruleNode.getLocalToSceneTransform().getTy() + this.ruleNode.layoutToStubYProperty().doubleValue());
+		MoveTo move = (MoveTo) in.getElements().get(0);
+		move.setX(getXRelativeToGraph());
+		move.setY(getYRelativeToGraph()
+				+ this.ruleNode.layoutToStubYProperty().doubleValue());
+		
 		LineTo line = (LineTo) in.getElements().get(1);
-		line.setX(node.ruleNode.getLocalToSceneTransform().getTx());
-		line.setY(node.ruleNode.getLocalToSceneTransform().getTy()+ node.ruleNode.layoutToStubYProperty().doubleValue());
+		line.setX(node.getXRelativeToGraph());
+		line.setY(node.getYRelativeToGraph()
+				+ node.ruleNode.layoutToStubYProperty().doubleValue());
 
-		move = (MoveTo)out.getElements().get(0);
-		move.setX(this.ruleNode.getLocalToSceneTransform().getTx() + this.ruleNode.getWidth());
-		move.setY(this.ruleNode.getLocalToSceneTransform().getTy()+ this.ruleNode.layoutToStubYProperty().doubleValue());
+		move = (MoveTo) out.getElements().get(0);
+		move.setX(getXRelativeToGraph() + this.ruleNode.getWidth());
+		move.setY(getYRelativeToGraph()
+				+ this.ruleNode.layoutToStubYProperty().doubleValue());
+		
 		line = (LineTo) out.getElements().get(1);
-		line.setX(node.ruleNode.getLocalToSceneTransform().getTx() + node.ruleNode.getWidth());
-		line.setY(node.ruleNode.getLocalToSceneTransform().getTy()+ node.ruleNode.layoutToStubYProperty().doubleValue());
+		line.setX(node.getXRelativeToGraph() + node.ruleNode.getWidth());
+		line.setY(node.getYRelativeToGraph()
+				+ node.ruleNode.layoutToStubYProperty().doubleValue());
 	}
 
 	@Override

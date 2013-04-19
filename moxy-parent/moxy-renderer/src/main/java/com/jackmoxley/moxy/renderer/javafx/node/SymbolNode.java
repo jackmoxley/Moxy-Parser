@@ -4,8 +4,8 @@ import com.jackmoxley.moxy.rule.functional.symbol.SymbolRule;
 
 public class SymbolNode extends BoxNode<SymbolRule>{
 	
-	public SymbolNode(SymbolRule rule,ParentNode parent) {
-		super(rule,parent);
+	public SymbolNode(SymbolRule rule,ParentNode parent,RuleGraphNode graph) {
+		super(rule,parent,graph);
 	}
 
 

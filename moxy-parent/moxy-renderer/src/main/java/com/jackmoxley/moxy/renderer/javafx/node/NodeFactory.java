@@ -1,7 +1,6 @@
 package com.jackmoxley.moxy.renderer.javafx.node;
 
-import javafx.scene.Scene;
-
+import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.rule.Rule;
 
 public abstract class NodeFactory {
@@ -19,8 +18,8 @@ public abstract class NodeFactory {
 		NodeFactory.instance = instance;
 	}
 
-	public abstract RuleNode<?> getNodeFor(Scene scene,ParentNode parent,  Rule subRule);
+	public abstract RuleNode<?> getNodeFor(RuleGraphNode graph,ParentNode parent,  Rule subRule);
 	
 	
-	
+	public abstract RuleGraphNode getGraphFor(RuleGraph graph);
 }

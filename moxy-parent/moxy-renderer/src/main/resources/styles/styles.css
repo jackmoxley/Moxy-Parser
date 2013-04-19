@@ -4,7 +4,11 @@
 }
 
 .RuleGraph {
-    -moxy-gap: 5px;
+    -moxy-radius: 5px;
+}
+
+.RuleGraph:hover {
+    -moxy-radius: 5px;
 }
 
 
@@ -13,13 +17,12 @@
     -fx-stroke: black;
 }
 
-
 .rule {
     -moxy-gap: 10px;
 }
 
 .rule:hover {
-    -moxy-gap: 20px;
+    -moxy-gap: 10px;
 }
 .rule:hover .path{
     -fx-stroke: red;
@@ -110,7 +113,6 @@
 .textbox:hover .text {
 	-fx-fill: #FFE0C0;
 }
-
 
 
 .info .box {

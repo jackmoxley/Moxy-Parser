@@ -5,13 +5,14 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.functional.list.ListRule;
 
 public class SequenceNode extends ListFunctionalNode<ListRule> {
 
-	public SequenceNode(ListRule rule,ParentNode parent) {
-		super(rule,parent);
+	public SequenceNode(ListRule rule,ParentNode parent, RuleGraphNode graph) {
+		super(rule,parent,graph);
 	}
 
 	protected void unbindChildren(RuleNode<?> first, RuleNode<?> second) {

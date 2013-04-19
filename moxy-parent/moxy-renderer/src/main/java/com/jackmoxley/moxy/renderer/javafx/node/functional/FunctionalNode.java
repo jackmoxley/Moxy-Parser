@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 import com.jackmoxley.moxy.renderer.javafx.component.TextWithRectangle;
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.renderer.javafx.property.math.PropertyMath;
 import com.jackmoxley.moxy.rule.functional.FunctionalRule;
@@ -15,8 +16,8 @@ public abstract class FunctionalNode<FR extends FunctionalRule> extends
 	protected Rectangle outline;
 	protected TextWithRectangle info;
 
-	public FunctionalNode(FR fRule,ParentNode parent) {
-		super(fRule,parent);
+	public FunctionalNode(FR fRule,ParentNode parent, RuleGraphNode graph) {
+		super(fRule,parent,graph);
 		this.getStyleClass().add("functional");
 	}
 

@@ -1,7 +1,5 @@
 package com.jackmoxley.moxy.renderer.javafx.component;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javafx.beans.binding.DoubleExpression;
@@ -13,16 +11,16 @@ import javafx.collections.ListChangeListener;
 import javafx.css.CssMetaData;
 import javafx.css.StyleConverter;
 import javafx.css.Styleable;
-import javafx.css.StyleableDoubleProperty;
-import javafx.css.StyleableProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import com.jackmoxley.moxy.renderer.javafx.property.BidirectionalDifferenceBinding;
+import com.jackmoxley.moxy.renderer.javafx.property.style.RegisteredCssMetaData;
+import com.jackmoxley.moxy.renderer.javafx.property.style.RegisteredCssMetaDataList;
+import com.jackmoxley.moxy.renderer.javafx.property.style.RegisteredCssDoubleProperty;
 
 public class StubPane extends Pane implements ChangeListener<Bounds> {
 
@@ -31,47 +29,17 @@ public class StubPane extends Pane implements ChangeListener<Bounds> {
 	private DoubleProperty endY;
 	private DoubleExpression layoutToStubY;
 
-	private final DoubleProperty gapProperty = new StyleableDoubleProperty(0) {
-		@Override
-		public CssMetaData<StubPane, Number> getCssMetaData() {
-			return GAP_META_DATA;
-		}
+	
+	private final DoubleProperty gapProperty = new RegisteredCssDoubleProperty<StubPane>(
+			this, "gap");
 
-		@Override
-		public Object getBean() {
-			return StubPane.this;
-		}
-
-		@Override
-		public String getName() {
-			return "gap";
-		}
-	};
-
-	private static final CssMetaData<StubPane, Number> GAP_META_DATA = new CssMetaData<StubPane, Number>(
-			"-moxy-gap", StyleConverter.getSizeConverter(), 0d) {
-
-		@Override
-		public boolean isSettable(StubPane node) {
-			return node.gapProperty == null || !node.gapProperty.isBound();
-		}
-
-		@Override
-		public StyleableProperty<Number> getStyleableProperty(StubPane node) {
-			return (StyleableDoubleProperty) node.gapProperty;
-		}
-	};
-
-	private static final List<CssMetaData<? extends Styleable, ?>> cssMetaDataList;
-	static {
-		List<CssMetaData<? extends Styleable, ?>> temp = new ArrayList<CssMetaData<? extends Styleable, ?>>(
-				Pane.getClassCssMetaData());
-		temp.add(GAP_META_DATA);
-		cssMetaDataList = Collections.unmodifiableList(temp);
-	}
+	private static final RegisteredCssMetaDataList cssMetaDataList = new RegisteredCssMetaDataList(
+			Pane.getClassCssMetaData(), new RegisteredCssMetaData<>(
+					"-moxy-gap", StyleConverter.getSizeConverter(),
+					StubPane.class, "gap"));
 
 	public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
-		return cssMetaDataList;
+		return cssMetaDataList.getMetaData();
 	}
 
 	@Override
@@ -152,7 +120,13 @@ public class StubPane extends Pane implements ChangeListener<Bounds> {
 	public DoubleProperty gapProperty() {
 		return gapProperty;
 	}
-
+	public double getGap() {
+		return gapProperty.get();
+	}
+	public void setGap(double value) {
+		gapProperty.set(value);
+	}
+	
 	public DoubleExpression layoutToStubYProperty() {
 		if (layoutToStubY == null) {
 			layoutToStubY = generateLayoutYToStubYExpression();

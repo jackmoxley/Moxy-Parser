@@ -2,6 +2,8 @@ package com.jackmoxley.moxy.renderer.javafx.node;
 
 import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 
 import com.jackmoxley.moxy.renderer.javafx.component.LineWithText;
@@ -17,12 +19,14 @@ public class RuleNode<R extends Rule> extends StubPane {
 	protected StubPane ruleNode;
 	protected ParentNode parentNode;
 	protected final R rule;
+	protected final RuleGraphNode graph;
 	
 	/**
 	 * 
 	 */
-	public RuleNode(R rule, ParentNode parentNode) {
+	public RuleNode(R rule, ParentNode parentNode, RuleGraphNode graph) {
 		super();
+		this.graph = graph;
 		this.parentNode = parentNode;
 		this.rule = rule;
 		this.ruleNode = new StubPane();
@@ -50,6 +54,12 @@ public class RuleNode<R extends Rule> extends StubPane {
 		this.getStyleClass().add(getClass().getSimpleName());
 		this.getStyleClass().add("rule");
 		this.getStyleClass().add(rule.getClass().getSimpleName());
+	}
+	
+	@Override
+	public void changed(ObservableValue<? extends Bounds> observable,
+			Bounds oldValue, Bounds newValue) {
+		graph.requestLayout();
 	}
 	
 	@Override
@@ -89,4 +99,27 @@ public class RuleNode<R extends Rule> extends StubPane {
 	public StringProperty outTextProperty(){
 		return out.textProperty();
 	}
+
+	public ParentNode getParentNode() {
+		return parentNode;
+	}
+
+	public void setParentNode(ParentNode parentNode) {
+		this.parentNode = parentNode;
+	}
+
+	public RuleGraphNode getGraph() {
+		return graph;
+	}
+	
+	public double getXRelativeToGraph(){
+		return this.ruleNode.getLocalToSceneTransform().getTx()
+		- this.graph.getLocalToSceneTransform().getTx();
+	}
+	public double getYRelativeToGraph(){
+		return this.ruleNode.getLocalToSceneTransform().getTy()
+		- this.graph.getLocalToSceneTransform().getTy();
+	}
+	
+	
 }

@@ -5,7 +5,6 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.binding.When;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.HLineTo;
@@ -15,6 +14,7 @@ import javafx.scene.shape.VLineTo;
 import javafx.scene.text.TextAlignment;
 
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.renderer.javafx.property.math.MaximumDoubleBinding;
 import com.jackmoxley.moxy.renderer.javafx.property.math.MinimumDoubleBinding;
@@ -24,25 +24,16 @@ import com.jackmoxley.moxy.rule.functional.list.LogicalListRule;
 public class LogicalListNode extends ListFunctionalNode<LogicalListRule> {
 
 	
-	protected MaximumDoubleBinding maxWidth;
-	protected DoubleBinding halfWidth;
-	protected DoubleBinding fullCurve;
+	protected MaximumDoubleBinding maxWidth = PropertyMath.max();
+	protected DoubleBinding halfWidth = maxWidth.divide(2).add(gapProperty());
+	protected DoubleBinding fullCurve  = gapProperty().divide(2);
 	protected ObjectProperty<TextAlignment> alignmentProperty = new SimpleObjectProperty<TextAlignment>(TextAlignment.LEFT);
 
-	public LogicalListNode(LogicalListRule rule,ParentNode parent) {
-		super(rule,parent);
+	public LogicalListNode(LogicalListRule rule,ParentNode parent, RuleGraphNode graph) {
+		super(rule,parent,graph);
 		
 	}
-
-	@Override
-	public void constructNodes(Scene scene) {
-		maxWidth = PropertyMath.max();
-		halfWidth = maxWidth.divide(2).add(gapProperty());
-		fullCurve = gapProperty().divide(2);
-		super.constructNodes(scene);
-
-	}
-
+	
 	@Override
 	protected void onMouseClicked(MouseEvent event) {
 		switch(alignmentProperty.get()){

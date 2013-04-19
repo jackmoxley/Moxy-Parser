@@ -11,8 +11,8 @@ import com.jackmoxley.moxy.rule.terminating.text.TextRule;
 
 public class TerminatingNode extends BoxNode<TerminatingRule>{
 	
-	public TerminatingNode(TerminatingRule rule,ParentNode parent) {
-		super(rule,parent);
+	public TerminatingNode(TerminatingRule rule,ParentNode parent,RuleGraphNode graph) {
+		super(rule,parent, graph);
 	}
 
 

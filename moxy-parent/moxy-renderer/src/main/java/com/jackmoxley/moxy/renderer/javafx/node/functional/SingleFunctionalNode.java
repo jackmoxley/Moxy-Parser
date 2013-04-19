@@ -3,12 +3,12 @@ package com.jackmoxley.moxy.renderer.javafx.node.functional;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.Scene;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 
 import com.jackmoxley.moxy.renderer.javafx.node.NodeFactory;
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.single.SingleRule;
@@ -19,8 +19,8 @@ public abstract class SingleFunctionalNode<FR extends SingleRule> extends
 	private List<Path> paths;
 	protected Rectangle outline;
 
-	public SingleFunctionalNode(FR fRule,ParentNode parent) {
-		super(fRule,parent);
+	public SingleFunctionalNode(FR fRule,ParentNode parent, RuleGraphNode graph) {
+		super(fRule,parent, graph);
 		this.getStyleClass().add("single");
 	}
 
@@ -29,10 +29,10 @@ public abstract class SingleFunctionalNode<FR extends SingleRule> extends
 		super.setup();
 	}
 
-	public void constructNode(Scene scene) {
+	public void constructNode() {
 		paths.clear();
 		Rule subRule = rule.getRule();
-		RuleNode<?> node = NodeFactory.getInstance().getNodeFor(scene, this,subRule);
+		RuleNode<?> node = NodeFactory.getInstance().getNodeFor(graph, this,subRule);
 		setChildNode(node);
 		node.getStyleClass().add("child");
 	}

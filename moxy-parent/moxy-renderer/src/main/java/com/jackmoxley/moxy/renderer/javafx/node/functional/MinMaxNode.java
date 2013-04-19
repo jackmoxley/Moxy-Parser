@@ -11,13 +11,38 @@ import javafx.scene.shape.VLineTo;
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
-import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
+import com.jackmoxley.moxy.rule.functional.single.MinMaxRule;
 
-public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
+public class MinMaxNode extends SingleFunctionalNode<MinMaxRule> {
 
-	public OptionalNode(OptionalRule rule,ParentNode parent, RuleGraphNode graph) {
+	public MinMaxNode(MinMaxRule rule,ParentNode parent, RuleGraphNode graph) {
 		super(rule,parent,graph);
-
+		
+		this.infoTextProperty().setValue(getInfoString());
+	}
+	
+	public String getInfoString(){
+		int min = rule.getMin();
+		int max = rule.getMax();
+		if(min == max){
+			if(min < 0){
+				return "N";
+			} else {
+				return Integer.toString(min);
+			}
+		}
+		StringBuilder sb = new StringBuilder();
+		if(min < 0){
+			min = 0;
+		}
+		sb.append(min);
+		sb.append(" -> ");
+		if(max < 0){
+			sb.append("N");
+		} else {
+			sb.append(max);
+		}
+		return sb.toString();
 	}
 
 	@Override
@@ -91,15 +116,15 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 
 		leftMoveTo = new MoveTo();
 		leftMoveTo.yProperty().bind(ruleNode.layoutToStubYProperty());
-		leftMoveTo.xProperty().set(0);
+		leftMoveTo.xProperty().bind(fullCurve.multiply(2));
 		leftMoveTo.setAbsolute(true);
 
 		ArcTo bypassArcSourceLeft = new ArcTo();
 		bypassArcSourceLeft.radiusXProperty().bind(fullCurve);
 		bypassArcSourceLeft.radiusYProperty().bind(fullCurve);
-		bypassArcSourceLeft.xProperty().bind(fullCurve);
+		bypassArcSourceLeft.xProperty().bind(curveNegated);
 		bypassArcSourceLeft.yProperty().bind(fullCurve);
-		bypassArcSourceLeft.setSweepFlag(true);
+		bypassArcSourceLeft.setSweepFlag(false);
 		bypassArcSourceLeft.setLargeArcFlag(false);
 		bypassArcSourceLeft.setAbsolute(false);
 
@@ -141,9 +166,9 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 		ArcTo bypassArcDestinationRight = new ArcTo();
 		bypassArcDestinationRight.radiusXProperty().bind(fullCurve);
 		bypassArcDestinationRight.radiusYProperty().bind(fullCurve);
-		bypassArcDestinationRight.xProperty().bind(fullCurve);
+		bypassArcDestinationRight.xProperty().bind(curveNegated);
 		bypassArcDestinationRight.yProperty().bind(curveNegated);
-		bypassArcDestinationRight.setSweepFlag(true);
+		bypassArcDestinationRight.setSweepFlag(false);
 		bypassArcDestinationRight.setLargeArcFlag(false);
 		bypassArcDestinationRight.setAbsolute(false);
 

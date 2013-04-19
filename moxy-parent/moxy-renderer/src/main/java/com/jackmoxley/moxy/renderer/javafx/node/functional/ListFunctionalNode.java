@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javafx.scene.Scene;
 import javafx.scene.shape.Path;
 
 import com.jackmoxley.moxy.renderer.javafx.node.NodeFactory;
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
+import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.list.ListRule;
@@ -19,8 +19,8 @@ public abstract class ListFunctionalNode<FR extends ListRule> extends
 	private List<RuleNode<?>> nodes;
 	private Map<RuleNode<?>, List<Path>> paths;
 
-	public ListFunctionalNode(FR fRule,ParentNode parent) {
-		super(fRule,parent);
+	public ListFunctionalNode(FR fRule,ParentNode parent, RuleGraphNode graph) {
+		super(fRule,parent,graph);
 		this.getStyleClass().add("multiple");
 	}
 
@@ -30,11 +30,11 @@ public abstract class ListFunctionalNode<FR extends ListRule> extends
 		super.setup();
 	}
 
-	public void constructNodes(Scene scene) {
+	public void constructNodes() {
 		nodes.clear();
 		paths.clear();
 		for (Rule subRule : rule) {
-			RuleNode<?> node = NodeFactory.getInstance().getNodeFor(scene,this,
+			RuleNode<?> node = NodeFactory.getInstance().getNodeFor(graph,this,
 					subRule);
 			addChild(node);
 			node.getStyleClass().add("child");
