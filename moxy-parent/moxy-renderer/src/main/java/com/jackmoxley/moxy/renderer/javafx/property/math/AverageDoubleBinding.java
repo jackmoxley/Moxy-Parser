@@ -1,13 +1,27 @@
 package com.jackmoxley.moxy.renderer.javafx.property.math;
 
+import java.util.Collection;
+
 import javafx.beans.binding.NumberExpression;
 
+/**
+ * Given a set of NumberExpressions the binding returns the average of those expressions.
+ * Where the result = SUM(expressions)/expressions.size
+ * @author jackmoxley
+ *
+ */
 public class AverageDoubleBinding extends RangedDoubleBinding {
 	
 	
 	/**
-	 * @param value1
-	 * @param value2
+	 * @param expressions the expressions we want the total of
+	 */
+	public AverageDoubleBinding(Collection<NumberExpression> expressions) {
+		super(expressions);
+	}
+
+	/**
+	 * @param expressions the expressions we want the average of.
 	 */
 	public AverageDoubleBinding(NumberExpression... expressions) {
 		super(expressions);

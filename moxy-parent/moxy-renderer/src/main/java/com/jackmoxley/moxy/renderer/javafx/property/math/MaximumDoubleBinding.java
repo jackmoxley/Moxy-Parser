@@ -1,12 +1,27 @@
 package com.jackmoxley.moxy.renderer.javafx.property.math;
 
+import java.util.Collection;
+
 import javafx.beans.binding.NumberExpression;
 
+/**
+ * Given a set of NumberExpressions the binding returns the largest of those expressions.
+ * Where the result is the maximum value of any one of those expressions
+ * @author jackmoxley
+ *
+ */
 public class MaximumDoubleBinding extends RangedDoubleBinding {
 	
+
 	/**
-	 * @param value1
-	 * @param value2
+	 * @param expressions the expressions we want the total of
+	 */
+	public MaximumDoubleBinding(Collection<NumberExpression> expressions) {
+		super(expressions);
+	}
+
+	/**
+	 * @param expressions the expressions we want to find the largest of
 	 */
 	public MaximumDoubleBinding(NumberExpression... expressions) {
 		super(expressions);
@@ -19,7 +34,6 @@ public class MaximumDoubleBinding extends RangedDoubleBinding {
 			double expressionValue = expression.doubleValue();
 			value = Math.max(value, expressionValue);
 		}
-//		System.out.println("MaximumDoubleBinding:"+value);
 		return value;
 	}
 

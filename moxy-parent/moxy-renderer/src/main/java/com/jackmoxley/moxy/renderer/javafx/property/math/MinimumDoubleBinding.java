@@ -1,12 +1,26 @@
 package com.jackmoxley.moxy.renderer.javafx.property.math;
 
+import java.util.Collection;
+
 import javafx.beans.binding.NumberExpression;
 
+/**
+ * Given a set of NumberExpressions the binding returns the smallest of those expressions.
+ * Where the result is the minimum value of any one of those expressions
+ * @author jackmoxley
+ *
+ */
 public class MinimumDoubleBinding extends RangedDoubleBinding {
 
 	/**
-	 * @param value1
-	 * @param value2
+	 * @param expressions the expressions we want the total of
+	 */
+	public MinimumDoubleBinding(Collection<NumberExpression> expressions) {
+		super(expressions);
+	}
+
+	/**
+	 * @param expressions the expressions we want to find the smallest of
 	 */
 	public MinimumDoubleBinding(NumberExpression... expressions) {
 		super(expressions);
