@@ -8,15 +8,19 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 
+import com.jackmoxley.moxy.renderer.javafx.component.EquilateralTriangle;
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
 import com.jackmoxley.moxy.rule.functional.single.MinMaxRule;
 
-public class MinMaxNode extends SingleFunctionalNode<MinMaxRule> {
+public class MinMaxNode<R extends MinMaxRule> extends SingleFunctionalNode<R> {
 
-	public MinMaxNode(MinMaxRule rule,ParentNode parent, RuleGraphNode graph) {
+
+	public EquilateralTriangle arrow = new EquilateralTriangle();
+	public MinMaxNode(R rule,ParentNode parent, RuleGraphNode graph) {
 		super(rule,parent,graph);
+		this.ruleNode.getChildren().add(arrow);
 		
 		this.infoTextProperty().setValue(getInfoString());
 	}
@@ -36,9 +40,9 @@ public class MinMaxNode extends SingleFunctionalNode<MinMaxRule> {
 			min = 0;
 		}
 		sb.append(min);
-		sb.append(" -> ");
+		sb.append(" ... ");
 		if(max < 0){
-			sb.append("N");
+			sb.append("*");
 		} else {
 			sb.append(max);
 		}
@@ -148,6 +152,11 @@ public class MinMaxNode extends SingleFunctionalNode<MinMaxRule> {
 		bypassHorizontal.xProperty().bind(maxWidth.add(gapProperty()));
 		bypassHorizontal.setAbsolute(true);
 
+
+		arrow.layoutXProperty().bind((node.endXProperty().subtract(node.layoutXProperty()).add(arrow.topXProperty().negate())).divide(2).add(node.layoutXProperty()));
+		arrow.layoutYProperty().bind(node.heightProperty().add(gapProperty()));
+		arrow.topXProperty().set(-7);
+		arrow.topYProperty().set(0);
 		// Right
 
 		ArcTo bypassArcSourceRight = new ArcTo();

@@ -8,8 +8,10 @@ import java.util.Map;
 import com.jackmoxley.moxy.grammer.RuleGraph;
 import com.jackmoxley.moxy.renderer.javafx.node.functional.LogicalListNode;
 import com.jackmoxley.moxy.renderer.javafx.node.functional.MinMaxNode;
+import com.jackmoxley.moxy.renderer.javafx.node.functional.NotNode;
 import com.jackmoxley.moxy.renderer.javafx.node.functional.OptionalNode;
 import com.jackmoxley.moxy.renderer.javafx.node.functional.SequenceNode;
+import com.jackmoxley.moxy.renderer.javafx.node.functional.UntilNode;
 import com.jackmoxley.moxy.rule.Rule;
 import com.jackmoxley.moxy.rule.functional.list.AndRule;
 import com.jackmoxley.moxy.rule.functional.list.ListRule;
@@ -19,7 +21,9 @@ import com.jackmoxley.moxy.rule.functional.list.SequenceAnyOrderRule;
 import com.jackmoxley.moxy.rule.functional.list.SequenceRule;
 import com.jackmoxley.moxy.rule.functional.list.XOrRule;
 import com.jackmoxley.moxy.rule.functional.single.MinMaxRule;
+import com.jackmoxley.moxy.rule.functional.single.NotRule;
 import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
+import com.jackmoxley.moxy.rule.functional.single.UntilRule;
 import com.jackmoxley.moxy.rule.functional.symbol.SymbolRule;
 import com.jackmoxley.moxy.rule.terminating.TerminatingRule;
 
@@ -88,13 +92,27 @@ public class SimpleNodeFactory extends NodeFactory {
 			node.constructNode();
 			return node;
 		} else if (rule instanceof MinMaxRule) {
-			MinMaxNode node = new MinMaxNode((MinMaxRule) rule, parent, graph);
-			list.add(node);
-			node.constructNode();
-			return node;
+			if (rule instanceof UntilRule) {
+				UntilNode node = new UntilNode((UntilRule) rule, parent,
+						graph);
+				list.add(node);
+				node.constructNode();
+				return node;
+			} else {
+				MinMaxNode<MinMaxRule> node = new MinMaxNode<>((MinMaxRule) rule, parent,
+						graph);
+				list.add(node);
+				node.constructNode();
+				return node;
+			}
 		} else if (rule instanceof SymbolRule) {
 			SymbolNode node = new SymbolNode((SymbolRule) rule, parent, graph);
 			list.add(node);
+			return node;
+		} else if (rule instanceof NotRule) {
+			NotNode node = new NotNode((NotRule) rule, parent, graph);
+			list.add(node);
+			node.constructNode();
 			return node;
 		} else {
 
@@ -102,7 +120,7 @@ public class SimpleNodeFactory extends NodeFactory {
 
 				@Override
 				protected String generateText() {
-					return "Unimplemented: "+rule.getClass().getSimpleName();
+					return "Unimplemented: " + rule.getClass().getSimpleName();
 				}
 			};
 		}

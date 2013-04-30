@@ -8,6 +8,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 
+import com.jackmoxley.moxy.renderer.javafx.component.EquilateralTriangle;
 import com.jackmoxley.moxy.renderer.javafx.node.ParentNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleGraphNode;
 import com.jackmoxley.moxy.renderer.javafx.node.RuleNode;
@@ -15,10 +16,15 @@ import com.jackmoxley.moxy.rule.functional.single.OptionalRule;
 
 public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 
+	public EquilateralTriangle arrow = new EquilateralTriangle();
+	
 	public OptionalNode(OptionalRule rule,ParentNode parent, RuleGraphNode graph) {
 		super(rule,parent,graph);
+		this.ruleNode.getChildren().add(arrow);
 
 	}
+	
+	
 
 	@Override
 	protected void bindChild(RuleNode<?> node) {
@@ -27,7 +33,6 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 
 		node.layoutXProperty().bind(gapProperty());
 		node.stubYProperty().bind(ruleNode.layoutToStubYProperty());
-
 
 		Path path1 = getPath(0);
 		if(path1 == null){
@@ -122,6 +127,11 @@ public class OptionalNode extends SingleFunctionalNode<OptionalRule> {
 		HLineTo bypassHorizontal = new HLineTo();
 		bypassHorizontal.xProperty().bind(maxWidth.add(gapProperty()));
 		bypassHorizontal.setAbsolute(true);
+
+		arrow.layoutXProperty().bind((ruleNode.widthProperty().add(fullCurve).subtract(arrow.topXProperty())).divide(2));
+		arrow.layoutYProperty().bind(node.heightProperty().add(gapProperty()));
+		arrow.topXProperty().set(7);
+		arrow.topYProperty().set(0);
 
 		// Right
 

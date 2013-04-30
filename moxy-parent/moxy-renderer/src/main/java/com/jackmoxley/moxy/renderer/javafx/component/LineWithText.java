@@ -14,6 +14,7 @@ public class LineWithText extends StubPane{
 	public Label textLabel;
 	public Line line;
 	public StringProperty text;
+	public EquilateralTriangle arrow = new EquilateralTriangle();
 	
 	
 	public LineWithText() {
@@ -34,6 +35,12 @@ public class LineWithText extends StubPane{
 		this.getStyleClass().add("LineWithText");
 		line.getStyleClass().add("path");
 		textLabel.getStyleClass().add("text");
+		
+		arrow.layoutXProperty().bind(line.layoutXProperty().add(line.endXProperty().subtract(line.startXProperty())).subtract(arrow.topXProperty()).divide(2));
+		arrow.layoutYProperty().bind(line.layoutYProperty());
+		arrow.topXProperty().set(7);
+		arrow.topYProperty().set(0);
+		this.getChildren().add(arrow);
 	}
 
 	@Override
