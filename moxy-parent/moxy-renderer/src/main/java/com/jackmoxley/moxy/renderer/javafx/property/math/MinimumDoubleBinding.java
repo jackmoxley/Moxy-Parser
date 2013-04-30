@@ -13,7 +13,7 @@ import javafx.beans.binding.NumberExpression;
 public class MinimumDoubleBinding extends RangedDoubleBinding {
 
 	/**
-	 * @param expressions the expressions we want the total of
+	 * @param expressions the expressions we want the smallest of
 	 */
 	public MinimumDoubleBinding(Collection<NumberExpression> expressions) {
 		super(expressions);

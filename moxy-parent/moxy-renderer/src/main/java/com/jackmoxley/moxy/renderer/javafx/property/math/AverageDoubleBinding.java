@@ -14,7 +14,7 @@ public class AverageDoubleBinding extends RangedDoubleBinding {
 	
 	
 	/**
-	 * @param expressions the expressions we want the total of
+	 * @param expressions the expressions we want the average of
 	 */
 	public AverageDoubleBinding(Collection<NumberExpression> expressions) {
 		super(expressions);

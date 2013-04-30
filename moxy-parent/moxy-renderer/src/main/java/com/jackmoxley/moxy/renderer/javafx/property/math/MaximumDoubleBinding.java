@@ -14,7 +14,7 @@ public class MaximumDoubleBinding extends RangedDoubleBinding {
 	
 
 	/**
-	 * @param expressions the expressions we want the total of
+	 * @param expressions the expressions we want the largest of
 	 */
 	public MaximumDoubleBinding(Collection<NumberExpression> expressions) {
 		super(expressions);
